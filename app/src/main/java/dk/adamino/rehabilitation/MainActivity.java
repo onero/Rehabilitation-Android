@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         user.put("last", "Hansen");
         user.put("status", "Awesome!");
         user.put("remark", "King of Firebase!");
-
-// Add a new document with a generated ID
+        
+        // Add a new document with a generated ID
         db.collection("test")
                 .add(user)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
