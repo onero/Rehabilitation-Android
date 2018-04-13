@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1058777192969",
+    "firebase_url": "https://d4ff-rehabilitation.firebaseio.com",
+    "project_id": "d4ff-rehabilitation",
+    "storage_bucket": "d4ff-rehabilitation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1058777192969:android:b8eacd991d22cd5f",
+        "android_client_info": {
+          "package_name": "dk.adamino.rehabilitation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1058777192969-224v8uk53d8kg6j1pfchpjmf8vn7jl31.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dk.adamino.rehabilitation",
+            "certificate_hash": "1666a54a4ec52e6e9b46fa7c7a1f1022dd8caf05"
+          }
+        },
+        {
+          "client_id": "1058777192969-pp8dj5do2uji3n0tv1hjhcbg5ufqci8m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh7ZH9nhpNKapBwAHzoo_da9TIB9__7G4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1058777192969-pp8dj5do2uji3n0tv1hjhcbg5ufqci8m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
