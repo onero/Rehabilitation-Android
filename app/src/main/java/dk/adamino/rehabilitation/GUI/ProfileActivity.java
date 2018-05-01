@@ -1,18 +1,33 @@
-package dk.adamino.rehabilitation;
+package dk.adamino.rehabilitation.GUI;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.widget.TextView;
+
+import dk.adamino.rehabilitation.BE.Client;
+import dk.adamino.rehabilitation.GUI.Model.ClientModel;
+import dk.adamino.rehabilitation.R;
 
 public class ProfileActivity extends AppCompatActivity {
     public static final String TAG = "GUI";
+
+    private TextView mName;
+
+    private ClientModel mClientModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        mClientModel = ClientModel.getInstance();
+
+        mName = findViewById(R.id.txtName);
+
+        Client loggedInClient = mClientModel.getLoggedInClient();
+        mName.setText(loggedInClient.name);
     }
 
     @Override
