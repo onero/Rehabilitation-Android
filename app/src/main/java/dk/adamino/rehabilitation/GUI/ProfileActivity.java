@@ -14,7 +14,7 @@ import dk.adamino.rehabilitation.R;
 public class ProfileActivity extends AppCompatActivity implements IFirestoreCallback {
     public static final String TAG = "GUI";
 
-    private TextView mName, mPhone, mEmail;
+    private TextView mName, mPhone, mEmail, mDiagnosis;
 
     private FirebaseClientModel mClientModel;
 
@@ -28,17 +28,23 @@ public class ProfileActivity extends AppCompatActivity implements IFirestoreCall
         mName = findViewById(R.id.txtName);
         mPhone = findViewById(R.id.txtPhone);
         mEmail = findViewById(R.id.txtEmail);
+        mDiagnosis = findViewById(R.id.txtDiagnosis);
 
-        mClientModel.getLoggedInClient(this);
+        // Load logged in client async
+        mClientModel.loadLoggedInClientAsync(this);
     }
 
     /**
      * When data is loaded, set client information
      */
     private void setClientInformation(Client loggedInClient) {
+        // Client info
         mName.setText(loggedInClient.fullName);
         mPhone.setText(loggedInClient.phone);
         mEmail.setText(loggedInClient.email);
+
+        // Rehabilitation Plan
+        mDiagnosis.setText(loggedInClient.rehabilitationPlan.diagnosis);
     }
 
     @Override

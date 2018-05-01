@@ -11,5 +11,5 @@ public interface IFirestore {
      * @param uid
      * @return Client
      */
-    void getClientById(String uid, IFirestoreCallback firestoreCallback);
+    void getClientByIdAsync(String uid, IFirestoreCallback firestoreCallback);
 }
