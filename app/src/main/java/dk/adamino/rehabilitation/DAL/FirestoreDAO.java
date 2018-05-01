@@ -24,7 +24,7 @@ public class FirestoreDAO implements IFirestore {
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
 
     @Override
-    public void getClientById(String clientUID, final IFirestoreCallback firestoreCallback) {
+    public void getClientByIdAsync(String clientUID, final IFirestoreCallback firestoreCallback) {
         DocumentReference docRef = mFirestore.collection(USERS_COLLECTION).document(clientUID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -32,12 +32,7 @@ public class FirestoreDAO implements IFirestore {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
-                        Client client = new Client();
-                        client.uid = document.getId();
-                        client.fullName = document.getString("fullName");
-                        client.email = document.getString("email");
-                        client.phone = document.getString("phone");
-                        client.address = document.getString("address");
+                        Client client = task.getResult().toObject(Client.class);
                         firestoreCallback.onClientResponse(client);
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                     } else {

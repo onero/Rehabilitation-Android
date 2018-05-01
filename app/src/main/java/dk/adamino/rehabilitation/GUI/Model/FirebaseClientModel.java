@@ -29,9 +29,9 @@ public class FirebaseClientModel {
      * Get currently logged in client
      * @param response
      */
-    public void getLoggedInClient(IFirestoreCallback response) {
+    public void loadLoggedInClientAsync(IFirestoreCallback response) {
         // TODO ALH: Replace!
         String adamUID = "7fdjYuWZC1ZQD4npgb1YG3kfNK02";
-        mFirestoreDAO.getClientById(adamUID, response);
+        mFirestoreDAO.getClientByIdAsync(adamUID, response);
     }
 }
