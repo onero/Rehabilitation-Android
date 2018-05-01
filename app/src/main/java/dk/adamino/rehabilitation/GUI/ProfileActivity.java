@@ -13,7 +13,7 @@ import dk.adamino.rehabilitation.R;
 public class ProfileActivity extends AppCompatActivity {
     public static final String TAG = "GUI";
 
-    private TextView mName;
+    private TextView mName, mPhone, mEmail;
 
     private ClientModel mClientModel;
 
@@ -25,9 +25,13 @@ public class ProfileActivity extends AppCompatActivity {
         mClientModel = ClientModel.getInstance();
 
         mName = findViewById(R.id.txtName);
+        mPhone = findViewById(R.id.txtPhone);
+        mEmail = findViewById(R.id.txtEmail);
 
         Client loggedInClient = mClientModel.getLoggedInClient();
         mName.setText(loggedInClient.name);
+        mPhone.setText(loggedInClient.phone);
+        mEmail.setText(loggedInClient.email);
     }
 
     @Override

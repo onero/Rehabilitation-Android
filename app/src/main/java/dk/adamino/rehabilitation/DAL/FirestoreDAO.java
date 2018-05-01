@@ -15,6 +15,7 @@ public class FirestoreDAO implements IFirestore {
         mockClient.address = "Test Address";
         mockClient.email = "Test@email.dk";
         mockClient.name = "Test Hansen";
+        mockClient.phone = "12345678";
         return mockClient;
     }
 }

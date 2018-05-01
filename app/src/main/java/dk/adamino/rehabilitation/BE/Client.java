@@ -5,4 +5,5 @@ package dk.adamino.rehabilitation.BE;
  */
 public class Client extends User {
     public String address;
+    public String phone;
 }
