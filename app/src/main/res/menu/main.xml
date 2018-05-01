@@ -9,12 +9,12 @@
         android:id="@+id/profile"
         app:showAsAction="withText|ifRoom"
         android:title="@string/profile"/>
-    <item
-        android:id="@+id/exercises"
-        app:showAsAction="withText|ifRoom"
-        android:title="@string/exercises"/>
-    <item
-        android:id="@+id/contact"
-        app:showAsAction="withText|ifRoom"
-        android:title="@string/contact"/>
+    <!--<item-->
+        <!--android:id="@+id/exercises"-->
+        <!--app:showAsAction="withText|ifRoom"-->
+        <!--android:title="@string/exercises"/>-->
+    <!--<item-->
+        <!--android:id="@+id/contact"-->
+        <!--app:showAsAction="withText|ifRoom"-->
+        <!--android:title="@string/contact"/>-->
 </menu>
