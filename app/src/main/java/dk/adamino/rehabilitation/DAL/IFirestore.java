@@ -1,6 +1,6 @@
 package dk.adamino.rehabilitation.DAL;
 
-import dk.adamino.rehabilitation.BE.Client;
+import dk.adamino.rehabilitation.GUI.IFirestoreResponse;
 
 /**
  * Created by Adamino.
@@ -11,5 +11,5 @@ public interface IFirestore {
      * @param uid
      * @return Client
      */
-    Client getClientById(String uid);
+    void getClientById(String uid, IFirestoreResponse response);
 }

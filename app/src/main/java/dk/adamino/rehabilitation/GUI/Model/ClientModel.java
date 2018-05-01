@@ -3,6 +3,7 @@ package dk.adamino.rehabilitation.GUI.Model;
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.DAL.FirestoreDAO;
 import dk.adamino.rehabilitation.DAL.IFirestore;
+import dk.adamino.rehabilitation.GUI.IFirestoreResponse;
 
 /**
  * Created by Adamino.
@@ -16,9 +17,7 @@ public class ClientModel {
 
     protected ClientModel() {
         mFirestoreDAO = new FirestoreDAO();
-//        TODO ALH: Replace!
-        String mockUID = "1";
-        mClient = mFirestoreDAO.getClientById(mockUID);
+
     }
 
     public static ClientModel getInstance() {
@@ -28,7 +27,9 @@ public class ClientModel {
         return instance;
     }
 
-    public Client getLoggedInClient() {
-        return mClient;
+    public void getLoggedInClient(IFirestoreResponse response) {
+        //        TODO ALH: Replace!
+        String adamUID = "7fdjYuWZC1ZQD4npgb1YG3kfNK02";
+        mFirestoreDAO.getClientById(adamUID, response);
     }
 }

@@ -4,4 +4,6 @@
     <string name="exercises">Exercises</string>
     <string name="contact">Contact</string>
     <string name="profile_image">Profile Image</string>
+    <string name="diagnosis">Diagnosis</string>
+    <string name="goal">Goal</string>
 </resources>

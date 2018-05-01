@@ -10,7 +10,7 @@ import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.GUI.Model.ClientModel;
 import dk.adamino.rehabilitation.R;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements IFirestoreResponse {
     public static final String TAG = "GUI";
 
     private TextView mName, mPhone, mEmail;
@@ -28,8 +28,14 @@ public class ProfileActivity extends AppCompatActivity {
         mPhone = findViewById(R.id.txtPhone);
         mEmail = findViewById(R.id.txtEmail);
 
-        Client loggedInClient = mClientModel.getLoggedInClient();
-        mName.setText(loggedInClient.name);
+        mClientModel.getLoggedInClient(this);
+    }
+
+    /**
+     * When data is loaded, set client information
+     */
+    private void setClientInformation(Client loggedInClient) {
+        mName.setText(loggedInClient.fullName);
         mPhone.setText(loggedInClient.phone);
         mEmail.setText(loggedInClient.email);
     }
@@ -41,5 +47,10 @@ public class ProfileActivity extends AppCompatActivity {
         // Hide menu title (Takes up too much space!)
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         return true;
+    }
+
+    @Override
+    public void onClientResponse(Client clientFound) {
+        setClientInformation(clientFound);
     }
 }

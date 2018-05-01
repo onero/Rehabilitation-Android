@@ -5,7 +5,7 @@ package dk.adamino.rehabilitation.BE;
  */
 public abstract class User {
     public String uid;
-    public String name;
+    public String fullName;
     public String email;
     public String password;
 }
