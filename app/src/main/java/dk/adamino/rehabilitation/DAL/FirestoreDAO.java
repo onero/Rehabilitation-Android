@@ -10,7 +10,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import dk.adamino.rehabilitation.BE.Client;
-import dk.adamino.rehabilitation.GUI.IFirestoreResponse;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
 
 /**
  * Created by Adamino.
@@ -24,7 +24,7 @@ public class FirestoreDAO implements IFirestore {
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
 
     @Override
-    public void getClientById(String clientUID, final IFirestoreResponse response) {
+    public void getClientById(String clientUID, final IFirestoreCallback firestoreCallback) {
         DocumentReference docRef = mFirestore.collection(USERS_COLLECTION).document(clientUID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -38,7 +38,7 @@ public class FirestoreDAO implements IFirestore {
                         client.email = document.getString("email");
                         client.phone = document.getString("phone");
                         client.address = document.getString("address");
-                        response.onClientResponse(client);
+                        firestoreCallback.onClientResponse(client);
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                     } else {
                         Log.d(TAG, "No such document");

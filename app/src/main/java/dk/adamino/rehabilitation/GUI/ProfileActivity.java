@@ -7,22 +7,23 @@ import android.view.MenuInflater;
 import android.widget.TextView;
 
 import dk.adamino.rehabilitation.BE.Client;
-import dk.adamino.rehabilitation.GUI.Model.ClientModel;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
+import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.R;
 
-public class ProfileActivity extends AppCompatActivity implements IFirestoreResponse {
+public class ProfileActivity extends AppCompatActivity implements IFirestoreCallback {
     public static final String TAG = "GUI";
 
     private TextView mName, mPhone, mEmail;
 
-    private ClientModel mClientModel;
+    private FirebaseClientModel mClientModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        mClientModel = ClientModel.getInstance();
+        mClientModel = FirebaseClientModel.getInstance();
 
         mName = findViewById(R.id.txtName);
         mPhone = findViewById(R.id.txtPhone);
