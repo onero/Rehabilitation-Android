@@ -6,4 +6,5 @@ package dk.adamino.rehabilitation.BE;
 public class RehabilitationPlan {
     public String uid;
     public String diagnosis;
+    public String goal;
 }
