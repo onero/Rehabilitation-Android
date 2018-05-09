@@ -18,7 +18,7 @@ public class NotificationService {
 
     private NotificationManager mNotificationManager;
     private NotificationCompat.Builder mNotificationBuilder;
-    private static final int notificationId = 1;
+    private static final int NOTIFICATION_ID = 1;
 
 
     public NotificationService(Activity activityToCreateNotificationFrom) {
@@ -50,6 +50,13 @@ public class NotificationService {
      * Send notification to client about exercises
      */
     public void notifyClientAboutExercises() {
-        mNotificationManager.notify(notificationId, mNotificationBuilder.build());
+        mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
+    }
+
+    /**
+     * Cancel the current notification
+     */
+    public void cancelNotification() {
+        mNotificationManager.cancel(NOTIFICATION_ID);
     }
 }
