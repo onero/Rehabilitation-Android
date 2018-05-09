@@ -43,6 +43,7 @@ public class ProfileActivity extends AppCompatActivity
         // Create reference to Notification service
         mNotificationService = new NotificationService();
 
+        // TODO ALH: Move to ExerciseActivity, when it is implemented!
         // Setup notification alarm
         AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, NotificationService.class);
