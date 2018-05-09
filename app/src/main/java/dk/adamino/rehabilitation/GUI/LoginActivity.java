@@ -3,13 +3,11 @@ package dk.adamino.rehabilitation.GUI;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -53,14 +51,15 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
         NotificationService.cancelNotification();
 
         // TODO ALH: Move to ExerciseActivity, when it is implemented!
-        // Setup notification alarm
-        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         Intent intent = NotificationService.newIntent(this);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1337, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + 10000,
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent);
+        PendingIntent notificationPendingIntent = PendingIntent.getBroadcast(this, 1337, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+        // TODO ALH: Remember these important cancels for real implementation!
+//        alarmManager.cancel(pendingIntent);
+//        pendingIntent.cancel();
+        AlarmService alarmService = AlarmService.getInstance();
+        alarmService.setActivity(this);
+        alarmService.setPendingIntent(notificationPendingIntent);
+        alarmService.setAlarmForOneDay();
     }
 
     private void setupViews() {

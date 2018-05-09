@@ -1,5 +1,6 @@
 package dk.adamino.rehabilitation.GUI;
 
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -24,7 +25,7 @@ public class NotificationService extends BroadcastReceiver {
     private static final String EXTRA_ACTION_POSTPONE = "postpone";
     private static final int NOTIFICATION_ID = 1;
 
-    private NotificationCompat.Builder mNotificationBuilder;
+    private static Notification mNotification;
 
     public NotificationService() {
     }
@@ -32,8 +33,8 @@ public class NotificationService extends BroadcastReceiver {
     /**
      * Send notification to client about exercises
      */
-    public void notifyClientAboutExercises() {
-        mNotificationManager.notify(NOTIFICATION_ID, mNotificationBuilder.build());
+    public void sendNotification() {
+        mNotificationManager.notify(NOTIFICATION_ID, mNotification);
     }
 
     /**
@@ -47,16 +48,21 @@ public class NotificationService extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        // Check if notifications have been setup
+        if (mNotificationManager == null) {
+            setupNotifications(context);
+        }
         String action = intent.getAction();
-        Log.d(TAG, "Action: " + action);
-        // Check if action exists
+        // Check for action
         switch (action) {
+            // Should we display exercise notification
             case EXTRA_ACTION_NOTIFY:
                 Log.d(TAG, "Alarm Fired!");
-                setupAndFireNotification(context);
+                sendNotification();
                 break;
             case EXTRA_ACTION_POSTPONE:
-                // TODO ALH: Postpone 1 hour
+                Log.d(TAG, "Alarm Postponed!");
+                AlarmService.getInstance().setAlarmForOneHour();
                 cancelNotification();
                 break;
             default:
@@ -66,7 +72,11 @@ public class NotificationService extends BroadcastReceiver {
 
     }
 
-    private void setupAndFireNotification(Context context) {
+    /**
+     * Setup exercise notification for user
+     * @param context
+     */
+    private void setupNotifications(Context context) {
         // TODO ALH: Refactor to select activity based on if client is already logged in
         Intent loginActivity = LoginActivity.newIntent(context);
         // Create pending activity, which is a activity that can be called from a notification
@@ -86,7 +96,7 @@ public class NotificationService extends BroadcastReceiver {
                 PendingIntent.FLAG_CANCEL_CURRENT);
 
         // Build exercise notification
-        mNotificationBuilder = new NotificationCompat.Builder(context)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
                 .setSmallIcon(R.drawable.ic_rehab)
                 .setContentTitle(context.getString(R.string.exercise_notification_title))
                 .setContentText(context.getText(R.string.exercise_notification_content))
@@ -95,9 +105,10 @@ public class NotificationService extends BroadcastReceiver {
                 .addAction(R.drawable.ic_rehab, "Do exercises", loginPendingIntent)
                 .addAction(android.R.drawable.ic_lock_power_off, "Postpone", postponePendingIntent);
 
+        mNotification = builder.build();
+
         // Get reference to manager for enabling activating the notification
         mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
-        notifyClientAboutExercises();
     }
 
     /**
