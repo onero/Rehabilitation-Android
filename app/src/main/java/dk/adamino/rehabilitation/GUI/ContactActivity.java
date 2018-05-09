@@ -34,6 +34,10 @@ public class ContactActivity extends AppCompatActivity {
                 Intent contactIntent = ProfileActivity.newIntent(this);
                 startActivity(contactIntent);
                 return true;
+            case R.id.signout:
+                Intent logoutIntent = LoginActivity.newIntent(this);
+                startActivity(logoutIntent);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }

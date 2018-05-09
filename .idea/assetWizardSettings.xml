@@ -35,8 +35,9 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="D:\Download\user.png" />
-                                      <entry key="outputName" value="user" />
+                                      <entry key="imageAsset" value="D:\Download\logout.png" />
+                                      <entry key="outputName" value="logout" />
+                                      <entry key="theme" value="HOLO_DARK" />
                                     </map>
                                   </option>
                                 </PersistentState>

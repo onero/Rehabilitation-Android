@@ -1,8 +1,11 @@
 package dk.adamino.rehabilitation.GUI.Model;
 
+import dk.adamino.rehabilitation.Callbacks.IFirebaseAuthenticationCallback;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
+import dk.adamino.rehabilitation.DAL.FirebaseAuthenticate;
 import dk.adamino.rehabilitation.DAL.FirestoreDAO;
 import dk.adamino.rehabilitation.DAL.IFirestore;
+import dk.adamino.rehabilitation.DAL.IFirebaseAuthenticate;
 
 /**
  * Created by Adamino.
@@ -11,11 +14,13 @@ public class FirebaseClientModel {
 
     private static FirebaseClientModel instance = null;
 
+    private IFirebaseAuthenticate mIFirebaseAuthenticate;
     private IFirestore mFirestoreDAO;
+    private String mCurrentClientUid;
 
-    protected FirebaseClientModel() {
+    private FirebaseClientModel() {
         mFirestoreDAO = new FirestoreDAO();
-
+        mIFirebaseAuthenticate = new FirebaseAuthenticate();
     }
 
     public static FirebaseClientModel getInstance() {
@@ -25,13 +30,24 @@ public class FirebaseClientModel {
         return instance;
     }
 
+    public void setCurrentClientUid(String currentClientUid) {
+        mCurrentClientUid = currentClientUid;
+    }
+
     /**
-     * Get currently logged in client
+     * Login user
+     * @param email
+     * @param password
+     */
+    public void loginWithEmailAndPassword(String email, String password, IFirebaseAuthenticationCallback callback) {
+        mIFirebaseAuthenticate.signInWithEmailAndPassword(email, password, callback);
+    }
+
+    /***
+     * Load currently loggedin client
      * @param response
      */
     public void loadLoggedInClientAsync(IFirestoreCallback response) {
-        // TODO ALH: Replace!
-        String adamUID = "7fdjYuWZC1ZQD4npgb1YG3kfNK02";
-        mFirestoreDAO.getClientByIdAsync(adamUID, response);
+        mFirestoreDAO.getClientByIdAsync(mCurrentClientUid, response);
     }
 }
