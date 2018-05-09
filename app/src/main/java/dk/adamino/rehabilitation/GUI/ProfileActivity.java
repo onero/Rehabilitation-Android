@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
@@ -20,19 +21,19 @@ public class ProfileActivity extends AppCompatActivity
 
     private TextView mName, mPhone, mEmail, mDiagnosis, mGoal;
 
-    private FirebaseClientModel mClientModel;
+    private FirebaseClientModel mFirebaseClientModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        mClientModel = FirebaseClientModel.getInstance();
+        mFirebaseClientModel = FirebaseClientModel.getInstance();
 
         setupViews();
 
         // Load logged in client async
-        mClientModel.loadLoggedInClientAsync(this);
+        mFirebaseClientModel.loadLoggedInClientAsync(this);
     }
 
     @Override
@@ -75,6 +76,8 @@ public class ProfileActivity extends AppCompatActivity
                 startActivity(contactIntent);
                 return true;
             case R.id.signout:
+                mFirebaseClientModel.logout();
+                Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
                 return true;

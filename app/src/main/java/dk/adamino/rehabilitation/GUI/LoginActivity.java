@@ -184,7 +184,7 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
      * @return
      */
     public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, ProfileActivity.class);
+        Intent intent = new Intent(context, LoginActivity.class);
         return intent;
     }
 }

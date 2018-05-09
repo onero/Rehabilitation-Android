@@ -35,6 +35,14 @@ public class FirebaseClientModel {
     }
 
     /**
+     * Logout client
+     */
+    public void logout() {
+        mCurrentClientUid = null;
+        mIFirebaseAuthenticate.signout();
+    }
+
+    /**
      * Login user
      * @param email
      * @param password
