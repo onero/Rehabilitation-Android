@@ -18,7 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import dk.adamino.rehabilitation.BLL.NotificationService;
 import dk.adamino.rehabilitation.Callbacks.IFirebaseAuthenticationCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.R;
@@ -31,7 +30,6 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
      * Keep track of the login task to ensure we can cancel it if requested.
      */
     private FirebaseClientModel mFirebaseClientModel;
-    private NotificationService mNotificationService;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
@@ -48,10 +46,8 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
         // Create reference to model
         mFirebaseClientModel = FirebaseClientModel.getInstance();
 
-        // Create reference to Notification service
-        mNotificationService = new NotificationService(this);
-        // Cancel any possible active notification
-        mNotificationService.cancelNotification();
+        // Cancel any notification
+        NotificationService.cancelNotification();
     }
 
     private void setupViews() {
