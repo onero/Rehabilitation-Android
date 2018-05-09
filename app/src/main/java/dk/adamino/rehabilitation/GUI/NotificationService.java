@@ -17,9 +17,14 @@ import static android.content.Context.NOTIFICATION_SERVICE;
  */
 public class NotificationService extends BroadcastReceiver {
 
+    public static final String TAG = "Notification";
+
     private static NotificationManager mNotificationManager;
-    private NotificationCompat.Builder mNotificationBuilder;
+    private static final String EXTRA_ACTION_NOTIFY = "notify";
+    private static final String EXTRA_ACTION_POSTPONE = "postpone";
     private static final int NOTIFICATION_ID = 1;
+
+    private NotificationCompat.Builder mNotificationBuilder;
 
     public NotificationService() {
     }
@@ -42,7 +47,26 @@ public class NotificationService extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log.d("Alarm", "Alarm Fired!");
+        String action = intent.getAction();
+        Log.d(TAG, "Action: " + action);
+        // Check if action exists
+        switch (action) {
+            case EXTRA_ACTION_NOTIFY:
+                Log.d(TAG, "Alarm Fired!");
+                setupAndFireNotification(context);
+                break;
+            case EXTRA_ACTION_POSTPONE:
+                // TODO ALH: Postpone 1 hour
+                cancelNotification();
+                break;
+            default:
+                Log.d(TAG, "Didn't work!");
+                break;
+        }
+
+    }
+
+    private void setupAndFireNotification(Context context) {
         // TODO ALH: Refactor to select activity based on if client is already logged in
         Intent loginActivity = LoginActivity.newIntent(context);
         // Create pending activity, which is a activity that can be called from a notification
@@ -50,8 +74,16 @@ public class NotificationService extends BroadcastReceiver {
                 context,
                 0,
                 loginActivity,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_CANCEL_CURRENT
         );
+
+        Intent postpone = new Intent(context, NotificationService.class);
+        postpone.setAction(EXTRA_ACTION_POSTPONE);
+        PendingIntent postponePendingIntent = PendingIntent.getBroadcast(
+                context,
+                1,
+                postpone,
+                PendingIntent.FLAG_CANCEL_CURRENT);
 
         // Build exercise notification
         mNotificationBuilder = new NotificationCompat.Builder(context)
@@ -60,11 +92,24 @@ public class NotificationService extends BroadcastReceiver {
                 .setContentText(context.getText(R.string.exercise_notification_content))
                 .setAutoCancel(true)
                 .setContentIntent(loginPendingIntent)
-                .addAction(R.drawable.ic_rehab, "Do exercises", loginPendingIntent);
+                .addAction(R.drawable.ic_rehab, "Do exercises", loginPendingIntent)
+                .addAction(android.R.drawable.ic_lock_power_off, "Postpone", postponePendingIntent);
 
         // Get reference to manager for enabling activating the notification
         mNotificationManager = (NotificationManager) context.getSystemService(NOTIFICATION_SERVICE);
         notifyClientAboutExercises();
+    }
+
+    /**
+     * Create Intent to navigate to this activity
+     *
+     * @param context
+     * @return
+     */
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, NotificationService.class);
+        intent.setAction(EXTRA_ACTION_NOTIFY);
+        return intent;
     }
 
 

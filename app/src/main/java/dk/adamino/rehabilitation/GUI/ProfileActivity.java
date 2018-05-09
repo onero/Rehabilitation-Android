@@ -1,13 +1,9 @@
 package dk.adamino.rehabilitation.GUI;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -26,7 +22,6 @@ public class ProfileActivity extends AppCompatActivity
     private TextView mName, mPhone, mEmail, mDiagnosis, mGoal;
 
     private FirebaseClientModel mFirebaseClientModel;
-    private NotificationService mNotificationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +35,6 @@ public class ProfileActivity extends AppCompatActivity
         // Load logged in client async
         mFirebaseClientModel.loadLoggedInClientAsync(this);
 
-        // Create reference to Notification service
-        mNotificationService = new NotificationService();
-
-        // TODO ALH: Move to ExerciseActivity, when it is implemented!
-        // Setup notification alarm
-        AlarmManager alarmManager = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(this, NotificationService.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-        alarmManager.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + 15000,
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent);
-        Log.d("Alarm", "Alarm ready");
     }
 
     @Override
