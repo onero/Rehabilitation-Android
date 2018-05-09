@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dk.adamino.rehabilitation.BE.Client;
+import dk.adamino.rehabilitation.BLL.NotificationService;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.R;
@@ -22,6 +23,7 @@ public class ProfileActivity extends AppCompatActivity
     private TextView mName, mPhone, mEmail, mDiagnosis, mGoal;
 
     private FirebaseClientModel mFirebaseClientModel;
+    private NotificationService mNotificationService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,9 @@ public class ProfileActivity extends AppCompatActivity
 
         // Load logged in client async
         mFirebaseClientModel.loadLoggedInClientAsync(this);
+
+        mNotificationService = new NotificationService(this);
+        mNotificationService.notifyClientAboutExercises();
     }
 
     @Override
