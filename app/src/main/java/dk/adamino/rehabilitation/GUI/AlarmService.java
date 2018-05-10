@@ -1,49 +1,55 @@
 package dk.adamino.rehabilitation.GUI;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.Intent;
 import android.os.SystemClock;
+import android.util.Log;
 
 /**
  * Created by Adamino.
  */
 public class AlarmService {
+    public static final String TAG = "RehabAlarmService";
     private static AlarmService instance;
 
     private static AlarmManager mAlarmManager;
     private static PendingIntent mNotificationPendingIntent;
 
-    private AlarmService() {}
-
-    public static AlarmService getInstance() {
-        if (instance == null) {
-            instance = new AlarmService();
-        }
-        return instance;
+    private AlarmService(Context context) {
+        // Get reference to System Alarm Manager
+        mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        // Create notification intent
+        Intent nofiticationIntent = NotificationService.newIntent(context);
+        // Setup Notification pending intent for alarms
+        mNotificationPendingIntent = PendingIntent.getBroadcast(context,
+                1337,
+                nofiticationIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
-    public void setActivity(Activity activityToStartAlarmFrom) {
-        mAlarmManager = (AlarmManager) activityToStartAlarmFrom.getSystemService(Context.ALARM_SERVICE);
+    public static AlarmService getInstance(Context context) {
+        if (instance == null) {
+            instance = new AlarmService(context);
+        }
+        return instance;
     }
 
     /**
      * Cancel Notification
      */
-    private void cancelNotification() {
+    public void cancelNotification() {
+        Log.d(TAG, "Alarm canceled");
         mAlarmManager.cancel(mNotificationPendingIntent);
         mNotificationPendingIntent.cancel();
-    }
-
-    public void setPendingIntent(PendingIntent pendingIntentToStartWithAlarm) {
-        mNotificationPendingIntent = pendingIntentToStartWithAlarm;
     }
 
     /**
      * Set alarm to fire pendingIntent in one hour
      */
     public void setAlarmForOneHour() {
+        Log.d(TAG, "Alarm set for 1 hour");
         mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HOUR,
                 mNotificationPendingIntent);
@@ -52,6 +58,7 @@ public class AlarmService {
      * Set alarm to fire pendingIntent in one day
      */
     public void setAlarmForOneDay() {
+        Log.d(TAG, "Alarm set for 1 day");
         mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
                 mNotificationPendingIntent);

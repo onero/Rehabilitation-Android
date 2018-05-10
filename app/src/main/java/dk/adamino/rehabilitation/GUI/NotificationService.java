@@ -62,7 +62,7 @@ public class NotificationService extends BroadcastReceiver {
                 break;
             case EXTRA_ACTION_POSTPONE:
                 Log.d(TAG, "Alarm Postponed!");
-                AlarmService.getInstance().setAlarmForOneHour();
+                AlarmService.getInstance(context).setAlarmForOneHour();
                 cancelNotification();
                 break;
             default:

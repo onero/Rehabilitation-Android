@@ -3,7 +3,6 @@ package dk.adamino.rehabilitation.GUI;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -48,18 +47,8 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         mFirebaseClientModel = FirebaseClientModel.getInstance();
 
         // Cancel any notification
-        NotificationService.cancelNotification();
-
         // TODO ALH: Move to ExerciseActivity, when it is implemented!
-        Intent intent = NotificationService.newIntent(this);
-        PendingIntent notificationPendingIntent = PendingIntent.getBroadcast(this, 1337, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        // TODO ALH: Remember these important cancels for real implementation!
-//        alarmManager.cancel(pendingIntent);
-//        pendingIntent.cancel();
-        AlarmService alarmService = AlarmService.getInstance();
-        alarmService.setActivity(this);
-        alarmService.setPendingIntent(notificationPendingIntent);
-        alarmService.setAlarmForOneDay();
+        NotificationService.cancelNotification();
     }
 
     @Override

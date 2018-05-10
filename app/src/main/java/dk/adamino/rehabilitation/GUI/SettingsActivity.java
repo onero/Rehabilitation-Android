@@ -11,6 +11,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.preference.SwitchPreference;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
 
@@ -30,6 +31,13 @@ import dk.adamino.rehabilitation.R;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
+
+    public static final String TAG = "RehabSettings";
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -64,6 +72,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                 : null);
 
             } else {
+
                 // For all other preferences, set the summary to the value's
                 // simple string representation.
                 preference.setSummary(stringValue);
@@ -155,24 +164,36 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class NotificationPreferenceFragment extends PreferenceFragment {
+
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_notification);
             setHasOptionsMenu(true);
 
+            SwitchPreference dailyNotification = (SwitchPreference) findPreference("notifications_daily_exercises");
+            dailyNotification.setChecked(true);
 
-            // Bind the summaries of EditText/List/Dialog/Ringtone preferences
-            // to their values. When their values change, their summaries are
-            // updated to reflect the new value, per the Android Design
-            // guidelines.
-            // TODO ALH: Commented out, but left for reference, if we need to add to the activity
-            //bindPreferenceSummaryToValue(findPreference("notifications_daily_exercises"));
+            dailyNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                AlarmService alarmService = AlarmService.getInstance(getActivity());
+
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if ((boolean) newValue) {
+                        alarmService.setAlarmForOneDay();
+                    } else {
+                        alarmService.cancelNotification();
+                    }
+                    return true;
+                }
+            });
         }
     }
 
     /**
      * Create Intent to navigate to this activity
+     *
      * @param context
      * @return
      */
