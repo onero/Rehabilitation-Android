@@ -9,7 +9,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,8 +36,8 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    private View mProgressView, mLoginFormView;
+    private Button mEmailSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +78,8 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
             }
         });
 
-        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setEnabled(false);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,8 +87,59 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
             }
         });
 
+        TextWatcher loginTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // check Fields For Empty Values
+                checkFieldsForEmptyValues();
+            }
+        };
+        mEmailView.addTextChangedListener(loginTextWatcher);
+        mPasswordView.addTextChangedListener(loginTextWatcher);
+
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
+
+    /**
+     * Check fields for input to enable login button
+     */
+    private void checkFieldsForEmptyValues() {
+        String emailString = mEmailView.getText().toString();
+        String passwordString = mPasswordView.getText().toString();
+
+        if (emailString.equals("") || passwordString.equals("") || !isPasswordValid(passwordString)) {
+            mEmailSignInButton.setEnabled(false);
+        } else {
+            mEmailSignInButton.setEnabled(true);
+        }
+    }
+
+    /**
+     * Check provided email validity
+     * @param email
+     * @return
+     */
+    private boolean isEmailValid(String email) {
+        // TODO ALH: Improve logic
+        return email.contains("@");
+    }
+
+    /**
+     * Check password validity
+     * @param password
+     * @return
+     */
+    private boolean isPasswordValid(String password) {
+        return password.length() > 5;
     }
 
 
@@ -104,37 +158,15 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
+        // Validate email
+        if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
+            return;
         }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            showProgress(true);
-            // perform the user login attempt.
-            mFirebaseClientModel.loginWithEmailAndPassword(email, password, this);
-        }
+        // Show a progress spinner, and kick off a background task to
+        showProgress(true);
+        // perform the user login attempt.
+        mFirebaseClientModel.loginWithEmailAndPassword(email, password, this);
     }
 
     @Override
@@ -145,15 +177,13 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         startActivity(intent);
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+    @Override
+    public void onFailedLogin(String error) {
+        showProgress(false);
+        Log.e(TAG, error);
+        mEmailView.setError(error);
     }
 
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
 
     /**
      * Shows the progress UI and hides the login form.
