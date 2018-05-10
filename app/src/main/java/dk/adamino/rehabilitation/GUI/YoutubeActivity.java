@@ -14,7 +14,7 @@ import dk.adamino.rehabilitation.R;
 
 public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener{
 
-    private static final String YOUTUBE_ID = "a4NT5iBFuZs";
+    private static final String YOUTUBE_ID = "61-X2NNwMFE";
     private static final String API_KEY = "AIzaSyAh7ZH9nhpNKapBwAHzoo_da9TIB9__7G4";
 
     private YouTubePlayerView mYouTubePlayerView;

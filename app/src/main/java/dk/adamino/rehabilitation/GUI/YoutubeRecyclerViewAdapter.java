@@ -1,5 +1,7 @@
 package dk.adamino.rehabilitation.GUI;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
@@ -65,6 +67,9 @@ public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecy
         @Override
         public void onClick(View v) {
             Toast.makeText(v.getContext(), mInfo.getTitle(), Toast.LENGTH_SHORT).show();
+            Context context = v.getContext();
+            Intent intent = new Intent(context, YoutubeActivity.class);
+            context.startActivity(intent);
         }
     }
 }
