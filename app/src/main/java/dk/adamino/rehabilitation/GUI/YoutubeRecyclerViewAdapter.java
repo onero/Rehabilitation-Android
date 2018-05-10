@@ -40,7 +40,7 @@ public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecy
     }
 
     public class RecycleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView mTitle, mRepetitions;
+        private TextView mAmount, mTitle, mRepetitions;
         private ImageView mImage;
 
 
@@ -50,6 +50,7 @@ public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecy
             super(inflater.inflate(R.layout.row_item, parent, false));
             itemView.setOnClickListener(this);
 
+            mAmount = itemView.findViewById(R.id.txtAmount);
             mTitle = itemView.findViewById(R.id.txtTitle);
             mImage = itemView.findViewById(R.id.imgView);
             mRepetitions = itemView.findViewById(R.id.txtRepetitions);
@@ -57,16 +58,17 @@ public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecy
 
         public void bind(ExerciseInfo info) {
             mInfo = info;
+            mAmount.setText(mInfo.getAmount());
             mTitle.setText(mInfo.getTitle());
+            mRepetitions.setText(mInfo.getRepetitions());
             InputStream imageStream = itemView.getResources().openRawResource(R.raw.youtube_img);
             Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
             mImage.setImageBitmap(bitmap);
-            mRepetitions.setText(mInfo.getRepetitions());
         }
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), mInfo.getTitle(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(v.getContext(), mInfo.getAmount(), Toast.LENGTH_SHORT).show();
             Context context = v.getContext();
             Intent intent = new Intent(context, YoutubeActivity.class);
             context.startActivity(intent);

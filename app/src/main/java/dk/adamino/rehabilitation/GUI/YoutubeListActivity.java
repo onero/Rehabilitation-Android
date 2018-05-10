@@ -30,7 +30,7 @@ public class YoutubeListActivity extends AppCompatActivity {
         final List<ExerciseInfo> exercises = new ArrayList<>();
 
         for (int i = 1; i <= 10; i++) {
-            exercises.add(new ExerciseInfo("Exercise: " + i));
+            exercises.add(new ExerciseInfo("Exercise: " + i,"Index finger", "15x3"));
         }
 
         mYoutubeModel.setExerciseInfo(exercises);

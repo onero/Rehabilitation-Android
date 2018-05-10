@@ -1,15 +1,18 @@
 package dk.adamino.rehabilitation.BE;
 
-import android.media.Image;
-
 public class ExerciseInfo {
+    public String mAmount;
     public String mTitle;
     public String mRepetitions;
-    public String mDescription;
-    public Image mYoutubeImage;
 
-    public ExerciseInfo (String title) {
+    public ExerciseInfo (String amount, String title, String repetitions) {
+        mAmount = amount;
         mTitle = title;
+        mRepetitions = repetitions;
+    }
+
+    public String getAmount() {
+        return mAmount;
     }
 
     public String getTitle() {
