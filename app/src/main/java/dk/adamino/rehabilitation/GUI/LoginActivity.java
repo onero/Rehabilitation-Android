@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -57,9 +58,15 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         boolean shouldGetDailyNotifications = PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean("notifications_daily_exercises", true);
         if (shouldGetDailyNotifications) {
-            // Set notification in 1 day
-            // TODO ALH: Replace when client can pick time of day for notifications!
-            AlarmService.getInstance(this).setAlarmForOneDay();
+            // Get User preset time (if exists)
+            SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_key_set_notification_time), MODE_PRIVATE);
+            String restoredTime = prefs.getString(getString(R.string.pref_key_notification_time_value), "");
+            AlarmService alarmService = AlarmService.getInstance(this);
+            // If user has not set a wish for a specific time
+            if (restoredTime.equals("")) {
+                // Set daily alarm from current time
+                alarmService.setAlarmForOneDay();
+            }
         }
     }
 
@@ -130,6 +137,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
 
     /**
      * Check provided email validity
+     *
      * @param email
      * @return
      */
@@ -140,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
 
     /**
      * Check password validity
+     *
      * @param password
      * @return
      */
