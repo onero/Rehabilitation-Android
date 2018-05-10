@@ -1,7 +1,6 @@
 package dk.adamino.rehabilitation.DAL;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -32,7 +31,7 @@ public class FirebaseAuthenticate implements IFirebaseAuthenticate {
                         if (task.isSuccessful()) {
                             callback.onClientLoggedIn(mAuth.getCurrentUser().getUid());
                         } else {
-                            Log.e(TAG, "Couldn't login");
+                            callback.onFailedLogin(task.getException().getMessage());
                         }
                     }
                 });

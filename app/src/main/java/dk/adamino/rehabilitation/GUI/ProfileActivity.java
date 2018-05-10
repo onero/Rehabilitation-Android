@@ -13,6 +13,7 @@ import android.widget.Toast;
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
+import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
 public class ProfileActivity extends AppCompatActivity
@@ -81,6 +82,9 @@ public class ProfileActivity extends AppCompatActivity
                 Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
+                return true;
+            case R.id.settings:
+                startActivity(new Intent(SettingsActivity.newIntent(this)));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

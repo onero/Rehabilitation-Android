@@ -3,13 +3,16 @@ package dk.adamino.rehabilitation.GUI;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,22 +24,23 @@ import android.widget.TextView;
 
 import dk.adamino.rehabilitation.Callbacks.IFirebaseAuthenticationCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
+import dk.adamino.rehabilitation.GUI.Utils.AlarmService;
+import dk.adamino.rehabilitation.GUI.Utils.NotificationService;
 import dk.adamino.rehabilitation.R;
 
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements IFirebaseAuthenticationCallback {
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+public class LoginActivity extends AppCompatActivity implements IActivity, IFirebaseAuthenticationCallback {
+    public static final String TAG = "RehabLogin";
+
     private FirebaseClientModel mFirebaseClientModel;
 
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
-    private View mProgressView;
-    private View mLoginFormView;
+    private View mProgressView, mLoginFormView;
+    private Button mEmailSignInButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,26 +51,37 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
         // Create reference to model
         mFirebaseClientModel = FirebaseClientModel.getInstance();
 
+        // TODO ALH: Move to ExerciseActivity, when it is implemented!
         // Cancel any notification
         NotificationService.cancelNotification();
-
-        // TODO ALH: Move to ExerciseActivity, when it is implemented!
-        Intent intent = NotificationService.newIntent(this);
-        PendingIntent notificationPendingIntent = PendingIntent.getBroadcast(this, 1337, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-        // TODO ALH: Remember these important cancels for real implementation!
-//        alarmManager.cancel(pendingIntent);
-//        pendingIntent.cancel();
-        AlarmService alarmService = AlarmService.getInstance();
-        alarmService.setActivity(this);
-        alarmService.setPendingIntent(notificationPendingIntent);
-        alarmService.setAlarmForOneDay();
+        // Check if user want's daily notifications
+        boolean shouldGetDailyNotifications = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("notifications_daily_exercises", true);
+        if (shouldGetDailyNotifications) {
+            // Get User preset time (if exists)
+            SharedPreferences prefs = getSharedPreferences(getString(R.string.pref_key_set_notification_time), MODE_PRIVATE);
+            String restoredTime = prefs.getString(getString(R.string.pref_key_notification_time_value), "");
+            AlarmService alarmService = AlarmService.getInstance(this);
+            // If user has not set a wish for a specific time
+            if (restoredTime.equals("")) {
+                // Set daily alarm from current time
+                alarmService.setAlarmForOneDay();
+            }
+        }
     }
 
-    private void setupViews() {
+    @Override
+    public void setupViews() {
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
+
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
-
         mPasswordView = findViewById(R.id.password);
+        mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setEnabled(false);
+
+        // Listeners
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -78,7 +93,6 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
             }
         });
 
-        Button mEmailSignInButton = findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,8 +100,60 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
             }
         });
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
+        // Text watcher for listening to field inputs
+        TextWatcher loginTextWatcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i2, int i3) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // check Fields For Empty Values
+                checkFieldsForEmptyValues();
+            }
+        };
+        mEmailView.addTextChangedListener(loginTextWatcher);
+        mPasswordView.addTextChangedListener(loginTextWatcher);
+
+    }
+
+    /**
+     * Check fields for input to enable login button
+     */
+    private void checkFieldsForEmptyValues() {
+        String emailString = mEmailView.getText().toString();
+        String passwordString = mPasswordView.getText().toString();
+
+        if (emailString.equals("") || passwordString.equals("") || !isPasswordValid(passwordString)) {
+            mEmailSignInButton.setEnabled(false);
+        } else {
+            mEmailSignInButton.setEnabled(true);
+        }
+    }
+
+    /**
+     * Check provided email validity
+     *
+     * @param email
+     * @return
+     */
+    private boolean isEmailValid(String email) {
+        // TODO ALH: Improve logic
+        return email.contains("@");
+    }
+
+    /**
+     * Check password validity
+     *
+     * @param password
+     * @return
+     */
+    private boolean isPasswordValid(String password) {
+        return password.length() > 5;
     }
 
 
@@ -106,37 +172,15 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
-        boolean cancel = false;
-        View focusView = null;
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
-            focusView = mPasswordView;
-            cancel = true;
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.error_field_required));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
+        // Validate email
+        if (!isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
-            focusView = mEmailView;
-            cancel = true;
+            return;
         }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView.requestFocus();
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            showProgress(true);
-            // perform the user login attempt.
-            mFirebaseClientModel.loginWithEmailAndPassword(email, password,this);
-        }
+        // Show a progress spinner, and kick off a background task to
+        showProgress(true);
+        // perform the user login attempt.
+        mFirebaseClientModel.loginWithEmailAndPassword(email, password, this);
     }
 
     @Override
@@ -147,15 +191,13 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
         startActivity(intent);
     }
 
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+    @Override
+    public void onFailedLogin(String error) {
+        showProgress(false);
+        Log.e(TAG, error);
+        mEmailView.setError(error);
     }
 
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
 
     /**
      * Shows the progress UI and hides the login form.
@@ -195,6 +237,7 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
 
     /**
      * Create Intent to navigate to this activity
+     *
      * @param context
      * @return
      */

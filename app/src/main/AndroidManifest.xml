@@ -15,22 +15,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver
+
             android:name=".GUI.NotificationService"
             android:enabled="true" />
 
         <activity android:name=".GUI.ProfileActivity"></activity>
         <activity android:name=".GUI.ContactActivity"></activity>
-        <activity android:name=".GUI.LoginActivity"></activity>
-        <activity android:name=".GUI.YoutubeActivity"></activity>
-        <activity android:name=".GUI.YoutubeListActivity">
-
+        <activity android:name=".GUI.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".GUI.YoutubeActivity"></activity>
+        <activity android:name=".GUI.YoutubeListActivity">
 
+
+
+        </activity>
+        <activity
+            android:name=".GUI.Settings.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".GUI.ProfileActivity">
         </activity>
     </application>
 
