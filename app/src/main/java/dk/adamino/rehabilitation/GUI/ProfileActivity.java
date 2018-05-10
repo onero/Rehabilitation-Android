@@ -34,6 +34,7 @@ public class ProfileActivity extends AppCompatActivity
 
         // Load logged in client async
         mFirebaseClientModel.loadLoggedInClientAsync(this);
+
     }
 
     @Override
