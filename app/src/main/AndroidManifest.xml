@@ -21,10 +21,9 @@
 
         <activity android:name=".GUI.ProfileActivity"></activity>
         <activity android:name=".GUI.ContactActivity"></activity>
-        <activity android:name=".GUI.LoginActivity">
-
-        </activity>
-        <activity android:name=".GUI.YoutubeActivity">
+        <activity android:name=".GUI.LoginActivity"></activity>
+        <activity android:name=".GUI.YoutubeActivity"></activity>
+        <activity android:name=".GUI.YoutubeListActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
