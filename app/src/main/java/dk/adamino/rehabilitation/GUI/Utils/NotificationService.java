@@ -1,4 +1,4 @@
-package dk.adamino.rehabilitation.GUI;
+package dk.adamino.rehabilitation.GUI.Utils;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import dk.adamino.rehabilitation.GUI.LoginActivity;
 import dk.adamino.rehabilitation.R;
 
 import static android.content.Context.NOTIFICATION_SERVICE;

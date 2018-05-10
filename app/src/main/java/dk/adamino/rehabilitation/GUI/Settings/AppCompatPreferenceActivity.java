@@ -1,4 +1,4 @@
-package dk.adamino.rehabilitation.GUI;
+package dk.adamino.rehabilitation.GUI.Settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

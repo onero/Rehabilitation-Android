@@ -56,6 +56,8 @@
     <!-- Example settings for Notifications -->
     <string name="pref_header_notifications">Notifications</string>
     <string name="pref_title_daily_exercises">Daily exercise notifications</string>
+    <string name="pref_key_set_notification_time">setNotificationTime</string>
+    <string name="pref_key_notification_time_value">notificationTimeValue</string>
 
     <!--TODO ALH: Entire section left for inspiration with new exercise notifications!-->
     <!--<string name="pref_title_new_message_notifications">New message notifications</string>-->

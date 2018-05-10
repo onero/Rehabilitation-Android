@@ -1,4 +1,4 @@
-package dk.adamino.rehabilitation.GUI;
+package dk.adamino.rehabilitation.GUI.Utils;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;

@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <receiver
-            android:name=".GUI.NotificationService"
+            android:name=".GUI.Utils.NotificationService"
             android:enabled="true"/>
 
         <activity android:name=".GUI.ProfileActivity">
@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GUI.SettingsActivity"
+            android:name=".GUI.Settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".GUI.ProfileActivity">
         </activity>

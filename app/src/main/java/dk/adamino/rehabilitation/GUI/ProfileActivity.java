@@ -13,6 +13,7 @@ import android.widget.Toast;
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
+import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
 public class ProfileActivity extends AppCompatActivity

@@ -23,6 +23,8 @@ import android.widget.TextView;
 
 import dk.adamino.rehabilitation.Callbacks.IFirebaseAuthenticationCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
+import dk.adamino.rehabilitation.GUI.Utils.AlarmService;
+import dk.adamino.rehabilitation.GUI.Utils.NotificationService;
 import dk.adamino.rehabilitation.R;
 
 /**

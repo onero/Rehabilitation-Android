@@ -1,8 +1,10 @@
-package dk.adamino.rehabilitation.GUI;
+package dk.adamino.rehabilitation.GUI.Settings;
 
 import android.annotation.TargetApi;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
@@ -14,9 +16,12 @@ import android.preference.PreferenceManager;
 import android.preference.SwitchPreference;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.widget.TimePicker;
 
+import java.util.Calendar;
 import java.util.List;
 
+import dk.adamino.rehabilitation.GUI.Utils.AlarmService;
 import dk.adamino.rehabilitation.R;
 
 /**
@@ -165,28 +170,100 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class NotificationPreferenceFragment extends PreferenceFragment {
 
-
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_notification);
             setHasOptionsMenu(true);
 
-            SwitchPreference dailyNotification = (SwitchPreference) findPreference("notifications_daily_exercises");
+            // Setup notifications
+            final SwitchPreference dailyNotification = (SwitchPreference) findPreference("notifications_daily_exercises");
 
             dailyNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 AlarmService alarmService = AlarmService.getInstance(getActivity());
 
+                // When user changes the switch (turn on/off) react!
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    // User turned notifications on
                     if ((boolean) newValue) {
                         alarmService.setAlarmForOneDay();
+                        // Turned off
                     } else {
                         alarmService.cancelAlarm();
                     }
                     return true;
                 }
             });
+
+            // Setup pick notification time
+            final Preference selectPreferredTimePreference = findPreference(getString(R.string.pref_key_set_notification_time));
+            SharedPreferences prefs = getActivity().getSharedPreferences(getString(R.string.pref_key_set_notification_time), MODE_PRIVATE);
+            String restoredTime = prefs.getString(getString(R.string.pref_key_notification_time_value), "");
+            if (restoredTime != null) {
+                selectPreferredTimePreference.setTitle(restoredTime);
+            }
+            selectPreferredTimePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    displayTimePicker();
+                    return true;
+                }
+
+                private void displayTimePicker() {
+                    // Setup calendar for Time Picker
+                    final Calendar mCurrentTime = Calendar.getInstance();
+                    int hour = mCurrentTime.get(Calendar.HOUR_OF_DAY);
+                    int minute = mCurrentTime.get(Calendar.MINUTE);
+                    TimePickerDialog mTimePicker;
+                    // Open Time Picker Dialog
+                    mTimePicker = new TimePickerDialog(getActivity(),
+                            new TimePickerDialog.OnTimeSetListener() {
+                                @Override
+                                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                    selectNotificationTime(hourOfDay, minute, selectPreferredTimePreference);
+
+                                }
+                            },
+                            hour,
+                            minute,
+                            true);//Yes 24 hour time
+                    mTimePicker.setTitle("Select Time");
+                    mTimePicker.show();
+                }
+            });
+        }
+
+        /**
+         * Save the preferred notification time provided by user
+         * @param hourOfDay
+         * @param minute
+         * @param selectPreferredTimePreference
+         */
+        private void selectNotificationTime(int hourOfDay, int minute, Preference selectPreferredTimePreference) {
+            // Setup string to display in app
+            String hourOfDayString;
+            String minuteOfDayString;
+            // Check for neeed to add 0 (to ensure 24 hour format in string)
+            if (hourOfDay < 10) {
+                hourOfDayString = "0" + hourOfDay;
+            } else {
+                hourOfDayString = "" + hourOfDay;
+            }
+
+            if (minute < 10) {
+                minuteOfDayString = "0" + minute;
+            } else {
+                minuteOfDayString = "" + minute;
+            }
+            // Create final string
+            String timeToSaveAsString = hourOfDayString + ":" + minuteOfDayString;
+            // Make sure to display new value to user
+            selectPreferredTimePreference.setTitle(timeToSaveAsString);
+            // Save value to preference
+            SharedPreferences.Editor editor = getActivity().getSharedPreferences(getString(R.string.pref_key_set_notification_time), MODE_PRIVATE).edit();
+            editor.putString(getString(R.string.pref_key_notification_time_value), timeToSaveAsString);
+            editor.apply();
         }
     }
 
