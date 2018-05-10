@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -26,9 +27,8 @@ import dk.adamino.rehabilitation.R;
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements IActivity, IFirebaseAuthenticationCallback {
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+    public static final String TAG = "RehabLogin";
+
     private FirebaseClientModel mFirebaseClientModel;
 
     // UI references.
@@ -46,9 +46,17 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         // Create reference to model
         mFirebaseClientModel = FirebaseClientModel.getInstance();
 
-        // Cancel any notification
         // TODO ALH: Move to ExerciseActivity, when it is implemented!
+        // Cancel any notification
         NotificationService.cancelNotification();
+        // Check if user want's daily notifications
+        boolean shouldGetDailyNotifications = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("notifications_daily_exercises", true);
+        if (shouldGetDailyNotifications) {
+            // Set notification in 1 day
+            // TODO ALH: Replace when client can pick time of day for notifications!
+            AlarmService.getInstance(this).setAlarmForOneDay();
+        }
     }
 
     @Override
@@ -125,7 +133,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
             // Show a progress spinner, and kick off a background task to
             showProgress(true);
             // perform the user login attempt.
-            mFirebaseClientModel.loginWithEmailAndPassword(email, password,this);
+            mFirebaseClientModel.loginWithEmailAndPassword(email, password, this);
         }
     }
 
@@ -185,6 +193,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
 
     /**
      * Create Intent to navigate to this activity
+     *
      * @param context
      * @return
      */

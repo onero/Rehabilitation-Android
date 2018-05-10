@@ -173,7 +173,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             setHasOptionsMenu(true);
 
             SwitchPreference dailyNotification = (SwitchPreference) findPreference("notifications_daily_exercises");
-            dailyNotification.setChecked(true);
 
             dailyNotification.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 AlarmService alarmService = AlarmService.getInstance(getActivity());
@@ -183,7 +182,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     if ((boolean) newValue) {
                         alarmService.setAlarmForOneDay();
                     } else {
-                        alarmService.cancelNotification();
+                        alarmService.cancelAlarm();
                     }
                     return true;
                 }

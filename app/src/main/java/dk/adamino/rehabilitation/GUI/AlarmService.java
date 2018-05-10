@@ -11,7 +11,7 @@ import android.util.Log;
  * Created by Adamino.
  */
 public class AlarmService {
-    public static final String TAG = "RehabAlarmService";
+    private static final String TAG = "RehabAlarmService";
     private static AlarmService instance;
 
     private static AlarmManager mAlarmManager;
@@ -21,11 +21,11 @@ public class AlarmService {
         // Get reference to System Alarm Manager
         mAlarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         // Create notification intent
-        Intent nofiticationIntent = NotificationService.newIntent(context);
+        Intent notificationIntent = NotificationService.newIntent(context);
         // Setup Notification pending intent for alarms
         mNotificationPendingIntent = PendingIntent.getBroadcast(context,
                 1337,
-                nofiticationIntent,
+                notificationIntent,
                 PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
@@ -37,12 +37,11 @@ public class AlarmService {
     }
 
     /**
-     * Cancel Notification
+     * Cancel Alarm
      */
-    public void cancelNotification() {
+    public void cancelAlarm() {
         Log.d(TAG, "Alarm canceled");
         mAlarmManager.cancel(mNotificationPendingIntent);
-        mNotificationPendingIntent.cancel();
     }
 
     /**
@@ -60,7 +59,7 @@ public class AlarmService {
     public void setAlarmForOneDay() {
         Log.d(TAG, "Alarm set for 1 day");
         mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
+                SystemClock.elapsedRealtime() + 15000,
                 mNotificationPendingIntent);
     }
 }
