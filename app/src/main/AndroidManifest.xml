@@ -14,21 +14,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <receiver android:name=".GUI.NotificationService"
+        <receiver
+            android:name=".GUI.NotificationService"
             android:enabled="true"/>
 
         <activity android:name=".GUI.ProfileActivity">
         </activity>
         <activity android:name=".GUI.ContactActivity">
         </activity>
-        <activity
-            android:name=".GUI.LoginActivity">
+        <activity android:name=".GUI.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".GUI.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".GUI.ProfileActivity">
         </activity>
     </application>
 

@@ -26,7 +26,7 @@ import dk.adamino.rehabilitation.R;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends AppCompatActivity implements IFirebaseAuthenticationCallback {
+public class LoginActivity extends AppCompatActivity implements IActivity, IFirebaseAuthenticationCallback {
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -62,7 +62,8 @@ public class LoginActivity extends AppCompatActivity implements IFirebaseAuthent
         alarmService.setAlarmForOneDay();
     }
 
-    private void setupViews() {
+    @Override
+    public void setupViews() {
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
 
