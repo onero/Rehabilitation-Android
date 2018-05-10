@@ -18,8 +18,6 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
     private static final String API_KEY = "AIzaSyAh7ZH9nhpNKapBwAHzoo_da9TIB9__7G4";
 
     private YouTubePlayerView mYouTubePlayerView;
-    private Button mButton;
-    private YouTubePlayer.OnInitializedListener mOnInitializedListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
