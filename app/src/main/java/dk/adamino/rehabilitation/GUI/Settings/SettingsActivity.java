@@ -200,7 +200,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             final Preference selectPreferredTimePreference = findPreference(getString(R.string.pref_key_set_notification_time));
             SharedPreferences prefs = getActivity().getSharedPreferences(getString(R.string.pref_key_set_notification_time), MODE_PRIVATE);
             String restoredTime = prefs.getString(getString(R.string.pref_key_notification_time_value), "");
-            if (restoredTime != null) {
+            if (!restoredTime.equals("")) {
                 selectPreferredTimePreference.setTitle(restoredTime);
             }
             selectPreferredTimePreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
