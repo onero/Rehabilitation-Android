@@ -222,7 +222,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                 @Override
                                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                                     selectNotificationTime(hourOfDay, minute, selectPreferredTimePreference);
-
                                 }
                             },
                             hour,
@@ -264,6 +263,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             SharedPreferences.Editor editor = getActivity().getSharedPreferences(getString(R.string.pref_key_set_notification_time), MODE_PRIVATE).edit();
             editor.putString(getString(R.string.pref_key_notification_time_value), timeToSaveAsString);
             editor.apply();
+
+            // Setup alarm at provided time
+            AlarmService.getInstance(getActivity()).setAlarmAtSpecificTime(hourOfDay, minute);
         }
     }
 

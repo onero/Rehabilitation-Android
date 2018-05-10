@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.os.SystemClock;
 import android.util.Log;
 
+import java.util.Calendar;
+
 /**
  * Created by Adamino.
  */
@@ -60,6 +62,23 @@ public class AlarmService {
         Log.d(TAG, "Alarm set for 1 day");
         mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() + 15000,
+                mNotificationPendingIntent);
+    }
+
+    /**
+     * Set alarm for provided time
+     * @param hour
+     * @param minute
+     */
+    public void setAlarmAtSpecificTime(int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        Log.d(TAG, "Alarm set for: " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
+        mAlarmManager.set(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
                 mNotificationPendingIntent);
     }
 }
