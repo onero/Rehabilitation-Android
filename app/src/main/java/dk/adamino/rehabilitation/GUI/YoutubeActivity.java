@@ -3,6 +3,7 @@ package dk.adamino.rehabilitation.GUI;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
@@ -12,22 +13,31 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 import dk.adamino.rehabilitation.R;
 
-public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener{
+public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener, IActivity{
 
     private static final String YOUTUBE_ID = "61-X2NNwMFE";
     private static final String API_KEY = "AIzaSyAh7ZH9nhpNKapBwAHzoo_da9TIB9__7G4";
 
     private YouTubePlayerView mYouTubePlayerView;
+    private TextView mExerciseDescription, mRepetitions, mTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube);
 
-        mYouTubePlayerView = findViewById(R.id.youtube_player);
+        setupViews();
 
         mYouTubePlayerView.initialize(API_KEY, this);
 
+    }
+
+    @Override
+    public void setupViews() {
+        mYouTubePlayerView = findViewById(R.id.youtube_player);
+        mExerciseDescription = findViewById(R.id.txtExerciseDescription);
+        mRepetitions = findViewById(R.id.txtRepetitions);
+        mTitle = findViewById(R.id.txtTitle);
     }
 
     @Override
@@ -105,4 +115,6 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         }
     };
+
+
 }
