@@ -10,4 +10,10 @@ public interface IFirebaseAuthenticationCallback {
      * @param clientUid
      */
     void onClientLoggedIn(String clientUid);
+
+    /**
+     * Handle failed login
+     * @param error
+     */
+    void onFailedLogin(String error);
 }

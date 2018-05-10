@@ -34,8 +34,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="D:\Download\rehab.png" />
-                                      <entry key="outputName" value="rehab" />
+                                      <entry key="imageAsset" value="D:\Download\time.png" />
+                                      <entry key="outputName" value="time" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -58,7 +58,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="NOTIFICATION" />
+                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>
