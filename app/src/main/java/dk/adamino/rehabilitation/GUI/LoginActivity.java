@@ -63,10 +63,16 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
 
     @Override
     public void setupViews() {
+        mLoginFormView = findViewById(R.id.login_form);
+        mProgressView = findViewById(R.id.login_progress);
+
         // Set up the login form.
         mEmailView = findViewById(R.id.email);
-
         mPasswordView = findViewById(R.id.password);
+        mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+        mEmailSignInButton.setEnabled(false);
+
+        // Listeners
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -78,8 +84,6 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
             }
         });
 
-        mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setEnabled(false);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +91,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
             }
         });
 
+        // Text watcher for listening to field inputs
         TextWatcher loginTextWatcher = new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i2, int i3) {
@@ -105,8 +110,6 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         mEmailView.addTextChangedListener(loginTextWatcher);
         mPasswordView.addTextChangedListener(loginTextWatcher);
 
-        mLoginFormView = findViewById(R.id.login_form);
-        mProgressView = findViewById(R.id.login_progress);
     }
 
     /**
