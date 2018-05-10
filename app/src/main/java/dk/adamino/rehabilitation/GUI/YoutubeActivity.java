@@ -3,6 +3,7 @@ package dk.adamino.rehabilitation.GUI;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -11,7 +12,7 @@ import com.google.android.youtube.player.YouTubePlayerView;
 
 import dk.adamino.rehabilitation.R;
 
-public class YoutubeActivity extends YouTubeBaseActivity {
+public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener{
 
     private static final String YOUTUBE_ID = "a4NT5iBFuZs";
     private static final String API_KEY = "AIzaSyAh7ZH9nhpNKapBwAHzoo_da9TIB9__7G4";
@@ -26,25 +27,84 @@ public class YoutubeActivity extends YouTubeBaseActivity {
         setContentView(R.layout.activity_youtube);
 
         mYouTubePlayerView = findViewById(R.id.youtube_player);
-        mButton = findViewById(R.id.play_video);
 
-        mOnInitializedListener = new YouTubePlayer.OnInitializedListener() {
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
-                youTubePlayer.loadVideo(YOUTUBE_ID);
-            }
+        mYouTubePlayerView.initialize(API_KEY, this);
 
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-
-            }
-        };
-
-        mButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mYouTubePlayerView.initialize(API_KEY, mOnInitializedListener);
-            }
-        });
     }
+
+    @Override
+    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
+
+        youTubePlayer.setPlayerStateChangeListener(mPlayerStateChangeListener);
+        youTubePlayer.setPlaybackEventListener(mPlaybackEventListener);
+
+        // Start buffering.
+        if (!wasRestored) {
+            youTubePlayer.cueVideo(YOUTUBE_ID);
+        }
+    }
+
+    @Override
+    public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
+        Toast.makeText(this, "FAILED TO INITIALIZE", Toast.LENGTH_SHORT).show();
+    }
+
+    private YouTubePlayer.PlaybackEventListener mPlaybackEventListener = new YouTubePlayer.PlaybackEventListener() {
+        @Override
+        public void onPlaying() {
+
+        }
+
+        @Override
+        public void onPaused() {
+
+        }
+
+        @Override
+        public void onStopped() {
+
+        }
+
+        @Override
+        public void onBuffering(boolean b) {
+
+        }
+
+        @Override
+        public void onSeekTo(int i) {
+
+        }
+    };
+
+    private YouTubePlayer.PlayerStateChangeListener mPlayerStateChangeListener = new YouTubePlayer.PlayerStateChangeListener() {
+        @Override
+        public void onLoading() {
+
+        }
+
+        @Override
+        public void onLoaded(String s) {
+
+        }
+
+        @Override
+        public void onAdStarted() {
+
+        }
+
+        @Override
+        public void onVideoStarted() {
+
+        }
+
+        @Override
+        public void onVideoEnded() {
+
+        }
+
+        @Override
+        public void onError(YouTubePlayer.ErrorReason errorReason) {
+
+        }
+    };
 }
