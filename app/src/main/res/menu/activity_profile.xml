@@ -13,4 +13,13 @@
         android:id="@+id/contact"
         app:showAsAction="withText|ifRoom"
         android:title="@string/contact"/>
+    <item
+        android:id="@+id/signout"
+        android:icon="@drawable/logout"
+        app:showAsAction="withText|ifRoom"
+        android:title="@string/signout"/>
+    <item
+        android:id="@+id/settings"
+        app:showAsAction="withText|ifRoom"
+        android:title="Settings"/>
 </menu>

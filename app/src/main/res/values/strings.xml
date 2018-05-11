@@ -1,10 +1,69 @@
 <resources>
+    <!-- Strings shared across application-->
     <string name="app_name">Rehabilitation</string>
-    <string name="profile">Profile</string>
     <string name="exercises">Exercises</string>
+    <string name="loading_data">Loading data</string>
+
+    <!-- Strings for notifications-->
+    <string name="exercise_notification_title">Exercise Notification</string>
+    <string name="exercise_notification_content">Time to do your exercises!</string>
+
+    <!-- Strings related to ContactActivity-->
     <string name="contact">Contact</string>
+
+    <!-- Strings related to ProfileActivity-->
+    <string name="profile">Profile</string>
     <string name="profile_image">Profile Image</string>
     <string name="diagnosis">Diagnosis</string>
     <string name="goal">Goal</string>
-    <string name="loading_data">Loading data</string>
+
+    <!-- Strings related to login -->
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="signout">Signout</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+    <string name="pref_general_text">Welcome to Rehabilitation Settings!</string>
+
+    <!--Left for inspiration-->
+
+    <!--<string name="pref_title_add_friends_to_messages">Add friends to messages</string>-->
+    <!--<string-array name="pref_example_list_titles">-->
+        <!--<item>Always</item>-->
+        <!--<item>When possible</item>-->
+        <!--<item>Never</item>-->
+    <!--</string-array>-->
+    <!--<string-array name="pref_example_list_values">-->
+        <!--<item>1</item>-->
+        <!--<item>0</item>-->
+        <!--<item>-1</item>-->
+    <!--</string-array>-->
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+    <string name="pref_title_daily_exercises">Daily exercise notifications</string>
+    <string name="pref_key_set_notification_time">setNotificationTime</string>
+    <string name="pref_key_notification_time_value">notificationTimeValue</string>
+
+    <!--TODO ALH: Entire section left for inspiration with new exercise notifications!-->
+    <!--<string name="pref_title_new_message_notifications">New message notifications</string>-->
+
+    <!--<string name="pref_title_ringtone">Ringtone</string>-->
+    <!--<string name="pref_ringtone_silent">Silent</string>-->
+
+    <!--<string name="pref_title_vibrate">Vibrate</string>-->
 </resources>

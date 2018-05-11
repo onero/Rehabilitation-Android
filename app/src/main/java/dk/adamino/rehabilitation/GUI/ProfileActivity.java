@@ -8,10 +8,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
+import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
 public class ProfileActivity extends AppCompatActivity
@@ -20,19 +22,20 @@ public class ProfileActivity extends AppCompatActivity
 
     private TextView mName, mPhone, mEmail, mDiagnosis, mGoal;
 
-    private FirebaseClientModel mClientModel;
+    private FirebaseClientModel mFirebaseClientModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        mClientModel = FirebaseClientModel.getInstance();
+        mFirebaseClientModel = FirebaseClientModel.getInstance();
 
         setupViews();
 
         // Load logged in client async
-        mClientModel.loadLoggedInClientAsync(this);
+        mFirebaseClientModel.loadLoggedInClientAsync(this);
+
     }
 
     @Override
@@ -73,6 +76,15 @@ public class ProfileActivity extends AppCompatActivity
             case R.id.contact:
                 Intent contactIntent = ContactActivity.newIntent(this);
                 startActivity(contactIntent);
+                return true;
+            case R.id.signout:
+                mFirebaseClientModel.logout();
+                Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
+                Intent logoutIntent = LoginActivity.newIntent(this);
+                startActivity(logoutIntent);
+                return true;
+            case R.id.settings:
+                startActivity(new Intent(SettingsActivity.newIntent(this)));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
