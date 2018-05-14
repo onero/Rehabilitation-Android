@@ -1,5 +1,7 @@
 package dk.adamino.rehabilitation.GUI.Evaluations;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,13 +14,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.adamino.rehabilitation.BE.Milestone;
 import dk.adamino.rehabilitation.BE.Visit;
 import dk.adamino.rehabilitation.R;
 
 public class VisitListActivity extends AppCompatActivity {
 
+    private static Milestone sMilestone;
     private RecyclerView mVisitRecyclerView;
     private VisitAdapter mVisitAdapter;
+    private TextView mNoVisits;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +31,25 @@ public class VisitListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_visit_list);
 
         mVisitRecyclerView = findViewById(R.id.visit_recycler_view);
+        mNoVisits = findViewById(R.id.txtNoVisits);
         // Setup layout manager, to ensure that items can be positioned on the screen
         mVisitRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Using Linear to stack vertically
 
         List<Visit> visits = new ArrayList<>();
-        Visit test = new Visit();
-        test.note = "test";
-        visits.add(test);
+        if (sMilestone.visits != null) {
+            visits = sMilestone.visits;
+            // Hide no visits message
+            mNoVisits.setVisibility(View.INVISIBLE);
+        } else {
+            // Display no visits message
+            mNoVisits.setVisibility(View.VISIBLE);
+        }
         updateUI(visits);
     }
 
     /**
      * Instantiate view
+     *
      * @param visits
      */
     public void updateUI(List<Visit> visits) {
@@ -51,6 +63,19 @@ public class VisitListActivity extends AppCompatActivity {
 
         mVisitAdapter = new VisitAdapter(visits);
         mVisitRecyclerView.setAdapter(mVisitAdapter);
+    }
+
+    /**
+     * Create Intent to navigate to this activity
+     *
+     * @param context
+     * @return
+     */
+    public static Intent newIntent(Context context, Milestone milestone) {
+        Intent intent = new Intent(context, VisitListActivity.class);
+        // TODO ALH: This can definitely be refactored!
+        sMilestone = milestone;
+        return intent;
     }
 
     private class VisitHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

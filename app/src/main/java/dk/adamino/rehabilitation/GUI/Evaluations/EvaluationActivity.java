@@ -1,5 +1,6 @@
 package dk.adamino.rehabilitation.GUI.Evaluations;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -94,7 +95,8 @@ public class EvaluationActivity extends AppCompatActivity implements IFirestoreM
 
         @Override
         public void onClick(View view) {
-            // TODO ALH: Navigate to visit list!
+            Intent visitIntent = VisitListActivity.newIntent(view.getContext(), mMilestone);
+            startActivity(visitIntent);
         }
     }
 
