@@ -43,14 +43,14 @@
 
     <!--<string name="pref_title_add_friends_to_messages">Add friends to messages</string>-->
     <!--<string-array name="pref_example_list_titles">-->
-        <!--<item>Always</item>-->
-        <!--<item>When possible</item>-->
-        <!--<item>Never</item>-->
+    <!--<item>Always</item>-->
+    <!--<item>When possible</item>-->
+    <!--<item>Never</item>-->
     <!--</string-array>-->
     <!--<string-array name="pref_example_list_values">-->
-        <!--<item>1</item>-->
-        <!--<item>0</item>-->
-        <!--<item>-1</item>-->
+    <!--<item>1</item>-->
+    <!--<item>0</item>-->
+    <!--<item>-1</item>-->
     <!--</string-array>-->
 
     <!-- Example settings for Notifications -->
@@ -58,6 +58,8 @@
     <string name="pref_title_daily_exercises">Daily exercise notifications</string>
     <string name="pref_key_set_notification_time">setNotificationTime</string>
     <string name="pref_key_notification_time_value">notificationTimeValue</string>
+    <string name="milestones">Milestones</string>
+    <string name="milestone_title">Milestone Title</string>
 
     <!--TODO ALH: Entire section left for inspiration with new exercise notifications!-->
     <!--<string name="pref_title_new_message_notifications">New message notifications</string>-->
