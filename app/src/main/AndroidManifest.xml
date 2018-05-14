@@ -40,9 +40,12 @@
         </activity>
         <activity
             android:name=".GUI.Evaluations.VisitListActivity"
-            android:label="@string/visits">
+            android:label="@string/visits"
+            android:parentActivityName=".GUI.Evaluations.MilestoneListActivity">
         </activity>
-        <activity android:name=".GUI.Evaluations.EvaluationDetailActivity">
+        <activity
+            android:name=".GUI.Evaluations.EvaluationDetailActivity"
+            android:parentActivityName=".GUI.Evaluations.MilestoneListActivity">
         </activity>
     </application>
 
