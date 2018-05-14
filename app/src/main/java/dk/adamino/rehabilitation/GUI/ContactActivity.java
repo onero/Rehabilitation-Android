@@ -37,8 +37,8 @@ public class ContactActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.profile:
-                Intent contactIntent = ProfileActivity.newIntent(this);
-                startActivity(contactIntent);
+                Intent profileIntent = ProfileActivity.newIntent(this);
+                startActivity(profileIntent);
                 return true;
             case R.id.exercises:
                 Intent exerciseIntent = YoutubeListActivity.newIntent(this);
