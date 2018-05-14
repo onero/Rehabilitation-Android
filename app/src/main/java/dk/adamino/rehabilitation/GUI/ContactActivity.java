@@ -40,6 +40,10 @@ public class ContactActivity extends AppCompatActivity {
                 Intent contactIntent = ProfileActivity.newIntent(this);
                 startActivity(contactIntent);
                 return true;
+            case R.id.exercises:
+                Intent exerciseIntent = YoutubeListActivity.newIntent(this);
+                startActivity(exerciseIntent);
+                return true;
             case R.id.signout:
                 mFirebaseClientModel.logout();
                 Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();

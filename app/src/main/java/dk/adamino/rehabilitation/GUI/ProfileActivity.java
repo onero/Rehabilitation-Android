@@ -83,6 +83,10 @@ public class ProfileActivity extends AppCompatActivity
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
                 return true;
+            case R.id.exercises:
+                Intent exerciseIntent = YoutubeListActivity.newIntent(this);
+                startActivity(exerciseIntent);
+                return true;
             case R.id.settings:
                 startActivity(new Intent(SettingsActivity.newIntent(this)));
                 return true;

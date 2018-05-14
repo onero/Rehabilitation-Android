@@ -1,5 +1,7 @@
 package dk.adamino.rehabilitation.GUI;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -43,4 +45,14 @@ public class YoutubeListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    /**
+     * Create Intent to navigate to this activity
+     * @param context
+     * @return
+     */
+    public static Intent newIntent(Context context) {
+        Intent intent = new Intent(context, YoutubeListActivity.class);
+        return intent;
     }
+
+}
