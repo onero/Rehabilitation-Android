@@ -60,6 +60,8 @@
     <string name="pref_key_notification_time_value">notificationTimeValue</string>
     <string name="milestones">Milestones</string>
     <string name="milestone_title">Milestone Title</string>
+    <string name="visit_title">Visit Title</string>
+    <string name="visits">Visits</string>
 
     <!--TODO ALH: Entire section left for inspiration with new exercise notifications!-->
     <!--<string name="pref_title_new_message_notifications">New message notifications</string>-->

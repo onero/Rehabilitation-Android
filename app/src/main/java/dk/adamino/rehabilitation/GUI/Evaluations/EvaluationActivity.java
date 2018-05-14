@@ -1,4 +1,4 @@
-package dk.adamino.rehabilitation.GUI;
+package dk.adamino.rehabilitation.GUI.Evaluations;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +29,7 @@ public class EvaluationActivity extends AppCompatActivity implements IFirestoreM
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluation);
 
-        mEvaluationRecyclerView = findViewById(R.id.crime_recycler_view);
+        mEvaluationRecyclerView = findViewById(R.id.evaluation_recycler_view);
         // Setup layout manager, to ensure that items can be positioned on the screen
         mEvaluationRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Using Linear to stack vertically
 
@@ -113,8 +113,8 @@ public class EvaluationActivity extends AppCompatActivity implements IFirestoreM
 
         @Override
         public void onBindViewHolder(MilestoneHolder holder, int position) {
-            Milestone crime = mMilestones.get(position);
-            holder.bind(crime, position);
+            Milestone milestone = mMilestones.get(position);
+            holder.bind(milestone, position);
         }
 
         @Override

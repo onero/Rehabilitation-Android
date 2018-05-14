@@ -29,18 +29,20 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/crime_recycler_view"
+        app:layout_constraintBottom_toBottomOf="@+id/evaluation_recycler_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintStart_toStartOf="@+id/crime_recycler_view"
+        app:layout_constraintStart_toStartOf="@+id/evaluation_recycler_view"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.158"/>
 
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-                                            android:id="@+id/crime_recycler_view"
+                                            android:id="@+id/evaluation_recycler_view"
                                             android:layout_width="match_parent"
                                             android:layout_height="match_parent"
-                                            tools:layout_editor_absoluteX="0dp"
-                                            tools:layout_editor_absoluteY="0dp"/>
+                                            app:layout_constraintBottom_toBottomOf="parent"
+                                            app:layout_constraintEnd_toEndOf="parent"
+                                            app:layout_constraintStart_toStartOf="parent"
+                                            app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

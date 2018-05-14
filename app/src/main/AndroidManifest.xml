@@ -23,15 +23,18 @@
         <activity android:name=".GUI.ContactActivity">
         </activity>
         <activity android:name=".GUI.LoginActivity">
-
         </activity>
         <activity
             android:name=".GUI.Settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".GUI.ProfileActivity">
         </activity>
-        <activity android:name=".GUI.EvaluationActivity"
+        <activity
+            android:name=".GUI.Evaluations.EvaluationActivity"
             android:label="@string/milestones">
+        </activity>
+        <activity android:name=".GUI.Evaluations.VisitListActivity"
+            android:label="@string/visits">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
