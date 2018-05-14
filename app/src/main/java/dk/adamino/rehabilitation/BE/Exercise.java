@@ -2,16 +2,12 @@ package dk.adamino.rehabilitation.BE;
 
 public class Exercise {
     public String mAmount;
+    public String mCategory;
     public String mTitle;
     public String mRepetitions;
     public String mDescription;
+    public String mVideoUrl;
 
-    public Exercise(String amount, String title, String repetitions, String description) {
-        mAmount = amount;
-        mTitle = title;
-        mRepetitions = repetitions;
-        mDescription = description;
-    }
 
     public String getAmount() {
         return mAmount;

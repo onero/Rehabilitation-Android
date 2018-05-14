@@ -15,12 +15,12 @@ import android.widget.Toast;
 import java.io.InputStream;
 
 import dk.adamino.rehabilitation.BE.Exercise;
-import dk.adamino.rehabilitation.GUI.Model.YoutubeModel;
+import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
 public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecyclerViewAdapter.RecycleHolder> {
 
-    private YoutubeModel mYoutubeModel = YoutubeModel.getInstance();
+    private FirebaseExerciseModel mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
 
     @Override
     public RecycleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -30,13 +30,13 @@ public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecy
 
     @Override
     public void onBindViewHolder(RecycleHolder holder, int position) {
-        Exercise info = mYoutubeModel.getExercise().get(position);
+        Exercise info = mFirebaseExerciseModel.getExercises().get(position);
         holder.bind(info);
     }
 
     @Override
     public int getItemCount() {
-        return mYoutubeModel.getExercise().size();
+        return mFirebaseExerciseModel.getExercises().size();
     }
 
     public class RecycleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

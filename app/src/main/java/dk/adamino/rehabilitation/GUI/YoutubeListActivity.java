@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -14,15 +15,19 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.BE.Exercise;
+import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
-import dk.adamino.rehabilitation.GUI.Model.YoutubeModel;
+import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
-public class YoutubeListActivity extends AppCompatActivity {
+public class YoutubeListActivity extends AppCompatActivity implements IFirestoreCallback, IExerciseFirestoreCallback{
 
-    private YoutubeModel mYoutubeModel = YoutubeModel.getInstance();
+    private FirebaseExerciseModel mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
     private FirebaseClientModel mFirebaseClientModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +38,13 @@ public class YoutubeListActivity extends AppCompatActivity {
         setContentView(R.layout.youtube_recycler);
         instanciateRecyclerView();
 
+        mFirebaseClientModel.loadLoggedInClientAsync(this);
+
     }
 
     public void instanciateRecyclerView() {
         final RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        final List<Exercise> exercises = new ArrayList<>();
-
-        for (int i = 1; i <= 10; i++) {
-            exercises.add(new Exercise("Exercise: " + i,"Index finger", "15x3"));
-        }
-
-        mYoutubeModel.setExercise(exercises);
 
         /**
          * Incredible recyclerview adapter
@@ -96,4 +95,16 @@ public class YoutubeListActivity extends AppCompatActivity {
         return intent;
     }
 
+    @Override
+    public void onClientResponse(Client clientFound) {
+        Log.d("Tissemand", "onClientResponse");
+        mFirebaseExerciseModel.loadExercisesAsync(this, clientFound.rehabilitationPlan.exerciseIds);
+    }
+
+
+    @Override
+    public void onExercisesResponse(List<Exercise> exerciseFound) {
+        Log.d("Tissemand", "onExercisesResponse");
+        mFirebaseExerciseModel.setExercises(exerciseFound);
+    }
 }
