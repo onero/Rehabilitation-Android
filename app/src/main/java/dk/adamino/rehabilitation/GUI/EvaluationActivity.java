@@ -67,9 +67,12 @@ public class EvaluationActivity extends AppCompatActivity {
             mMilestoneTitle = itemView.findViewById(R.id.milestone_title);
         }
 
-        public void bind(Milestone milestone) {
+        public void bind(Milestone milestone, int position) {
             mMilestone = milestone;
-            mMilestoneTitle.setText(mMilestone.mTitle);
+            // Create title as it should be shown in list
+            // Add 1 to position to start at number 1 instead of 0!
+            String listEntityTitle = (position + 1) + " - " + milestone.mTitle;
+            mMilestoneTitle.setText(listEntityTitle);
         }
 
         @Override
@@ -94,7 +97,7 @@ public class EvaluationActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(MilestoneHolder holder, int position) {
             Milestone crime = mMilestones.get(position);
-            holder.bind(crime);
+            holder.bind(crime, position);
         }
 
         @Override
