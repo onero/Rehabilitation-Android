@@ -8,10 +8,11 @@ import android.widget.TextView;
 
 import dk.adamino.rehabilitation.BE.Milestone;
 import dk.adamino.rehabilitation.BE.Visit;
+import dk.adamino.rehabilitation.GUI.IActivity;
 import dk.adamino.rehabilitation.GUI.Model.MilestoneModel;
 import dk.adamino.rehabilitation.R;
 
-public class EvaluationDetailActivity extends AppCompatActivity {
+public class EvaluationDetailActivity extends AppCompatActivity implements IActivity {
 
     private TextView mVisitDate, mMilestoneTitle, mPurpose, mNote;
 
@@ -22,14 +23,19 @@ public class EvaluationDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_evaluation_detail);
 
-        mVisitDate = findViewById(R.id.txtVisitDate);
-        mMilestoneTitle = findViewById(R.id.txtMilestoneTitle);
-        mPurpose = findViewById(R.id.txtPurpose);
-        mNote = findViewById(R.id.txtNote);
+        setupViews();
 
         mMilestoneModel = MilestoneModel.getInstance();
 
         instantiateData();
+    }
+
+    @Override
+    public void setupViews() {
+        mVisitDate = findViewById(R.id.txtVisitDate);
+        mMilestoneTitle = findViewById(R.id.txtMilestoneTitle);
+        mPurpose = findViewById(R.id.txtPurpose);
+        mNote = findViewById(R.id.txtNote);
     }
 
     /**
