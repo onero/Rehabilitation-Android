@@ -97,7 +97,8 @@ public class VisitListActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            // TODO ALH: Navigate to visit list!
+            Intent detailIntent = EvaluationDetailActivity.newIntent(view.getContext(), sMilestone, mVisit);
+            startActivity(detailIntent);
         }
     }
 

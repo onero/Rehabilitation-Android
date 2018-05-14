@@ -38,8 +38,11 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".GUI.Evaluations.VisitListActivity"
+        <activity
+            android:name=".GUI.Evaluations.VisitListActivity"
             android:label="@string/visits">
+        </activity>
+        <activity android:name=".GUI.Evaluations.EvaluationDetailActivity">
         </activity>
     </application>
 
