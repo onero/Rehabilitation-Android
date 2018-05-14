@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.R;
 
@@ -45,6 +46,10 @@ public class ContactActivity extends AppCompatActivity {
                 Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
+                return true;
+            case R.id.milestones:
+                Intent milestonesIntent = MilestoneListActivity.newIntent(this);
+                startActivity(milestonesIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

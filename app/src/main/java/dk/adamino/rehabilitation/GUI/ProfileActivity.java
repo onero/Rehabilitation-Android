@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
+import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
@@ -83,9 +84,14 @@ public class ProfileActivity extends AppCompatActivity
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
                 return true;
+            case R.id.milestones:
+                Intent milestonesIntent = MilestoneListActivity.newIntent(this);
+                startActivity(milestonesIntent);
+                return true;
             case R.id.settings:
                 startActivity(new Intent(SettingsActivity.newIntent(this)));
                 return true;
+            // TODO ALH: Add Exercises case!
             default:
                 return super.onOptionsItemSelected(item);
         }

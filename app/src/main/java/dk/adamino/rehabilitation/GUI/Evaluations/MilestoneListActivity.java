@@ -1,5 +1,6 @@
 package dk.adamino.rehabilitation.GUI.Evaluations;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,17 +10,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Milestone;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 import dk.adamino.rehabilitation.GUI.IActivity;
+import dk.adamino.rehabilitation.GUI.LoginActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
+import dk.adamino.rehabilitation.GUI.ProfileActivity;
 import dk.adamino.rehabilitation.R;
 
 public class MilestoneListActivity extends AppCompatActivity implements IActivity, IFirestoreMilestoneCallback {
@@ -51,6 +56,25 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.profile:
+                Intent contactIntent = ProfileActivity.newIntent(this);
+                startActivity(contactIntent);
+                return true;
+            case R.id.signout:
+                FirebaseClientModel.getInstance().logout();
+                Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
+                Intent logoutIntent = LoginActivity.newIntent(this);
+                startActivity(logoutIntent);
+                return true;
+                // TODO ALH: Add Exercises case!
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void setupViews() {
         mMilestoneRecyclerView = findViewById(R.id.evaluation_recycler_view);
         // Setup layout manager, to ensure that items can be positioned on the screen
@@ -69,6 +93,16 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
         txtLoading = findViewById(R.id.txtLoading);
         // Start out by displaying loading
         txtLoading.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Create Intent to navigate to this activity
+     *
+     * @param context
+     * @return
+     */
+    public static Intent newIntent(Context context) {
+        return new Intent(context, MilestoneListActivity.class);
     }
 
     /**
