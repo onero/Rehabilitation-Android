@@ -45,6 +45,7 @@
         </activity>
         <activity
             android:name=".GUI.Evaluations.EvaluationDetailActivity"
+            android:label="@string/evaluation_detail"
             android:parentActivityName=".GUI.Evaluations.MilestoneListActivity">
         </activity>
     </application>
