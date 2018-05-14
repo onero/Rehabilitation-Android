@@ -92,7 +92,7 @@ public class VisitListActivity extends AppCompatActivity {
 
         public void bind(Visit visit) {
             mVisit = visit;
-            mVisitTitle.setText(mVisit.note);
+            mVisitTitle.setText(mVisit.getDate());
         }
 
         @Override
