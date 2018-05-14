@@ -69,6 +69,8 @@
     <string name="purpose_header">Purpose:</string>
     <string name="note_header">Note:</string>
     <string name="note_mock">Gik på vandet</string>
+    <string name="evaluations">Evaluations</string>
+    <string name="settings">Settings</string>
 
     <!--TODO ALH: Entire section left for inspiration with new exercise notifications!-->
     <!--<string name="pref_title_new_message_notifications">New message notifications</string>-->

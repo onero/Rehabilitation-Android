@@ -6,13 +6,13 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <!--<item-->
-        <!--android:id="@+id/exercises"-->
-        <!--app:showAsAction="withText|ifRoom"-->
-        <!--android:title="@string/exercises"/>-->
+    <!--android:id="@+id/exercises"-->
+    <!--app:showAsAction="withText|ifRoom"-->
+    <!--android:title="@string/exercises"/>-->
     <item
-        android:id="@+id/milestones"
+        android:id="@+id/profile"
         app:showAsAction="withText|ifRoom"
-        android:title="@string/evaluations"/>
+        android:title="@string/profile"/>
     <item
         android:id="@+id/contact"
         app:showAsAction="withText|ifRoom"
@@ -26,4 +26,5 @@
         android:id="@+id/settings"
         app:showAsAction="withText|ifRoom"
         android:title="@string/settings"/>
+
 </menu>
