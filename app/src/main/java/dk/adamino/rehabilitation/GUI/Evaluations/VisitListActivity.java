@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,7 +35,12 @@ public class VisitListActivity extends AppCompatActivity {
         mVisitRecyclerView = findViewById(R.id.visit_recycler_view);
         mNoVisits = findViewById(R.id.txtNoVisits);
         // Setup layout manager, to ensure that items can be positioned on the screen
-        mVisitRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Using Linear to stack vertically
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        // Add a divider between items
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mVisitRecyclerView.getContext(),
+                layoutManager.getOrientation());
+        mVisitRecyclerView.addItemDecoration(dividerItemDecoration);
+        mVisitRecyclerView.setLayoutManager(layoutManager); // Using Linear to stack vertically
 
         mMilestoneModel = MilestoneModel.getInstance();
 

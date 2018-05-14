@@ -3,6 +3,7 @@ package dk.adamino.rehabilitation.GUI.Evaluations;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,7 +33,12 @@ public class MilestoneListActivity extends AppCompatActivity implements IFiresto
 
         mMilestoneRecyclerView = findViewById(R.id.evaluation_recycler_view);
         // Setup layout manager, to ensure that items can be positioned on the screen
-        mMilestoneRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Using Linear to stack vertically
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        // Add a divider between items
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mMilestoneRecyclerView.getContext(),
+                layoutManager.getOrientation());
+        mMilestoneRecyclerView.addItemDecoration(dividerItemDecoration);
+        mMilestoneRecyclerView.setLayoutManager(layoutManager); // Using Linear to stack vertically
 
         mProgressBar = findViewById(R.id.progressBar);
         // Start out progress bar in spinning mode
