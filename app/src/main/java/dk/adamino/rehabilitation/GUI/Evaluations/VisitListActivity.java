@@ -16,10 +16,11 @@ import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Milestone;
 import dk.adamino.rehabilitation.BE.Visit;
+import dk.adamino.rehabilitation.GUI.IActivity;
 import dk.adamino.rehabilitation.GUI.Model.MilestoneModel;
 import dk.adamino.rehabilitation.R;
 
-public class VisitListActivity extends AppCompatActivity {
+public class VisitListActivity extends AppCompatActivity implements IActivity {
 
     private RecyclerView mVisitRecyclerView;
     private VisitAdapter mVisitAdapter;
@@ -32,19 +33,24 @@ public class VisitListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_visit_list);
 
-        mVisitRecyclerView = findViewById(R.id.visit_recycler_view);
-        mNoVisits = findViewById(R.id.txtNoVisits);
-        // Setup layout manager, to ensure that items can be positioned on the screen
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        // Add a divider between items
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mVisitRecyclerView.getContext(),
-                layoutManager.getOrientation());
-        mVisitRecyclerView.addItemDecoration(dividerItemDecoration);
-        mVisitRecyclerView.setLayoutManager(layoutManager); // Using Linear to stack vertically
+        setupViews();
 
         mMilestoneModel = MilestoneModel.getInstance();
 
         instantiateData();
+    }
+
+    @Override
+    public void setupViews() {
+        mVisitRecyclerView = findViewById(R.id.visit_recycler_view);
+        mNoVisits = findViewById(R.id.txtNoVisits);
+        // Setup layout manager, to ensure that items can be positioned on the screen
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Using Linear to stack vertically
+        // Add a divider between items
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mVisitRecyclerView.getContext(),
+                layoutManager.getOrientation());
+        mVisitRecyclerView.addItemDecoration(dividerItemDecoration);
+        mVisitRecyclerView.setLayoutManager(layoutManager);
     }
 
     /**

@@ -16,10 +16,11 @@ import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Milestone;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
+import dk.adamino.rehabilitation.GUI.IActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.R;
 
-public class MilestoneListActivity extends AppCompatActivity implements IFirestoreMilestoneCallback {
+public class MilestoneListActivity extends AppCompatActivity implements IActivity, IFirestoreMilestoneCallback {
 
     private RecyclerView mMilestoneRecyclerView;
     private MilestoneAdapter mMilestoneAdapter;
@@ -31,14 +32,22 @@ public class MilestoneListActivity extends AppCompatActivity implements IFiresto
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_milestone_list);
 
+        setupViews();
+
+        // Call Firestore to get data
+        FirebaseClientModel.getInstance().getClientMilestones(this);
+    }
+
+    @Override
+    public void setupViews() {
         mMilestoneRecyclerView = findViewById(R.id.evaluation_recycler_view);
         // Setup layout manager, to ensure that items can be positioned on the screen
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Using Linear to stack vertically
         // Add a divider between items
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mMilestoneRecyclerView.getContext(),
                 layoutManager.getOrientation());
         mMilestoneRecyclerView.addItemDecoration(dividerItemDecoration);
-        mMilestoneRecyclerView.setLayoutManager(layoutManager); // Using Linear to stack vertically
+        mMilestoneRecyclerView.setLayoutManager(layoutManager);
 
         mProgressBar = findViewById(R.id.progressBar);
         // Start out progress bar in spinning mode
@@ -48,13 +57,11 @@ public class MilestoneListActivity extends AppCompatActivity implements IFiresto
         txtLoading = findViewById(R.id.txtLoading);
         // Start out by displaying loading
         txtLoading.setVisibility(View.VISIBLE);
-
-        // Call Firestore to get data
-        FirebaseClientModel.getInstance().getClientMilestones(this);
     }
 
     /**
      * Instantiate view
+     *
      * @param milestones
      */
     public void updateUI(List<Milestone> milestones) {
