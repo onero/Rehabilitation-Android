@@ -18,7 +18,7 @@ import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.R;
 
-public class EvaluationActivity extends AppCompatActivity implements IFirestoreMilestoneCallback {
+public class EvaluationListActivity extends AppCompatActivity implements IFirestoreMilestoneCallback {
 
     private RecyclerView mEvaluationRecyclerView;
     private EvaluationAdapter mEvaluationAdapter;
@@ -28,7 +28,7 @@ public class EvaluationActivity extends AppCompatActivity implements IFirestoreM
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_evaluation);
+        setContentView(R.layout.activity_evaluation_list);
 
         mEvaluationRecyclerView = findViewById(R.id.evaluation_recycler_view);
         // Setup layout manager, to ensure that items can be positioned on the screen

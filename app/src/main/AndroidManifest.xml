@@ -30,7 +30,7 @@
             android:parentActivityName=".GUI.ProfileActivity">
         </activity>
         <activity
-            android:name=".GUI.Evaluations.EvaluationActivity"
+            android:name=".GUI.Evaluations.EvaluationListActivity"
             android:label="@string/milestones">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
