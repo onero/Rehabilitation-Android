@@ -7,16 +7,16 @@
 
     <item
         android:id="@+id/milestones"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="withText|always"
         android:title="@string/evaluations"/>
     <item
         android:id="@+id/profile"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="withText|always"
         android:title="@string/profile"/>
     <item
         android:id="@+id/signout"
         android:icon="@drawable/logout"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="withText|always"
         android:title="@string/signout"/>
     <item
         android:id="@+id/settings"

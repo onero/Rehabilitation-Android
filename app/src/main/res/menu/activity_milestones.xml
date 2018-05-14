@@ -11,16 +11,16 @@
     <!--android:title="@string/exercises"/>-->
     <item
         android:id="@+id/profile"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="withText|always"
         android:title="@string/profile"/>
     <item
         android:id="@+id/contact"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="withText|always"
         android:title="@string/contact"/>
     <item
         android:id="@+id/signout"
         android:icon="@drawable/logout"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="withText|always"
         android:title="@string/signout"/>
     <item
         android:id="@+id/settings"
