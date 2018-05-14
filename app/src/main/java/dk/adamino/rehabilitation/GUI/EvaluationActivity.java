@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -20,6 +21,8 @@ public class EvaluationActivity extends AppCompatActivity implements IFirestoreM
 
     private RecyclerView mEvaluationRecyclerView;
     private EvaluationAdapter mEvaluationAdapter;
+    private ProgressBar mProgressBar;
+    private TextView txtLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,15 @@ public class EvaluationActivity extends AppCompatActivity implements IFirestoreM
         mEvaluationRecyclerView = findViewById(R.id.crime_recycler_view);
         // Setup layout manager, to ensure that items can be positioned on the screen
         mEvaluationRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Using Linear to stack vertically
+
+        mProgressBar = findViewById(R.id.progressBar);
+        // Start out progress bar in spinning mode
+        mProgressBar.setVisibility(View.VISIBLE);
+        mProgressBar.animate();
+
+        txtLoading = findViewById(R.id.txtLoading);
+        // Start out by displaying loading
+        txtLoading.setVisibility(View.VISIBLE);
 
         // Call Firestore to get data
         FirebaseClientModel.getInstance().getClientMilestones(this);
@@ -53,6 +65,10 @@ public class EvaluationActivity extends AppCompatActivity implements IFirestoreM
 
     @Override
     public void onMilestoneResponse(List<Milestone> milestones) {
+        // Hide loading info
+        mProgressBar.setVisibility(View.INVISIBLE);
+        txtLoading.setVisibility(View.INVISIBLE);
+        // Send data to ui
         updateUI(milestones);
     }
 
