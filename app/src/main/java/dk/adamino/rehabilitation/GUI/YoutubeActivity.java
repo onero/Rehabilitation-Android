@@ -1,6 +1,7 @@
 package dk.adamino.rehabilitation.GUI;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,12 +12,14 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+import java.io.Console;
+
 import dk.adamino.rehabilitation.R;
 
 public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener, IActivity{
 
     private static final String YOUTUBE_ID = "61-X2NNwMFE";
-    private static final String API_KEY = "AIzaSyAh7ZH9nhpNKapBwAHzoo_da9TIB9__7G4";
+    private static String API_KEY = "";
 
     private YouTubePlayerView mYouTubePlayerView;
     private TextView mExerciseDescription, mRepetitions, mTitle;
@@ -27,6 +30,8 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         setContentView(R.layout.activity_youtube);
 
         setupViews();
+
+        API_KEY = getString(R.string.youtube_api_key);
 
         mYouTubePlayerView.initialize(API_KEY, this);
 
