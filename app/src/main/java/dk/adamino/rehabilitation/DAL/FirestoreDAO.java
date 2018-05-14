@@ -56,7 +56,7 @@ public class FirestoreDAO implements IFirestore {
     @Override
     public void getClientMilestones(String currentClientUid, final IFirestoreMilestoneCallback callback) {
         mFirestore.collection(MILESTONE_COLLECTION)
-                .whereEqualTo("clientUid", "XbEsGMOKhHPtemlU82hGYMh8RUh1")
+                .whereEqualTo("clientUid", currentClientUid)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

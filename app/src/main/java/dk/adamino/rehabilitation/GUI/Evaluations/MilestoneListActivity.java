@@ -21,6 +21,7 @@ import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Milestone;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
+import dk.adamino.rehabilitation.GUI.ContactActivity;
 import dk.adamino.rehabilitation.GUI.IActivity;
 import dk.adamino.rehabilitation.GUI.LoginActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
@@ -59,7 +60,12 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.profile:
-                Intent contactIntent = ProfileActivity.newIntent(this);
+                Intent profileIntent = ProfileActivity.newIntent(this);
+                startActivity(profileIntent);
+                return true;
+            // TODO ALH: Add Exercises case!
+            case R.id.contact:
+                Intent contactIntent = ContactActivity.newIntent(this);
                 startActivity(contactIntent);
                 return true;
             case R.id.signout:
@@ -68,7 +74,6 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
                 return true;
-                // TODO ALH: Add Exercises case!
             default:
                 return super.onOptionsItemSelected(item);
         }
