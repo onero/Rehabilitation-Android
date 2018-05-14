@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
+import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
 public class ContactActivity extends AppCompatActivity {
@@ -41,15 +42,19 @@ public class ContactActivity extends AppCompatActivity {
                 Intent contactIntent = ProfileActivity.newIntent(this);
                 startActivity(contactIntent);
                 return true;
+            case R.id.milestones:
+                Intent milestonesIntent = MilestoneListActivity.newIntent(this);
+                startActivity(milestonesIntent);
+                return true;
+            // TODO ALH: Add Exercises case!
             case R.id.signout:
                 mFirebaseClientModel.logout();
                 Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
                 return true;
-            case R.id.milestones:
-                Intent milestonesIntent = MilestoneListActivity.newIntent(this);
-                startActivity(milestonesIntent);
+            case R.id.settings:
+                startActivity(new Intent(SettingsActivity.newIntent(this)));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

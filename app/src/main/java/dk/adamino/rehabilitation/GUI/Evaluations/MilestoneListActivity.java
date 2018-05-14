@@ -26,6 +26,7 @@ import dk.adamino.rehabilitation.GUI.IActivity;
 import dk.adamino.rehabilitation.GUI.LoginActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.GUI.ProfileActivity;
+import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
 public class MilestoneListActivity extends AppCompatActivity implements IActivity, IFirestoreMilestoneCallback {
@@ -73,6 +74,9 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
                 Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
+                return true;
+            case R.id.settings:
+                startActivity(new Intent(SettingsActivity.newIntent(this)));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
