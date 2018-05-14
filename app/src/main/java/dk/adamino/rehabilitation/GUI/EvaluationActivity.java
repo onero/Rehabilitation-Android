@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Milestone;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
+import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.R;
 
-public class EvaluationActivity extends AppCompatActivity {
+public class EvaluationActivity extends AppCompatActivity implements IFirestoreMilestoneCallback {
 
     private RecyclerView mEvaluationRecyclerView;
     private EvaluationAdapter mEvaluationAdapter;
@@ -29,21 +30,15 @@ public class EvaluationActivity extends AppCompatActivity {
         // Setup layout manager, to ensure that items can be positioned on the screen
         mEvaluationRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Using Linear to stack vertically
 
-        updateUI();
+        // Call Firestore to get data
+        FirebaseClientModel.getInstance().getClientMilestones(this);
     }
 
-    public void updateUI() {
-        // TODO ALH: Get milestones from model!
-        List<Milestone> milestones = new ArrayList<>();
-        Milestone testMilestone = new Milestone();
-        testMilestone.mTitle = "Test";
-        testMilestone.mPurpose = "Test Purpose";
-        milestones.add(testMilestone);
-        Milestone test2Milestone = new Milestone();
-        test2Milestone.mTitle = "Test 2";
-        test2Milestone.mPurpose = "Test 2 Purpose";
-        milestones.add(test2Milestone);
-
+    /**
+     * Instantiate view
+     * @param milestones
+     */
+    public void updateUI(List<Milestone> milestones) {
         if (mEvaluationAdapter == null) {
             mEvaluationAdapter = new EvaluationAdapter(milestones);
             mEvaluationRecyclerView.setAdapter(mEvaluationAdapter);
@@ -55,6 +50,12 @@ public class EvaluationActivity extends AppCompatActivity {
         mEvaluationAdapter = new EvaluationAdapter(milestones);
         mEvaluationRecyclerView.setAdapter(mEvaluationAdapter);
     }
+
+    @Override
+    public void onMilestoneResponse(List<Milestone> milestones) {
+        updateUI(milestones);
+    }
+
     private class MilestoneHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mMilestoneTitle;
@@ -71,7 +72,7 @@ public class EvaluationActivity extends AppCompatActivity {
             mMilestone = milestone;
             // Create title as it should be shown in list
             // Add 1 to position to start at number 1 instead of 0!
-            String listEntityTitle = (position + 1) + " - " + milestone.mTitle;
+            String listEntityTitle = (position + 1) + " - " + milestone.title;
             mMilestoneTitle.setText(listEntityTitle);
         }
 

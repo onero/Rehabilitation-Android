@@ -11,13 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dk.adamino.rehabilitation.BE.Client;
-import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
 public class ProfileActivity extends AppCompatActivity
-        implements IFirestoreCallback, IActivity {
+        implements IFirestoreClientCallback, IActivity {
     public static final String TAG = "GUI";
 
     private TextView mName, mPhone, mEmail, mDiagnosis, mGoal;

@@ -4,7 +4,7 @@ package dk.adamino.rehabilitation.BE;
  * Created by Adamino.
  */
 public class Milestone {
-    public String mUid;
-    public String mTitle;
-    public String mPurpose;
+    public String uid;
+    public String title;
+    public String purpose;
 }
