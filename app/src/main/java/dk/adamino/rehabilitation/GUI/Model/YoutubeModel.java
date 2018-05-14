@@ -3,27 +3,27 @@ package dk.adamino.rehabilitation.GUI.Model;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.adamino.rehabilitation.BE.ExerciseInfo;
+import dk.adamino.rehabilitation.BE.Exercise;
 
 public class YoutubeModel {
 
     private static final YoutubeModel instance = new YoutubeModel();
 
-    private List<ExerciseInfo> mExerciseInfo;
+    private List<Exercise> mExercise;
 
     public static YoutubeModel getInstance() {
         return instance;
     }
 
     private YoutubeModel() {
-        mExerciseInfo = new ArrayList<>();
+        mExercise = new ArrayList<>();
     }
 
-    public List<ExerciseInfo> getExerciseInfo() {
-        return mExerciseInfo;
+    public List<Exercise> getExercise() {
+        return mExercise;
     }
 
-    public void setExerciseInfo(List<ExerciseInfo> info) {
-        mExerciseInfo = info;
+    public void setExercise(List<Exercise> info) {
+        mExercise = info;
     }
 }

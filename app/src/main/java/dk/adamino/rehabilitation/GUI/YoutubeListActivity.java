@@ -14,7 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import dk.adamino.rehabilitation.BE.ExerciseInfo;
+import dk.adamino.rehabilitation.BE.Exercise;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.GUI.Model.YoutubeModel;
 import dk.adamino.rehabilitation.R;
@@ -39,13 +39,13 @@ public class YoutubeListActivity extends AppCompatActivity {
         final RecyclerView recyclerView = findViewById(R.id.recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        final List<ExerciseInfo> exercises = new ArrayList<>();
+        final List<Exercise> exercises = new ArrayList<>();
 
         for (int i = 1; i <= 10; i++) {
-            exercises.add(new ExerciseInfo("Exercise: " + i,"Index finger", "15x3"));
+            exercises.add(new Exercise("Exercise: " + i,"Index finger", "15x3"));
         }
 
-        mYoutubeModel.setExerciseInfo(exercises);
+        mYoutubeModel.setExercise(exercises);
 
         /**
          * Incredible recyclerview adapter

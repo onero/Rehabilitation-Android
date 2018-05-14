@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import java.io.InputStream;
 
-import dk.adamino.rehabilitation.BE.ExerciseInfo;
+import dk.adamino.rehabilitation.BE.Exercise;
 import dk.adamino.rehabilitation.GUI.Model.YoutubeModel;
 import dk.adamino.rehabilitation.R;
 
@@ -30,13 +30,13 @@ public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecy
 
     @Override
     public void onBindViewHolder(RecycleHolder holder, int position) {
-        ExerciseInfo info = mYoutubeModel.getExerciseInfo().get(position);
+        Exercise info = mYoutubeModel.getExercise().get(position);
         holder.bind(info);
     }
 
     @Override
     public int getItemCount() {
-        return mYoutubeModel.getExerciseInfo().size();
+        return mYoutubeModel.getExercise().size();
     }
 
     public class RecycleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -44,7 +44,7 @@ public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecy
         private ImageView mImage;
 
 
-        private ExerciseInfo mInfo;
+        private Exercise mInfo;
 
         public RecycleHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.row_item, parent, false));
@@ -56,7 +56,7 @@ public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecy
             mRepetitions = itemView.findViewById(R.id.txtRepetitions);
         }
 
-        public void bind(ExerciseInfo info) {
+        public void bind(Exercise info) {
             mInfo = info;
             mAmount.setText(mInfo.getAmount());
             mTitle.setText(mInfo.getTitle());

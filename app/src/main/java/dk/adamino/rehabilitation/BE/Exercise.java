@@ -1,14 +1,16 @@
 package dk.adamino.rehabilitation.BE;
 
-public class ExerciseInfo {
+public class Exercise {
     public String mAmount;
     public String mTitle;
     public String mRepetitions;
+    public String mDescription;
 
-    public ExerciseInfo (String amount, String title, String repetitions) {
+    public Exercise(String amount, String title, String repetitions, String description) {
         mAmount = amount;
         mTitle = title;
         mRepetitions = repetitions;
+        mDescription = description;
     }
 
     public String getAmount() {
