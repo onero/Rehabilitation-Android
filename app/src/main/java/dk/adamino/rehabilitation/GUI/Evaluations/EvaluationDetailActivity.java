@@ -8,14 +8,14 @@ import android.widget.TextView;
 
 import dk.adamino.rehabilitation.BE.Milestone;
 import dk.adamino.rehabilitation.BE.Visit;
+import dk.adamino.rehabilitation.GUI.Model.MilestoneModel;
 import dk.adamino.rehabilitation.R;
 
 public class EvaluationDetailActivity extends AppCompatActivity {
 
-    private static Milestone sMilestone;
-    private static Visit sVisit;
-
     private TextView mVisitDate, mMilestoneTitle, mPurpose, mNote;
+
+    private MilestoneModel mMilestoneModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,11 +27,22 @@ public class EvaluationDetailActivity extends AppCompatActivity {
         mPurpose = findViewById(R.id.txtPurpose);
         mNote = findViewById(R.id.txtNote);
 
-        if (sMilestone != null) {
-            mMilestoneTitle.setText(sMilestone.title);
-            mVisitDate.setText(sVisit.getDate());
-            mPurpose.setText(sMilestone.purpose);
-            mNote.setText(sVisit.note);
+        mMilestoneModel = MilestoneModel.getInstance();
+
+        instantiateData();
+    }
+
+    /**
+     * Setup data for the views
+     */
+    private void instantiateData() {
+        Milestone currentMileStone = mMilestoneModel.getCurrentMileStone();
+        Visit currentVisit = mMilestoneModel.getCurrentVisit();
+        if (mMilestoneModel.getCurrentMileStone() != null) {
+            mMilestoneTitle.setText(currentMileStone.title);
+            mPurpose.setText(currentMileStone.purpose);
+            mVisitDate.setText(currentVisit.getDate());
+            mNote.setText(currentVisit.note);
         }
     }
 
@@ -40,11 +51,7 @@ public class EvaluationDetailActivity extends AppCompatActivity {
      * @param context
      * @return
      */
-    public static Intent newIntent(Context context, Milestone milestone, Visit visit) {
-        Intent intent = new Intent(context, EvaluationDetailActivity.class);
-        // TODO ALH: Refactor
-        sMilestone = milestone;
-        sVisit = visit;
-        return intent;
+    public static Intent newIntent(Context context) {
+        return new Intent(context, EvaluationDetailActivity.class);
     }
 }

@@ -18,21 +18,21 @@ import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.R;
 
-public class EvaluationListActivity extends AppCompatActivity implements IFirestoreMilestoneCallback {
+public class MilestoneListActivity extends AppCompatActivity implements IFirestoreMilestoneCallback {
 
-    private RecyclerView mEvaluationRecyclerView;
-    private EvaluationAdapter mEvaluationAdapter;
+    private RecyclerView mMilestoneRecyclerView;
+    private MilestoneAdapter mMilestoneAdapter;
     private ProgressBar mProgressBar;
     private TextView txtLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_evaluation_list);
+        setContentView(R.layout.activity_milestone_list);
 
-        mEvaluationRecyclerView = findViewById(R.id.evaluation_recycler_view);
+        mMilestoneRecyclerView = findViewById(R.id.evaluation_recycler_view);
         // Setup layout manager, to ensure that items can be positioned on the screen
-        mEvaluationRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Using Linear to stack vertically
+        mMilestoneRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Using Linear to stack vertically
 
         mProgressBar = findViewById(R.id.progressBar);
         // Start out progress bar in spinning mode
@@ -52,16 +52,16 @@ public class EvaluationListActivity extends AppCompatActivity implements IFirest
      * @param milestones
      */
     public void updateUI(List<Milestone> milestones) {
-        if (mEvaluationAdapter == null) {
-            mEvaluationAdapter = new EvaluationAdapter(milestones);
-            mEvaluationRecyclerView.setAdapter(mEvaluationAdapter);
+        if (mMilestoneAdapter == null) {
+            mMilestoneAdapter = new MilestoneAdapter(milestones);
+            mMilestoneRecyclerView.setAdapter(mMilestoneAdapter);
         } else {
-            mEvaluationAdapter.setMilestones(milestones);
-            mEvaluationAdapter.notifyDataSetChanged();
+            mMilestoneAdapter.setMilestones(milestones);
+            mMilestoneAdapter.notifyDataSetChanged();
         }
 
-        mEvaluationAdapter = new EvaluationAdapter(milestones);
-        mEvaluationRecyclerView.setAdapter(mEvaluationAdapter);
+        mMilestoneAdapter = new MilestoneAdapter(milestones);
+        mMilestoneRecyclerView.setAdapter(mMilestoneAdapter);
     }
 
     @Override
@@ -100,10 +100,10 @@ public class EvaluationListActivity extends AppCompatActivity implements IFirest
         }
     }
 
-    private class EvaluationAdapter extends RecyclerView.Adapter<MilestoneHolder> {
+    private class MilestoneAdapter extends RecyclerView.Adapter<MilestoneHolder> {
         private List<Milestone> mMilestones;
 
-        private EvaluationAdapter(List<Milestone> milestones) {
+        private MilestoneAdapter(List<Milestone> milestones) {
             mMilestones = milestones;
         }
 

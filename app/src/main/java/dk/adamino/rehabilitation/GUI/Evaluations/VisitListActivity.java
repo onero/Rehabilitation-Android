@@ -11,19 +11,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Milestone;
 import dk.adamino.rehabilitation.BE.Visit;
+import dk.adamino.rehabilitation.GUI.Model.MilestoneModel;
 import dk.adamino.rehabilitation.R;
 
 public class VisitListActivity extends AppCompatActivity {
 
-    private static Milestone sMilestone;
     private RecyclerView mVisitRecyclerView;
     private VisitAdapter mVisitAdapter;
     private TextView mNoVisits;
+
+    private MilestoneModel mMilestoneModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +36,17 @@ public class VisitListActivity extends AppCompatActivity {
         // Setup layout manager, to ensure that items can be positioned on the screen
         mVisitRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // Using Linear to stack vertically
 
-        List<Visit> visits = new ArrayList<>();
-        if (sMilestone.visits != null) {
-            visits = sMilestone.visits;
+        mMilestoneModel = MilestoneModel.getInstance();
+
+        instantiateData();
+    }
+
+    /**
+     * Instantiate visit data
+     */
+    private void instantiateData() {
+        List<Visit> visits = mMilestoneModel.getCurrentMileStone().visits;
+        if (!visits.isEmpty()) {
             // Hide no visits message
             mNoVisits.setVisibility(View.INVISIBLE);
         } else {
@@ -73,8 +82,8 @@ public class VisitListActivity extends AppCompatActivity {
      */
     public static Intent newIntent(Context context, Milestone milestone) {
         Intent intent = new Intent(context, VisitListActivity.class);
-        // TODO ALH: This can definitely be refactored!
-        sMilestone = milestone;
+        // Set Current Milestone in model
+        MilestoneModel.getInstance().setCurrentMileStone(milestone);
         return intent;
     }
 
@@ -97,7 +106,9 @@ public class VisitListActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            Intent detailIntent = EvaluationDetailActivity.newIntent(view.getContext(), sMilestone, mVisit);
+            Intent detailIntent = EvaluationDetailActivity.newIntent(view.getContext());
+            // Update visit
+            MilestoneModel.getInstance().setCurrentVisit(mVisit);
             startActivity(detailIntent);
         }
     }
