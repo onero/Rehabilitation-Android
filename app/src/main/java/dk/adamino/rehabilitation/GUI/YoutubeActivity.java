@@ -3,6 +3,7 @@ package dk.adamino.rehabilitation.GUI;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,12 +13,10 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dk.adamino.rehabilitation.BE.Exercise;
-import dk.adamino.rehabilitation.DAL.FirestoreDAO;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
@@ -75,21 +74,51 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         // Start buffering.
         if (!wasRestored) {
             String videoUrl = mExerciseModel.getCurrentExercise().videoUrl;
-            String videoId = extractYTId(videoUrl);
+            String videoId = getYoutubeID(videoUrl);
+            Log.d(TAG, "VideoId:" + videoId);
+
             youTubePlayer.cueVideo(videoId);
         }
     }
 
-    public static String extractYTId(String ytUrl) {
-        String vId = null;
-        Pattern pattern = Pattern.compile(
-                "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
-                Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(ytUrl);
-        if (matcher.matches()){
-            vId = matcher.group(1);
+    /**
+     * Extract the videoId from the
+     * @param youtubeUrl
+     * @return
+     */
+    private static String getYoutubeID(String youtubeUrl) {
+
+        if (TextUtils.isEmpty(youtubeUrl)) {
+            return "";
         }
-        return vId;
+        String video_id = "";
+
+        // Very awesome regex specifically for youtube...
+        String expression = "^.*((youtu.be" + "\\/)" + "|(v\\/)|(\\/u\\/w\\/)|(embed\\/)|(watch\\?))\\??v?=?([^#\\&\\?]*).*"; // var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+        CharSequence input = youtubeUrl;
+        // Exgtract expression from url
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(input);
+        // Check for regex match
+        if (matcher.matches()) {
+            String groupIndex1 = matcher.group(7);
+            if (groupIndex1 != null && groupIndex1.length() == 11)
+                video_id = groupIndex1;
+        }
+        // Handle empty id
+        if (TextUtils.isEmpty(video_id)) {
+            if (youtubeUrl.contains("youtu.be/")  ) {
+                String spl = youtubeUrl.split("youtu.be/")[1];
+                if (spl.contains("\\?")) {
+                    video_id = spl.split("\\?")[0];
+                }else {
+                    video_id =spl;
+                }
+
+            }
+        }
+
+        return video_id;
     }
 
 
