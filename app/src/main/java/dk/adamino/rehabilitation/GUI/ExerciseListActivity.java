@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.BE.Exercise;
@@ -36,6 +37,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     private ExerciseRecyclerViewAdapter mExerciseAdapter;
     private RecyclerView mExerciseRecyclerView;
 
+    private List<Exercise> mExercises;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
 
         mFirebaseClientModel.loadLoggedInClientAsync(this);
+
+        mExercises = new ArrayList<>();
 
         List<Exercise> exercises = mFirebaseExerciseModel.getExercises();
         updateUI(exercises);
@@ -90,13 +94,10 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
      * @param exercises
      */
     public void updateUI(List<Exercise> exercises) {
-        Log.d("UpdateUI", "Hit it!");
         if (mExerciseAdapter == null) {
-            Log.d("UpdateUI", "If");
             mExerciseAdapter = new ExerciseRecyclerViewAdapter(exercises);
             mExerciseRecyclerView.setAdapter(mExerciseAdapter);
         } else {
-            Log.d("UpdateUI", "Else");
             mExerciseAdapter.setExercises(exercises);
             mExerciseAdapter.notifyDataSetChanged();
         }
@@ -122,9 +123,12 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     }
 
     @Override
-    public void onExercisesResponse(List<Exercise> exercisesFound) {
-        Log.d("UpdateUI", "ExerciseResponse");
-        updateUI(exercisesFound);
+    public void onExerciseResponse(Exercise exerciseFound) {
+        Log.d("UpdateUI", exerciseFound.title);
+        if (!mExercises.contains(exerciseFound)) {
+            mExercises.add(exerciseFound);
+        }
+        updateUI(mExercises);
     }
 
     @Override
@@ -153,7 +157,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
             mExercise = exercise;
             mAmount.setText(mExercise.getAmount());
             mTitle.setText(mExercise.getTitle());
-            mRepetitions.setText(mExercise.getRepetitions());
+            mRepetitions.setText(mExercise.getRepetition());
             InputStream imageStream = itemView.getResources().openRawResource(R.raw.youtube_img);
             Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
             mImage.setImageBitmap(bitmap);

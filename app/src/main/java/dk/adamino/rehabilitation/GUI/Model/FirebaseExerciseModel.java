@@ -1,7 +1,5 @@
 package dk.adamino.rehabilitation.GUI.Model;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +35,9 @@ public class FirebaseExerciseModel {
     }
 
     public void loadExercisesAsync(IExerciseFirestoreCallback callback, List<String> exerciseIds) {
-        mFirestoreDAO.getExercisesByIds(exerciseIds, callback);
+        for (String exerciseId: exerciseIds) {
+            mFirestoreDAO.getExercisesById(exerciseId, callback);
+        }
     }
 
 }

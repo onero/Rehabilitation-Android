@@ -1,12 +1,12 @@
 package dk.adamino.rehabilitation.BE;
 
 public class Exercise {
+    public String category;
+    public String description;
+    public String title;
+    public String repetition;
+    public String videoUrl;
     public String mAmount;
-    public String mCategory;
-    public String mTitle;
-    public String mRepetitions;
-    public String mDescription;
-    public String mVideoUrl;
 
 
     public String getAmount() {
@@ -14,10 +14,10 @@ public class Exercise {
     }
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
-    public String getRepetitions() {
-        return mRepetitions;
+    public String getRepetition() {
+        return repetition;
     }
 }

@@ -13,7 +13,7 @@ public interface IFirestore {
      * @param
      * @return Client
      */
-    void getExercisesByIds(List<String> ids, final IExerciseFirestoreCallback exerciseCallback);
+    void getExercisesById(String id, final IExerciseFirestoreCallback exerciseCallback);
     void getClientByIdAsync(String uid, IFirestoreClientCallback firestoreCallback);
     /**
      * Retrieve client milestones

@@ -5,5 +5,5 @@ import java.util.List;
 import dk.adamino.rehabilitation.BE.Exercise;
 
 public interface IExerciseFirestoreCallback {
-    void onExercisesResponse(List<Exercise> exerciseFound);
+    void onExerciseResponse(Exercise exerciseFound);
 }

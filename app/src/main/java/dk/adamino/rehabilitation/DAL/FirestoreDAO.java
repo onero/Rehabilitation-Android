@@ -53,19 +53,18 @@ public class FirestoreDAO implements IFirestore {
     }
 
     @Override
-    public void getExercisesByIds(List<String> exerciseIds, final IExerciseFirestoreCallback exerciseCallback) {
-        final List<Exercise> exercises = new ArrayList<>();
+    public void getExercisesById(String exerciseId, final IExerciseFirestoreCallback exerciseCallback) {
 
-        for (String id : exerciseIds) {
-            DocumentReference docRef = mFirestore.collection(EXERCISES_COLLECTION).document(id);
+            DocumentReference docRef = mFirestore.collection(EXERCISES_COLLECTION).document(exerciseId);
             docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            Exercise exercise = task.getResult().toObject(Exercise.class);
-                            exercises.add(exercise);
+                            Exercise exercise = document.toObject(Exercise.class);
+                            exerciseCallback.onExerciseResponse(exercise);
+                            Log.d(TAG, exercise.title);
                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         } else {
                             Log.d(TAG, "No such document");
@@ -75,8 +74,6 @@ public class FirestoreDAO implements IFirestore {
                     }
                 }
             });
-        }
-        exerciseCallback.onExercisesResponse(exercises);
     }
 
     public void getClientMilestones(String currentClientUid, final IFirestoreMilestoneCallback callback) {
