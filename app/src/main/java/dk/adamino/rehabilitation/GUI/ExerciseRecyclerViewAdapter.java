@@ -13,14 +13,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
+import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Exercise;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
-public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecyclerViewAdapter.RecycleHolder> {
+public class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseRecyclerViewAdapter.RecycleHolder> {
 
     private FirebaseExerciseModel mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
+    private List<Exercise> mExercises;
+
+    public ExerciseRecyclerViewAdapter(List<Exercise> exercises) {
+        mExercises = exercises;
+    }
 
     @Override
     public RecycleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -30,13 +36,17 @@ public class YoutubeRecyclerViewAdapter extends RecyclerView.Adapter<YoutubeRecy
 
     @Override
     public void onBindViewHolder(RecycleHolder holder, int position) {
-        Exercise info = mFirebaseExerciseModel.getExercises().get(position);
+        Exercise info = mExercises.get(position);
         holder.bind(info);
     }
 
     @Override
     public int getItemCount() {
-        return mFirebaseExerciseModel.getExercises().size();
+        return mExercises.size();
+    }
+
+    public void setExercises(List<Exercise> exercises) {
+        mExercises = exercises;
     }
 
     public class RecycleHolder extends RecyclerView.ViewHolder implements View.OnClickListener{

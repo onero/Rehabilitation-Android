@@ -31,7 +31,7 @@
 
         </activity>
         <activity android:name=".GUI.YoutubeActivity"></activity>
-        <activity android:name=".GUI.YoutubeListActivity"></activity>
+        <activity android:name=".GUI.ExerciseListActivity"></activity>
         <activity
             android:name=".GUI.Settings.SettingsActivity"
             android:label="@string/title_activity_settings"

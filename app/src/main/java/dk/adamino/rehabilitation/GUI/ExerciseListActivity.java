@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Client;
@@ -23,35 +22,22 @@ import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
-public class YoutubeListActivity extends AppCompatActivity implements IFirestoreCallback, IExerciseFirestoreCallback{
+public class ExerciseListActivity extends AppCompatActivity implements IActivity, IFirestoreCallback, IExerciseFirestoreCallback{
 
-    private FirebaseExerciseModel mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
+    private FirebaseExerciseModel mFirebaseExerciseModel;
     private FirebaseClientModel mFirebaseClientModel;
+    private ExerciseRecyclerViewAdapter mExerciseAdapter;
+    private RecyclerView mExerciseRecyclerView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.exercise_recycler);
         mFirebaseClientModel = FirebaseClientModel.getInstance();
-
-        setContentView(R.layout.youtube_recycler);
-        instanciateRecyclerView();
-
+        mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
+        setupViews();
         mFirebaseClientModel.loadLoggedInClientAsync(this);
-
-    }
-
-    public void instanciateRecyclerView() {
-        final RecyclerView recyclerView = findViewById(R.id.recycler);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        /**
-         * Incredible recyclerview adapter
-         */
-        YoutubeRecyclerViewAdapter adapter = new YoutubeRecyclerViewAdapter();
-
-        recyclerView.setAdapter(adapter);
     }
 
     @Override
@@ -86,25 +72,47 @@ public class YoutubeListActivity extends AppCompatActivity implements IFirestore
     }
 
     /**
+     * Instantiate view
+     *
+     * @param exercises
+     */
+    public void updateUI(List<Exercise> exercises) {
+        if (mExerciseAdapter == null) {
+            mExerciseAdapter = new ExerciseRecyclerViewAdapter(exercises);
+            mExerciseRecyclerView.setAdapter(mExerciseAdapter);
+        } else {
+            mExerciseAdapter.setExercises(exercises);
+            mExerciseAdapter.notifyDataSetChanged();
+        }
+
+        mExerciseAdapter = new ExerciseRecyclerViewAdapter(exercises);
+        mExerciseRecyclerView.setAdapter(mExerciseAdapter);
+    }
+
+    /**
      * Create Intent to navigate to this activity
      * @param context
      * @return
      */
     public static Intent newIntent(Context context) {
-        Intent intent = new Intent(context, YoutubeListActivity.class);
+        Intent intent = new Intent(context, ExerciseListActivity.class);
         return intent;
     }
 
     @Override
     public void onClientResponse(Client clientFound) {
-        Log.d("Tissemand", "onClientResponse");
         mFirebaseExerciseModel.loadExercisesAsync(this, clientFound.rehabilitationPlan.exerciseIds);
     }
 
 
     @Override
     public void onExercisesResponse(List<Exercise> exerciseFound) {
-        Log.d("Tissemand", "onExercisesResponse");
-        mFirebaseExerciseModel.setExercises(exerciseFound);
+        updateUI(exerciseFound);
+    }
+
+    @Override
+    public void setupViews() {
+        mExerciseRecyclerView = findViewById(R.id.recycler);
+        mExerciseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

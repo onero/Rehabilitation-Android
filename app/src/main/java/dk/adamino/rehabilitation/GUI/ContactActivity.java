@@ -41,7 +41,7 @@ public class ContactActivity extends AppCompatActivity {
                 startActivity(profileIntent);
                 return true;
             case R.id.exercises:
-                Intent exerciseIntent = YoutubeListActivity.newIntent(this);
+                Intent exerciseIntent = ExerciseListActivity.newIntent(this);
                 startActivity(exerciseIntent);
                 return true;
             case R.id.signout:
