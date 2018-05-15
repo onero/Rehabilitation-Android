@@ -13,6 +13,8 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import dk.adamino.rehabilitation.BE.Exercise;
 import dk.adamino.rehabilitation.DAL.FirestoreDAO;
@@ -21,7 +23,7 @@ import dk.adamino.rehabilitation.R;
 
 public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener, IActivity{
 
-    private static final String YOUTUBE_ID = "61-X2NNwMFE";
+    public static final String TAG = "RehabYouTubeActivity";
     private static String API_KEY = "";
 
     private YouTubePlayerView mYouTubePlayerView;
@@ -44,7 +46,7 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         if (mExerciseModel.getCurrentExercise() != null) {
             setExerciseInfomation(mExerciseModel.getCurrentExercise());
         } else {
-            Log.e("RehabYouTubeActivity", "Current exercise wasn't set");
+            Log.e(TAG, "Current exercise wasn't set");
         }
 
     }
@@ -62,8 +64,6 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         mTitle.setText(exercise.title);
         mRepetitions.setText(exercise.repetition);
         mExerciseDescription.setText(exercise.description);
-
-        Log.d("ExerciseInfo", exercise.videoUrl);
     }
 
     @Override
@@ -74,8 +74,22 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         // Start buffering.
         if (!wasRestored) {
-            youTubePlayer.cueVideo(YOUTUBE_ID);
+            String videoUrl = mExerciseModel.getCurrentExercise().videoUrl;
+            String videoId = extractYTId(videoUrl);
+            youTubePlayer.cueVideo(videoId);
         }
+    }
+
+    public static String extractYTId(String ytUrl) {
+        String vId = null;
+        Pattern pattern = Pattern.compile(
+                "^https?://.*(?:youtu.be/|v/|u/\\w/|embed/|watch?v=)([^#&?]*).*$",
+                Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(ytUrl);
+        if (matcher.matches()){
+            vId = matcher.group(1);
+        }
+        return vId;
     }
 
 
