@@ -1,11 +1,12 @@
 package dk.adamino.rehabilitation.GUI.Model;
 
 import dk.adamino.rehabilitation.Callbacks.IFirebaseAuthenticationCallback;
-import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 import dk.adamino.rehabilitation.DAL.FirebaseAuthenticate;
 import dk.adamino.rehabilitation.DAL.FirestoreDAO;
-import dk.adamino.rehabilitation.DAL.IFirestore;
 import dk.adamino.rehabilitation.DAL.IFirebaseAuthenticate;
+import dk.adamino.rehabilitation.DAL.IFirestore;
 
 /**
  * Created by Adamino.
@@ -30,8 +31,21 @@ public class FirebaseClientModel {
         return instance;
     }
 
+    /**
+     * Set the id of thecurrent logged in cluent
+     * @param currentClientUid
+     */
     public void setCurrentClientUid(String currentClientUid) {
         mCurrentClientUid = currentClientUid;
+    }
+
+    /**
+     * Get current client milestones
+     * @param callback
+     * @return
+     */
+    public void getClientMilestones(IFirestoreMilestoneCallback callback) {
+        mFirestoreDAO.getClientMilestones(mCurrentClientUid, callback);
     }
 
     /**
@@ -55,7 +69,7 @@ public class FirebaseClientModel {
      * Load currently loggedin client
      * @param response
      */
-    public void loadLoggedInClientAsync(IFirestoreCallback response) {
+    public void loadLoggedInClientAsync(IFirestoreClientCallback response) {
         mFirestoreDAO.getClientByIdAsync(mCurrentClientUid, response);
     }
 }

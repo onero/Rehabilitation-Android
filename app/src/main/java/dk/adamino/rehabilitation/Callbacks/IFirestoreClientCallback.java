@@ -5,7 +5,7 @@ import dk.adamino.rehabilitation.BE.Client;
 /**
  * Created by Adamino.
  */
-public interface IFirestoreCallback {
+public interface IFirestoreClientCallback {
     /**
      * Handle client found on Firestore
      * @param clientFound

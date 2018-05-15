@@ -43,14 +43,14 @@
 
     <!--<string name="pref_title_add_friends_to_messages">Add friends to messages</string>-->
     <!--<string-array name="pref_example_list_titles">-->
-        <!--<item>Always</item>-->
-        <!--<item>When possible</item>-->
-        <!--<item>Never</item>-->
+    <!--<item>Always</item>-->
+    <!--<item>When possible</item>-->
+    <!--<item>Never</item>-->
     <!--</string-array>-->
     <!--<string-array name="pref_example_list_values">-->
-        <!--<item>1</item>-->
-        <!--<item>0</item>-->
-        <!--<item>-1</item>-->
+    <!--<item>1</item>-->
+    <!--<item>0</item>-->
+    <!--<item>-1</item>-->
     <!--</string-array>-->
 
     <!-- Example settings for Notifications -->
@@ -58,6 +58,20 @@
     <string name="pref_title_daily_exercises">Daily exercise notifications</string>
     <string name="pref_key_set_notification_time">setNotificationTime</string>
     <string name="pref_key_notification_time_value">notificationTimeValue</string>
+    <string name="milestones">Milestones</string>
+    <string name="milestone_title">Milestone Title</string>
+    <string name="visit_title">Visit Title</string>
+    <string name="visits">Visits</string>
+    <string name="no_visits">No Visits</string>
+    <string name="visit_date_mock">5 / 1 - 1990</string>
+    <string name="milestone_title_mock">Gå</string>
+    <string name="purpose_mock">Gå igen</string>
+    <string name="purpose_header">Purpose:</string>
+    <string name="note_header">Note:</string>
+    <string name="note_mock">Gik på vandet</string>
+    <string name="evaluations">Evaluations</string>
+    <string name="settings">Settings</string>
+    <string name="evaluation_detail">Evaluation Detail</string>
 
     <!--TODO ALH: Entire section left for inspiration with new exercise notifications!-->
     <!--<string name="pref_title_new_message_notifications">New message notifications</string>-->
