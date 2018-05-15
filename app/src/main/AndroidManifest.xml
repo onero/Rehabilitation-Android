@@ -21,13 +21,14 @@
         <activity android:name=".GUI.ProfileActivity">
         </activity>
         <activity android:name=".GUI.ContactActivity">
-        </activity>
-        <activity android:name=".GUI.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".GUI.LoginActivity">
+
         </activity>
         <activity
             android:name=".GUI.Settings.SettingsActivity"
