@@ -11,6 +11,7 @@ public class FirebaseExerciseModel {
 
     private static FirebaseExerciseModel instance = null;
     private FirestoreDAO mFirestoreDAO;
+    private Exercise mCurrentExercise;
 
     private List<Exercise> mExercises;
 
@@ -40,4 +41,11 @@ public class FirebaseExerciseModel {
         }
     }
 
+    public Exercise getCurrentExercise() {
+        return mCurrentExercise;
+    }
+
+    public void setCurrentExercise(Exercise currentExercise) {
+        mCurrentExercise = currentExercise;
+    }
 }

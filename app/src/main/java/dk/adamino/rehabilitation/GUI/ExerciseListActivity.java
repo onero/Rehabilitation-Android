@@ -146,6 +146,10 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         mExerciseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+
+
+
+
     private class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mTitle, mRepetitions, txtItemNr;
@@ -174,12 +178,15 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
         @Override
         public void onClick(View v) {
-            Toast.makeText(v.getContext(), mExercise.getAmount(), Toast.LENGTH_SHORT).show();
             Context context = v.getContext();
-            Intent intent = new Intent(context, YoutubeActivity.class);
+            Intent intent = YoutubeActivity.newIntent(context, mExercise);
             context.startActivity(intent);
         }
     }
+
+
+
+
 
     private class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseHolder> {
         private List<Exercise> mExercises;

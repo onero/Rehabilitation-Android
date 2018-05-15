@@ -1,5 +1,7 @@
 package dk.adamino.rehabilitation.GUI;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -39,8 +41,11 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         mExerciseModel = FirebaseExerciseModel.getInstance();
 
-        // Load in the exercise info async.
-//        mExerciseModel.loadExercisesAsync();
+        if (mExerciseModel.getCurrentExercise() != null) {
+            setExerciseInfomation(mExerciseModel.getCurrentExercise());
+        } else {
+            Log.e("RehabYouTubeActivity", "Current exercise wasn't set");
+        }
 
     }
 
@@ -73,10 +78,6 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         }
     }
 
-//    @Override
-//    public void onExercisesResponse (){
-//
-//    }
 
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
@@ -143,4 +144,14 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
     };
 
 
+    /**
+     * Create Intent to navigate to this activity
+     * @param context
+     * @return
+     */
+    public static Intent newIntent(Context context, Exercise currentExercise) {
+        Intent intent = new Intent(context, YoutubeActivity.class);
+        FirebaseExerciseModel.getInstance().setCurrentExercise(currentExercise);
+        return intent;
+    }
 }
