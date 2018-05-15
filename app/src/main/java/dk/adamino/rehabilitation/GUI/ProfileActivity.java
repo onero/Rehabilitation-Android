@@ -81,7 +81,6 @@ public class ProfileActivity extends AppCompatActivity
                 Intent contactIntent = ContactActivity.newIntent(this);
                 startActivity(contactIntent);
                 return true;
-            // TODO ALH: Add Exercises case!
             case R.id.signout:
                 mFirebaseClientModel.logout();
                 Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
