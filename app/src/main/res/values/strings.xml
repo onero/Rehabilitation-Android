@@ -77,6 +77,7 @@
 
     <!--CONTACT-->
     <string name="your_therapist">Your Therapist</string>
+    <string name="institution_address"><u>Finsensgade 35, 6700 Esbjerg</u></string>
 
     <!--TODO ALH: Entire section left for inspiration with new exercise notifications!-->
     <!--<string name="pref_title_new_message_notifications">New message notifications</string>-->
