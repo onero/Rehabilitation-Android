@@ -2,8 +2,6 @@ package dk.adamino.rehabilitation.GUI;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,8 +10,11 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerView;
 
-import java.io.Console;
+import java.util.List;
 
+import dk.adamino.rehabilitation.BE.Exercise;
+import dk.adamino.rehabilitation.DAL.FirestoreDAO;
+import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
 public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener, IActivity{
@@ -22,6 +23,7 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
     private static String API_KEY = "";
 
     private YouTubePlayerView mYouTubePlayerView;
+    private FirebaseExerciseModel mExerciseModel;
     private TextView mExerciseDescription, mRepetitions, mTitle;
 
     @Override
@@ -35,6 +37,11 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         mYouTubePlayerView.initialize(API_KEY, this);
 
+        mExerciseModel = FirebaseExerciseModel.getInstance();
+
+        // Load in the exercise info async.
+//        mExerciseModel.loadExercisesAsync();
+
     }
 
     @Override
@@ -43,6 +50,15 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         mExerciseDescription = findViewById(R.id.txtExerciseDescription);
         mRepetitions = findViewById(R.id.txtRepetitions);
         mTitle = findViewById(R.id.txtTitle);
+    }
+
+    private void setExerciseInfomation(Exercise exercise) {
+        // Exercise information
+        mTitle.setText(exercise.title);
+        mRepetitions.setText(exercise.repetition);
+        mExerciseDescription.setText(exercise.description);
+
+        Log.d("ExerciseInfo", exercise.videoUrl);
     }
 
     @Override
@@ -56,6 +72,11 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
             youTubePlayer.cueVideo(YOUTUBE_ID);
         }
     }
+
+//    @Override
+//    public void onExercisesResponse (){
+//
+//    }
 
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
