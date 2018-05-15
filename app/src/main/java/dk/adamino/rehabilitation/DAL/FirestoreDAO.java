@@ -8,9 +8,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Client;
-import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
+import dk.adamino.rehabilitation.BE.Milestone;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 
 /**
  * Created by Adamino.
@@ -20,11 +27,12 @@ public class FirestoreDAO implements IFirestore {
     private static final String TAG = "DAL";
 
     private static String USERS_COLLECTION = "Clients";
+    private static String MILESTONE_COLLECTION = "Milestones";
 
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
 
     @Override
-    public void getClientByIdAsync(String clientUID, final IFirestoreCallback firestoreCallback) {
+    public void getClientByIdAsync(String clientUID, final IFirestoreClientCallback firestoreCallback) {
         DocumentReference docRef = mFirestore.collection(USERS_COLLECTION).document(clientUID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -43,5 +51,26 @@ public class FirestoreDAO implements IFirestore {
                 }
             }
         });
+    }
+
+    @Override
+    public void getClientMilestones(String currentClientUid, final IFirestoreMilestoneCallback callback) {
+        mFirestore.collection(MILESTONE_COLLECTION)
+                .whereEqualTo("clientUid", currentClientUid)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            List<Milestone> milestones = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                milestones.add(document.toObject(Milestone.class));
+                            }
+                            callback.onMilestoneResponse(milestones);
+                        } else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
     }
 }
