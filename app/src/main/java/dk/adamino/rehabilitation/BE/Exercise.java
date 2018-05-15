@@ -1,23 +1,23 @@
 package dk.adamino.rehabilitation.BE;
 
 public class Exercise {
-    public String mAmount;
-    public String mCategory;
-    public String mTitle;
-    public String mRepetitions;
-    public String mDescription;
-    public String mVideoUrl;
+    public String Amount;
+    public String Category;
+    public String Title;
+    public String Repetitions;
+    public String Description;
+    public String VideoUrl;
 
 
     public String getAmount() {
-        return mAmount;
+        return Amount;
     }
 
     public String getTitle() {
-        return mTitle;
+        return Title;
     }
 
     public String getRepetitions() {
-        return mRepetitions;
+        return Repetitions;
     }
 }
