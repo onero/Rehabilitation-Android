@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Strings shared across application-->
+    <string name="app_name">Genoptræning</string>
+    <string name="exercises">Øvelser</string>
+    <string name="loading_data">Henter data</string>
+
+    <!-- Strings for notifications-->
+    <string name="exercise_notification_title">Øvelsesreminder</string>
+    <string name="exercise_notification_content">Tid til at lave dine øvelser!</string>
+
+    <!-- Strings related to ContactActivity-->
+    <string name="contact">Kontakt</string>
+
+    <!-- Strings related to ProfileActivity-->
+    <string name="profile">Profil</string>
+    <string name="profile_image">Profilebillede</string>
+    <string name="diagnosis">Diagnose</string>
+    <string name="goal">Mål</string>
+
+    <!-- Strings related to login -->
+    <string name="title_activity_login">Log ind</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Kodeord</string>
+    <string name="action_sign_in">Log ind</string>
+    <string name="action_sign_in_short">Log ind</string>
+    <string name="error_invalid_email">Denne email er ikke gyldig</string>
+    <string name="error_invalid_password">Kordeordet er for kort</string>
+    <string name="error_incorrect_password">Kordetordet er ikke korrekt</string>
+    <string name="error_field_required">Feltet er påkrævet</string>
+    <string name="permission_rationale">"Kontakttilladelse er nøvendig for at slå autoudførelse til.</string>
+    <string name="signout">Log ud</string>
+    <string name="title_activity_settings">Indstillinger</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">Generelt</string>
+    <string name="pref_general_text">Velkomment til genoptræningsindstillinger!</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Reminders</string>
+    <string name="pref_title_daily_exercises">Daglige reminders</string>
+    <!--DON'T TRANSLATE!!!-->
+    <string name="pref_key_set_notification_time">setNotificationTime</string>
+    <string name="pref_key_notification_time_value">notificationTimeValue</string>
+    <!--IT ISNOW SAFE TO TRANSLATE AGAIN ;-)-->
+
+    <!--EVALUATIONS-->
+    <string name="milestones">Delmål</string>
+    <string name="milestone_title">Delmålstitel</string>
+    <string name="visit_title">Besgøgstitel</string>
+    <string name="visits">Besøg</string>
+    <string name="no_visits">Ingen besøg</string>
+    <string name="visit_date_mock">5 / 1 - 1990</string>
+    <string name="milestone_title_mock">Gå</string>
+    <string name="purpose_mock">Gå igen</string>
+    <string name="purpose_header">Formål:</string>
+    <string name="note_header">Note:</string>
+    <string name="note_mock">Gik på vandet</string>
+    <string name="evaluations">Evalueringer</string>
+    <string name="settings">Indstillinger</string>
+    <string name="evaluation_detail">Evalueringsdetaljer</string>
+
+    <!--CONTACT-->
+    <string name="your_therapist">Din Terapeut</string>
+</resources>
