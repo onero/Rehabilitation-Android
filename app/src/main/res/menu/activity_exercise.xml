@@ -10,6 +10,10 @@
         app:showAsAction="withText|ifRoom"
         android:title="@string/profile"/>
     <item
+        android:id="@+id/milestones"
+        app:showAsAction="withText|always"
+        android:title="@string/evaluations"/>
+    <item
         android:id="@+id/contact"
         app:showAsAction="withText|ifRoom"
         android:title="@string/contact"/>
@@ -18,5 +22,9 @@
         android:icon="@drawable/logout"
         app:showAsAction="withText|ifRoom"
         android:title="@string/signout"/>
+    <item
+        android:id="@+id/settings"
+        app:showAsAction="withText|ifRoom"
+        android:title="@string/settings"/>
 
 </menu>

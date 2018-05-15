@@ -25,8 +25,10 @@ import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.BE.Exercise;
 import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
+import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
+import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
 public class ExerciseListActivity extends AppCompatActivity implements IActivity, IFirestoreClientCallback, IExerciseFirestoreCallback{
@@ -68,11 +70,18 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
                 Intent contactIntent = ContactActivity.newIntent(this);
                 startActivity(contactIntent);
                 return true;
+            case R.id.milestones:
+                Intent milestonesIntent = MilestoneListActivity.newIntent(this);
+                startActivity(milestonesIntent);
+                return true;
             case R.id.signout:
                 mFirebaseClientModel.logout();
                 Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
+                return true;
+            case R.id.settings:
+                startActivity(new Intent(SettingsActivity.newIntent(this)));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -139,28 +148,28 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
     private class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView mAmount, mTitle, mRepetitions;
+        private TextView mTitle, mRepetitions, txtItemNr;
         private ImageView mImage;
         private Exercise mExercise;
 
         public ExerciseHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.row_item, parent, false));
+            super(inflater.inflate(R.layout.list_item_exercise, parent, false));
             itemView.setOnClickListener(this);
 
-            mAmount = itemView.findViewById(R.id.txtAmount);
             mTitle = itemView.findViewById(R.id.txtTitle);
             mImage = itemView.findViewById(R.id.imgView);
             mRepetitions = itemView.findViewById(R.id.txtRepetitions);
+            txtItemNr = itemView.findViewById(R.id.txtItemNr);
         }
 
-        public void bind(Exercise exercise) {
+        public void bind(Exercise exercise, int position) {
             mExercise = exercise;
-            mAmount.setText(mExercise.getAmount());
             mTitle.setText(mExercise.getTitle());
             mRepetitions.setText(mExercise.getRepetition());
             InputStream imageStream = itemView.getResources().openRawResource(R.raw.youtube_img);
             Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
             mImage.setImageBitmap(bitmap);
+            txtItemNr.setText((position + 1) + ".");
         }
 
         @Override
@@ -188,7 +197,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         @Override
         public void onBindViewHolder(ExerciseHolder holder, int position) {
             Exercise exercise = mExercises.get(position);
-            holder.bind(exercise);
+            holder.bind(exercise, position);
         }
 
         @Override

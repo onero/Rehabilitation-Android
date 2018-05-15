@@ -90,6 +90,7 @@ public class ProfileActivity extends AppCompatActivity
             case R.id.exercises:
                 Intent exerciseIntent = ExerciseListActivity.newIntent(this);
                 startActivity(exerciseIntent);
+                return true;
             case R.id.milestones:
                 Intent milestonesIntent = MilestoneListActivity.newIntent(this);
                 startActivity(milestonesIntent);
