@@ -2,11 +2,14 @@ package dk.adamino.rehabilitation.GUI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
@@ -14,8 +17,9 @@ import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
-public class ContactActivity extends AppCompatActivity {
+public class ContactActivity extends AppCompatActivity implements IActivity {
 
+    private TextView txtAddress;
     private FirebaseClientModel mFirebaseClientModel;
 
     @Override
@@ -73,5 +77,21 @@ public class ContactActivity extends AppCompatActivity {
     public static Intent newIntent(Context context) {
         Intent intent = new Intent(context, ContactActivity.class);
         return intent;
+    }
+
+    @Override
+    public void setupViews() {
+        txtAddress = findViewById(R.id.txtAddress);
+    }
+
+    /**
+     * Navigate to address
+     * @param view
+     */
+    public void onAddressClicked(View view) {
+        // TODO ALH: When more locations is a possibility, make the parsing dynamic!
+        Intent navigationIntent = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse("google.navigation:q=an+Finsensgade 35+Esbjerg"));
+        startActivity(navigationIntent);
     }
 }

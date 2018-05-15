@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Milestone;
@@ -57,7 +58,11 @@ public class VisitListActivity extends AppCompatActivity implements IActivity {
      * Instantiate visit data
      */
     private void instantiateData() {
-        List<Visit> visits = mMilestoneModel.getCurrentMileStone().visits;
+        List<Visit> visits = new ArrayList<>();
+        // Verify the milestone has visits
+        if (mMilestoneModel.getCurrentMileStone().visits != null) {
+            visits = mMilestoneModel.getCurrentMileStone().visits;
+        }
         if (!visits.isEmpty()) {
             // Hide no visits message
             mNoVisits.setVisibility(View.INVISIBLE);
