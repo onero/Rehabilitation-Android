@@ -40,7 +40,7 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         mExerciseModel = FirebaseExerciseModel.getInstance();
 
         // Load in the exercise info async.
-        mExerciseModel.loadExercisesAsync(this, );
+//        mExerciseModel.loadExercisesAsync();
 
     }
 
@@ -73,10 +73,10 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         }
     }
 
-    @Override
-    public void onExercisesResponse (){
-
-    }
+//    @Override
+//    public void onExercisesResponse (){
+//
+//    }
 
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
