@@ -22,6 +22,7 @@ import java.util.List;
 import dk.adamino.rehabilitation.BE.Milestone;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 import dk.adamino.rehabilitation.GUI.ContactActivity;
+import dk.adamino.rehabilitation.GUI.ExerciseListActivity;
 import dk.adamino.rehabilitation.GUI.IActivity;
 import dk.adamino.rehabilitation.GUI.LoginActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
@@ -64,7 +65,10 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
                 Intent profileIntent = ProfileActivity.newIntent(this);
                 startActivity(profileIntent);
                 return true;
-            // TODO ALH: Add Exercises case!
+            case R.id.exercises:
+                Intent exerciseIntent = ExerciseListActivity.newIntent(this);
+                startActivity(exerciseIntent);
+                return true;
             case R.id.contact:
                 Intent contactIntent = ContactActivity.newIntent(this);
                 startActivity(contactIntent);
@@ -127,9 +131,6 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
             mMilestoneAdapter.setMilestones(milestones);
             mMilestoneAdapter.notifyDataSetChanged();
         }
-
-        mMilestoneAdapter = new MilestoneAdapter(milestones);
-        mMilestoneRecyclerView.setAdapter(mMilestoneAdapter);
     }
 
     @Override

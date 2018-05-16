@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Milestone;
@@ -62,6 +63,7 @@ public class VisitListActivity extends AppCompatActivity implements IActivity {
         // Verify the milestone has visits
         if (mMilestoneModel.getCurrentMileStone().visits != null) {
             visits = mMilestoneModel.getCurrentMileStone().visits;
+            Collections.sort(visits);
         }
         if (!visits.isEmpty()) {
             // Hide no visits message
@@ -86,9 +88,6 @@ public class VisitListActivity extends AppCompatActivity implements IActivity {
             mVisitAdapter.setMilestones(visits);
             mVisitAdapter.notifyDataSetChanged();
         }
-
-        mVisitAdapter = new VisitAdapter(visits);
-        mVisitRecyclerView.setAdapter(mVisitAdapter);
     }
 
     /**

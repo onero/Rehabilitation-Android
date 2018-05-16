@@ -32,7 +32,7 @@ public class FirebaseClientModel {
     }
 
     /**
-     * Set the id of thecurrent logged in cluent
+     * Set the id of the current logged in client
      * @param currentClientUid
      */
     public void setCurrentClientUid(String currentClientUid) {
@@ -45,7 +45,7 @@ public class FirebaseClientModel {
      * @return
      */
     public void getClientMilestones(IFirestoreMilestoneCallback callback) {
-        mFirestoreDAO.getClientMilestones(mCurrentClientUid, callback);
+        mFirestoreDAO.getMilestonesByClientId(mCurrentClientUid, callback);
     }
 
     /**
@@ -70,6 +70,6 @@ public class FirebaseClientModel {
      * @param response
      */
     public void loadLoggedInClientAsync(IFirestoreClientCallback response) {
-        mFirestoreDAO.getClientByIdAsync(mCurrentClientUid, response);
+        mFirestoreDAO.getClientById(mCurrentClientUid, response);
     }
 }

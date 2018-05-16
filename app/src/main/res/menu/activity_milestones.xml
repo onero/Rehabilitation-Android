@@ -5,14 +5,14 @@
       android:layout_width="match_parent"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--<item-->
-    <!--android:id="@+id/exercises"-->
-    <!--app:showAsAction="withText|ifRoom"-->
-    <!--android:title="@string/exercises"/>-->
     <item
         android:id="@+id/profile"
         app:showAsAction="withText|always"
         android:title="@string/profile"/>
+    <item
+    android:id="@+id/exercises"
+    app:showAsAction="withText|always"
+    android:title="@string/exercises"/>
     <item
         android:id="@+id/contact"
         app:showAsAction="withText|always"
@@ -20,7 +20,7 @@
     <item
         android:id="@+id/signout"
         android:icon="@drawable/logout"
-        app:showAsAction="withText|always"
+        app:showAsAction="withText|ifRoom"
         android:title="@string/signout"/>
     <item
         android:id="@+id/settings"

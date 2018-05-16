@@ -43,8 +43,12 @@ public class ContactActivity extends AppCompatActivity implements IActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.profile:
-                Intent contactIntent = ProfileActivity.newIntent(this);
-                startActivity(contactIntent);
+                Intent profileIntent = ProfileActivity.newIntent(this);
+                startActivity(profileIntent);
+                return true;
+            case R.id.exercises:
+                Intent exerciseIntent = ExerciseListActivity.newIntent(this);
+                startActivity(exerciseIntent);
                 return true;
             case R.id.milestones:
                 Intent milestonesIntent = MilestoneListActivity.newIntent(this);

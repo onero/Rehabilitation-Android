@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/youtubeId"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GUI.YoutubeActivity"
+    android:orientation="vertical">
+
+    <!--Title-->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:id="@+id/txtTitle"
+        android:text="@string/title"
+        android:textSize="28dp"
+        android:textStyle="bold"/>
+
+    <!--YouTube Video Player-->
+    <fragment
+        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+        android:id="@+id/youtube_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        />
+
+    <!--Repetitions-->
+    <LinearLayout
+        android:layout_marginTop="8dp"
+        android:paddingLeft="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/repetitions"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtRepetitions"
+            android:text="@string/loading"/>
+    </LinearLayout>
+
+    <!--Description for the exercise-->
+    <LinearLayout
+        android:paddingLeft="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/description"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/txtExerciseDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loading"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

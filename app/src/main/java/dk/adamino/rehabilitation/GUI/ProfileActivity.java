@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -78,12 +79,15 @@ public class ProfileActivity extends AppCompatActivity
                 Intent contactIntent = ContactActivity.newIntent(this);
                 startActivity(contactIntent);
                 return true;
-            // TODO ALH: Add Exercises case!
             case R.id.signout:
                 mFirebaseClientModel.logout();
                 Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
+                return true;
+            case R.id.exercises:
+                Intent exerciseIntent = ExerciseListActivity.newIntent(this);
+                startActivity(exerciseIntent);
                 return true;
             case R.id.milestones:
                 Intent milestonesIntent = MilestoneListActivity.newIntent(this);

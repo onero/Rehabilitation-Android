@@ -1,5 +1,6 @@
 package dk.adamino.rehabilitation.DAL;
 
+import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 
@@ -8,16 +9,24 @@ import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
  */
 public interface IFirestore {
     /**
-     * Retrieve a client from Firestore
-     * @param uid
+     * Retrieve Exercises by clientId
+     * @param
      * @return Client
      */
-    void getClientByIdAsync(String uid, IFirestoreClientCallback firestoreCallback);
+    void getExercisesByClientId(String clientId, final IExerciseFirestoreCallback exerciseCallback);
+
+
+    /**
+     * Retrieve client by id
+     * @param uid
+     * @param firestoreCallback
+     */
+    void getClientById(String uid, IFirestoreClientCallback firestoreCallback);
 
     /**
      * Retrieve client milestones
      * @param currentClientUid
      * @param callback
      */
-    void getClientMilestones(String currentClientUid, IFirestoreMilestoneCallback callback);
+    void getMilestonesByClientId(String currentClientUid, IFirestoreMilestoneCallback callback);
 }
