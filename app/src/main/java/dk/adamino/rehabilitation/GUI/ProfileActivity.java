@@ -61,8 +61,6 @@ public class ProfileActivity extends AppCompatActivity
         // Rehabilitation Plan
         mDiagnosis.setText(loggedInClient.rehabilitationPlan.diagnosis);
         mGoal.setText(loggedInClient.rehabilitationPlan.goal);
-
-        Log.d("LoggedInClient", loggedInClient.rehabilitationPlan.exerciseIds.get(0));
     }
 
     @Override
