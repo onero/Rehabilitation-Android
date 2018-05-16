@@ -3,15 +3,15 @@ package dk.adamino.rehabilitation.GUI;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerView;
+import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,12 +20,11 @@ import dk.adamino.rehabilitation.BE.Exercise;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
-public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlayer.OnInitializedListener, IActivity{
+public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener, IActivity{
 
     public static final String TAG = "RehabYouTubeActivity";
     private static String API_KEY = "";
 
-    private YouTubePlayerView mYouTubePlayerView;
     private FirebaseExerciseModel mExerciseModel;
     private TextView mExerciseDescription, mRepetitions, mTitle;
 
@@ -34,11 +33,9 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_youtube);
 
-        setupViews();
-
         API_KEY = getString(R.string.youtube_api_key);
 
-        mYouTubePlayerView.initialize(API_KEY, this);
+        setupViews();
 
         mExerciseModel = FirebaseExerciseModel.getInstance();
 
@@ -53,10 +50,14 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
 
     @Override
     public void setupViews() {
-        mYouTubePlayerView = findViewById(R.id.youtube_player);
         mExerciseDescription = findViewById(R.id.txtExerciseDescription);
         mRepetitions = findViewById(R.id.txtRepetitions);
         mTitle = findViewById(R.id.txtTitle);
+
+        // Setup the Youtube Fragment
+        YouTubePlayerSupportFragment youTubePlayerSupportFragment = (YouTubePlayerSupportFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.youtube_fragment);
+        youTubePlayerSupportFragment.initialize(API_KEY, this);
     }
 
     private void setExerciseInfomation(Exercise exercise) {

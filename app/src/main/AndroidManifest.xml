@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-            android:name=".GUI.NotificationService"
+            <receiver android:name=".GUI.Utils.NotificationService"
             android:enabled="true" />
 
         <activity android:name=".GUI.ProfileActivity"></activity>
@@ -30,7 +30,10 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".GUI.YoutubeActivity"></activity>
+        <activity android:name=".GUI.YoutubeActivity"
+            android:parentActivityName=".GUI.ExerciseListActivity">
+
+        </activity>
         <activity android:name=".GUI.ExerciseListActivity"></activity>
         <activity
             android:name=".GUI.Settings.SettingsActivity"
