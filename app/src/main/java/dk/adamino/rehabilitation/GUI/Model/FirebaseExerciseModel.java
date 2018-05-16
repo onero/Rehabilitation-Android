@@ -37,7 +37,7 @@ public class FirebaseExerciseModel {
 
     public void loadExercisesAsync(IExerciseFirestoreCallback callback, List<String> exerciseIds) {
         for (String exerciseId: exerciseIds) {
-            mFirestoreDAO.getExercisesById(exerciseId, callback);
+            mFirestoreDAO.getExercisesByClientId(exerciseId, callback);
         }
     }
 

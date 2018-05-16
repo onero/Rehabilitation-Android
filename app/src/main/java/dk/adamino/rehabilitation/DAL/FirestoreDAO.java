@@ -1,7 +1,5 @@
 package dk.adamino.rehabilitation.DAL;
 
-import android.util.Log;
-
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -40,7 +38,7 @@ public class FirestoreDAO implements IFirestore {
     private CollectionReference mMilestoneCollection = mFirestore.collection(MILESTONE_COLLECTION);
 
     @Override
-    public void getClientByIdAsync(String clientUID, final IFirestoreClientCallback firestoreCallback) {
+    public void getClientById(String clientUID, final IFirestoreClientCallback firestoreCallback) {
         DocumentReference docRef = mClientCollection.document(clientUID);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -54,7 +52,7 @@ public class FirestoreDAO implements IFirestore {
     }
 
     @Override
-    public void getExercisesById(String exerciseId, final IExerciseFirestoreCallback exerciseCallback) {
+    public void getExercisesByClientId(String exerciseId, final IExerciseFirestoreCallback exerciseCallback) {
         DocumentReference docRef = mExerciseCollection.document(exerciseId);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
@@ -67,18 +65,14 @@ public class FirestoreDAO implements IFirestore {
         });
     }
 
-    public void getClientMilestones(String currentClientUid, final IFirestoreMilestoneCallback callback) {
+    @Override
+    public void getMilestonesByClientId(String currentClientUid, final IFirestoreMilestoneCallback callback) {
         mMilestoneCollection
                 .whereEqualTo("clientUid", currentClientUid)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value,
                                         @Nullable FirebaseFirestoreException e) {
-                        if (e != null) {
-                            Log.w(TAG, "Listen failed.", e);
-                            return;
-                        }
-
                         List<Milestone> milestones = new ArrayList<>();
                         for (QueryDocumentSnapshot document : value) {
                             if (document != null) {
