@@ -1,5 +1,7 @@
 package dk.adamino.rehabilitation.BE;
 
+import android.support.annotation.NonNull;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -7,7 +9,7 @@ import java.util.Locale;
 /**
  * Created by Adamino.
  */
-public class Visit {
+public class Visit implements Comparable<Visit> {
     public String uid;
     public Date date;
     public String note;
@@ -20,5 +22,11 @@ public class Visit {
 
     public String getDate() {
         return mSimpleDateFormat.format(date);
+    }
+
+    @Override
+    public int compareTo(@NonNull Visit o) {
+        // Sort by newest date first
+        return o.date.compareTo(date);
     }
 }

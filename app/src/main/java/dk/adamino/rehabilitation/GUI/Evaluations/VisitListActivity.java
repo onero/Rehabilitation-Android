@@ -63,6 +63,7 @@ public class VisitListActivity extends AppCompatActivity implements IActivity {
         // Verify the milestone has visits
         if (mMilestoneModel.getCurrentMileStone().visits != null) {
             visits = mMilestoneModel.getCurrentMileStone().visits;
+            Collections.sort(visits);
         }
         if (!visits.isEmpty()) {
             // Hide no visits message
