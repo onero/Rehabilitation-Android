@@ -50,17 +50,22 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
         setupViews();
 
+        // Gets the logged in client to get the exercises merged to the client.
         mFirebaseClientModel = FirebaseClientModel.getInstance();
-        mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
-
         mFirebaseClientModel.loadLoggedInClientAsync(this);
 
         mExercises = new ArrayList<>();
 
+        mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
         List<Exercise> exercises = mFirebaseExerciseModel.getExercises();
         updateUI(exercises);
     }
 
+    /**
+     * Menu bar.
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -115,7 +120,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     }
 
     /**
-     * Create Intent to navigate to this activity
+     * Create Intent to navigate to this activity.
      *
      * @param context
      * @return
@@ -125,12 +130,20 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         return intent;
     }
 
+    /**
+     * The client found in Firestore.
+     * @param clientFound
+     */
     @Override
     public void onClientResponse(Client clientFound) {
         Log.d("UpdateUI", "ClientResponse");
         mFirebaseExerciseModel.loadExercisesAsync(this, clientFound.rehabilitationPlan.exerciseIds);
     }
 
+    /**
+     * The exercises found in Firestore.
+     * @param exerciseFound
+     */
     @Override
     public void onExerciseResponse(Exercise exerciseFound) {
         // Check if exercise is already in list
@@ -158,6 +171,9 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     }
 
 
+    /**
+     * Holder for the RecyclerView.
+     */
     private class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView mTitle, mRepetitions, txtItemNr;
@@ -174,6 +190,11 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
             txtItemNr = itemView.findViewById(R.id.txtItemNr);
         }
 
+        /**
+         * Sets the text in each bind.
+         * @param exercise
+         * @param position
+         */
         public void bind(Exercise exercise, int position) {
             mExercise = exercise;
             mTitle.setText(mExercise.getTitle());
@@ -184,6 +205,11 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
             txtItemNr.setText((position + 1) + ".");
         }
 
+        /**
+         * When clicking on a certain exercise we change the activity to YoutubeActivity with the
+         * exercise.
+         * @param v
+         */
         @Override
         public void onClick(View v) {
             Context context = v.getContext();
@@ -193,6 +219,9 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     }
 
 
+    /**
+     * ExerciseRecyclerViewAdapter
+     */
     private class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseHolder> {
         private List<Exercise> mExercises;
 
@@ -200,23 +229,44 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
             mExercises = exercises;
         }
 
+        /**
+         * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to
+         * represent an item.
+         * @param parent
+         * @param viewType
+         * @return
+         */
         @Override
         public ExerciseHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
             return new ExerciseHolder(layoutInflater, parent);
         }
 
+        /**
+         * Called by RecyclerView to display the data at the specified position.
+         * This method should update the contents of the itemView to reflect the item at the given position.
+         * @param holder
+         * @param position
+         */
         @Override
         public void onBindViewHolder(ExerciseHolder holder, int position) {
             Exercise exercise = mExercises.get(position);
             holder.bind(exercise, position);
         }
 
+        /**
+         * Returns the total number of items in the data set held by the adapter.
+         * @return
+         */
         @Override
         public int getItemCount() {
             return mExercises.size();
         }
 
+        /**
+         * Sets the exercises in the adapter.
+         * @param exercises
+         */
         public void setExercises(List<Exercise> exercises) {
             mExercises = exercises;
         }

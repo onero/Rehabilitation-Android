@@ -42,6 +42,7 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
 
         mExerciseModel = FirebaseExerciseModel.getInstance();
 
+        // If current exercise != null, set the info.
         if (mExerciseModel.getCurrentExercise() != null) {
             setExerciseInfomation(mExerciseModel.getCurrentExercise());
         } else {
@@ -65,6 +66,12 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
         mExerciseDescription.setText(exercise.description);
     }
 
+    /**
+     * Called when initialization of the player succeeds.
+     * @param provider
+     * @param youTubePlayer
+     * @param wasRestored
+     */
     @Override
     public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
 
@@ -122,67 +129,74 @@ public class YoutubeActivity extends YouTubeBaseActivity implements YouTubePlaye
     }
 
 
+    /**
+     * If the initialization fails the Toast gives the user a nice UX by displaying the failure.
+     * @param provider
+     * @param youTubeInitializationResult
+     */
     @Override
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
         Toast.makeText(this, "FAILED TO INITIALIZE", Toast.LENGTH_SHORT).show();
     }
 
+    // Interface definition for callbacks that are invoked when video playback events occur.
     private YouTubePlayer.PlaybackEventListener mPlaybackEventListener = new YouTubePlayer.PlaybackEventListener() {
         @Override
         public void onPlaying() {
-
+        // Called when playback starts, either due to play() or user action.
         }
 
         @Override
         public void onPaused() {
-
+        // Called when playback is paused, either due to pause() or user action.
         }
 
         @Override
         public void onStopped() {
-
+        // Called when playback stops for a reason other than being paused, such as the video ending or a playback error.
         }
 
         @Override
         public void onBuffering(boolean b) {
-
+        // Called when buffering starts or ends.
         }
 
         @Override
         public void onSeekTo(int i) {
-
+        // Called when a jump in playback position occurs, either due to the user scrubbing or a seek method being called (e.g.)
         }
     };
 
+    // Interface definition for callbacks that are invoked when the high-level player state changes.
     private YouTubePlayer.PlayerStateChangeListener mPlayerStateChangeListener = new YouTubePlayer.PlayerStateChangeListener() {
         @Override
         public void onLoading() {
-
+        // Called when the player begins loading a video and is not ready to accept commands affecting playback (such as play() or pause()).
         }
 
         @Override
         public void onLoaded(String s) {
-
+        // Called when a video has finished loading.
         }
 
         @Override
         public void onAdStarted() {
-
+        // Called when playback of an advertisement starts.
         }
 
         @Override
         public void onVideoStarted() {
-
+        // Called when the video reaches its end.
         }
 
         @Override
         public void onVideoEnded() {
-
+        // Called when playback of the video starts.
         }
 
         @Override
         public void onError(YouTubePlayer.ErrorReason errorReason) {
-
+        // Called when an error occurs.
         }
     };
 
