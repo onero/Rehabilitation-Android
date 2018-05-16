@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,13 +12,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dk.adamino.rehabilitation.BE.Client;
-import dk.adamino.rehabilitation.Callbacks.IFirestoreCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
+import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
 public class ProfileActivity extends AppCompatActivity
-        implements IFirestoreCallback, IActivity {
+        implements IFirestoreClientCallback, IActivity {
     public static final String TAG = "GUI";
 
     private TextView mName, mPhone, mEmail, mDiagnosis, mGoal;
@@ -82,6 +84,14 @@ public class ProfileActivity extends AppCompatActivity
                 Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();
                 Intent logoutIntent = LoginActivity.newIntent(this);
                 startActivity(logoutIntent);
+                return true;
+            case R.id.exercises:
+                Intent exerciseIntent = ExerciseListActivity.newIntent(this);
+                startActivity(exerciseIntent);
+                return true;
+            case R.id.milestones:
+                Intent milestonesIntent = MilestoneListActivity.newIntent(this);
+                startActivity(milestonesIntent);
                 return true;
             case R.id.settings:
                 startActivity(new Intent(SettingsActivity.newIntent(this)));

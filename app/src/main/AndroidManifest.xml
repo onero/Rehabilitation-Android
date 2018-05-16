@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="dk.adamino.rehabilitation">
+    package="dk.adamino.rehabilitation">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.READ_PROFILE"/>
-    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,25 +15,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <receiver
-            android:name=".GUI.Utils.NotificationService"
-            android:enabled="true"/>
 
-        <activity android:name=".GUI.ProfileActivity">
-        </activity>
-        <activity android:name=".GUI.ContactActivity">
-        </activity>
+            <receiver android:name=".GUI.Utils.NotificationService"
+            android:enabled="true" />
+
+        <activity android:name=".GUI.ProfileActivity"></activity>
+        <activity android:name=".GUI.ContactActivity"></activity>
         <activity android:name=".GUI.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+        <activity android:name=".GUI.YoutubeActivity"
+            android:parentActivityName=".GUI.ExerciseListActivity">
+
+        </activity>
+        <activity android:name=".GUI.ExerciseListActivity"></activity>
         <activity
             android:name=".GUI.Settings.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".GUI.ProfileActivity">
+        </activity>
+        <activity
+            android:name=".GUI.Evaluations.MilestoneListActivity"
+            android:label="@string/milestones">
+        </activity>
+        <activity
+            android:name=".GUI.Evaluations.VisitListActivity"
+            android:label="@string/visits"
+            android:parentActivityName=".GUI.Evaluations.MilestoneListActivity">
+        </activity>
+        <activity
+            android:name=".GUI.Evaluations.EvaluationDetailActivity"
+            android:label="@string/evaluation_detail"
+            android:parentActivityName=".GUI.Evaluations.MilestoneListActivity">
         </activity>
     </application>
 

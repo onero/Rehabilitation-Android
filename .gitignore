@@ -179,7 +179,11 @@ fabric.properties
 *.tar.gz
 *.rar
 
+# Extern Libraries
+!/app/libs/YouTubeAndroidPlayerApi.jar
+
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 
 
 # End of https://www.gitignore.io/api/java,android,androidstudio
+app/src/main/res/values/secrets.xml
