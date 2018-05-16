@@ -136,7 +136,6 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
      */
     @Override
     public void onClientResponse(Client clientFound) {
-        Log.d("UpdateUI", "ClientResponse");
         mFirebaseExerciseModel.loadExercisesAsync(this, clientFound.rehabilitationPlan.exerciseIds);
     }
 
