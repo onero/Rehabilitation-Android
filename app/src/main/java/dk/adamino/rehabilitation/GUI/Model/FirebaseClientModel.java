@@ -32,7 +32,7 @@ public class FirebaseClientModel {
     }
 
     /**
-     * Set the id of thecurrent logged in cluent
+     * Set the id of the current logged in client
      * @param currentClientUid
      */
     public void setCurrentClientUid(String currentClientUid) {

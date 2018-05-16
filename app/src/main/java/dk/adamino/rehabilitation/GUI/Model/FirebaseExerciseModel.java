@@ -35,16 +35,29 @@ public class FirebaseExerciseModel {
         mExercises = info;
     }
 
+    /**
+     * Loads in the exercises async.
+     * @param callback
+     * @param exerciseIds
+     */
     public void loadExercisesAsync(IExerciseFirestoreCallback callback, List<String> exerciseIds) {
         for (String exerciseId: exerciseIds) {
             mFirestoreDAO.getExercisesByClientId(exerciseId, callback);
         }
     }
 
+    /**
+     * Get the current exercise.
+     * @return
+     */
     public Exercise getCurrentExercise() {
         return mCurrentExercise;
     }
 
+    /**
+     * Sets the current exercise.
+     * @param currentExercise
+     */
     public void setCurrentExercise(Exercise currentExercise) {
         mCurrentExercise = currentExercise;
     }
