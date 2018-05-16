@@ -37,6 +37,11 @@ public class FirestoreDAO implements IFirestore {
     private CollectionReference mExerciseCollection = mFirestore.collection(EXERCISES_COLLECTION);
     private CollectionReference mMilestoneCollection = mFirestore.collection(MILESTONE_COLLECTION);
 
+    /**
+     * Gets the client by the Id.
+     * @param clientUID
+     * @param firestoreCallback
+     */
     @Override
     public void getClientById(String clientUID, final IFirestoreClientCallback firestoreCallback) {
         DocumentReference docRef = mClientCollection.document(clientUID);
@@ -51,6 +56,11 @@ public class FirestoreDAO implements IFirestore {
         });
     }
 
+    /**
+     * Gets the exercise from the clients Id.
+     * @param exerciseId
+     * @param exerciseCallback
+     */
     @Override
     public void getExercisesByClientId(String exerciseId, final IExerciseFirestoreCallback exerciseCallback) {
         DocumentReference docRef = mExerciseCollection.document(exerciseId);
@@ -65,6 +75,11 @@ public class FirestoreDAO implements IFirestore {
         });
     }
 
+    /**
+     * Gets the milestone from the clients Id.
+     * @param currentClientUid
+     * @param callback
+     */
     @Override
     public void getMilestonesByClientId(String currentClientUid, final IFirestoreMilestoneCallback callback) {
         mMilestoneCollection
