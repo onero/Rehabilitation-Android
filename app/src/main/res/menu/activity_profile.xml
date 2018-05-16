@@ -7,7 +7,7 @@
 
     <item
         android:id="@+id/exercises"
-        app:showAsAction="withText|ifRoom"
+        app:showAsAction="withText|always"
         android:title="@string/exercises"/>
     <item
         android:id="@+id/milestones"
@@ -20,7 +20,7 @@
     <item
         android:id="@+id/signout"
         android:icon="@drawable/logout"
-        app:showAsAction="withText|always"
+        app:showAsAction="withText|ifRoom"
         android:title="@string/signout"/>
     <item
         android:id="@+id/settings"

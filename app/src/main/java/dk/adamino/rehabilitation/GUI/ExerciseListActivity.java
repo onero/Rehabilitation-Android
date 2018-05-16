@@ -18,9 +18,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.BE.Exercise;
 import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
@@ -31,7 +33,7 @@ import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
-public class ExerciseListActivity extends AppCompatActivity implements IActivity, IFirestoreClientCallback, IExerciseFirestoreCallback{
+public class ExerciseListActivity extends AppCompatActivity implements IActivity, IFirestoreClientCallback, IExerciseFirestoreCallback {
 
     private FirebaseExerciseModel mFirebaseExerciseModel;
     private FirebaseClientModel mFirebaseClientModel;
@@ -110,13 +112,11 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
             mExerciseAdapter.setExercises(exercises);
             mExerciseAdapter.notifyDataSetChanged();
         }
-
-        mExerciseAdapter = new ExerciseRecyclerViewAdapter(exercises);
-        mExerciseRecyclerView.setAdapter(mExerciseAdapter);
     }
 
     /**
      * Create Intent to navigate to this activity
+     *
      * @param context
      * @return
      */
@@ -133,10 +133,21 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
     @Override
     public void onExerciseResponse(Exercise exerciseFound) {
-        Log.d("UpdateUI", exerciseFound.title);
-        if (!mExercises.contains(exerciseFound)) {
-            mExercises.add(exerciseFound);
+        // Check if exercise is already in list
+        for (Exercise exercise :
+                mExercises) {
+            if (exercise.uid.equals(exerciseFound.uid)) {
+                // If exercise is already present, update it
+                exercise.title = exerciseFound.title;
+                exercise.description = exerciseFound.description;
+                exercise.repetition = exerciseFound.repetition;
+                exercise.videoUrl = exerciseFound.videoUrl;
+                updateUI(mExercises);
+                // Stop checking
+                return;
+            }
         }
+        mExercises.add(exerciseFound);
         updateUI(mExercises);
     }
 
@@ -145,9 +156,6 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         mExerciseRecyclerView = findViewById(R.id.recycler);
         mExerciseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
-
-
 
 
     private class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -183,9 +191,6 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
             context.startActivity(intent);
         }
     }
-
-
-
 
 
     private class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseHolder> {
