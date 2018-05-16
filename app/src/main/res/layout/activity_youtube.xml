@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/youtubeId"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".GUI.YoutubeActivity">
+    tools:context=".GUI.YoutubeActivity"
+    android:orientation="vertical">
 
     <!--Title-->
     <TextView
@@ -13,7 +15,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:id="@+id/txtTitle"
-        android:text="Title"
+        android:text="@string/title"
         android:textSize="28dp"
         android:textStyle="bold"/>
 
@@ -39,14 +41,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Repetitions: "
+            android:text="@string/repetitions"
             android:textStyle="bold"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtRepetitions"
-            android:text="Loading..."/>
+            android:text="@string/loading"/>
     </LinearLayout>
 
     <!--Description for the exercise-->
@@ -60,14 +62,14 @@
             android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Description: "
+            android:text="@string/description"
             android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/txtExerciseDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Loading..."/>
+            android:text="@string/loading"/>
     </LinearLayout>
 
 
