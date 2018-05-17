@@ -51,7 +51,6 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         // Create reference to model
         mFirebaseClientModel = FirebaseClientModel.getInstance();
 
-        // TODO ALH: Move to ExerciseActivity, when it is implemented!
         // Cancel any notification
         NotificationService.cancelNotification();
         // Check if user want's daily notifications
@@ -141,8 +140,8 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
      * @param email
      * @return
      */
+    // TODO ALH: Refactor to BLL
     private boolean isEmailValid(String email) {
-        // TODO ALH: Improve logic
         return email.contains("@");
     }
 

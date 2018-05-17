@@ -94,6 +94,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
      * @param youtubeUrl
      * @return
      */
+    // TODO ALH: Refactor to BLL! UnitTest?
     private static String getYoutubeID(String youtubeUrl) {
 
         if (TextUtils.isEmpty(youtubeUrl)) {

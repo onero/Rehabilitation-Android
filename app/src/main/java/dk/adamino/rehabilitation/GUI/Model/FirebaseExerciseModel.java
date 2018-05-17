@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Exercise;
-import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreExerciseCallback;
 import dk.adamino.rehabilitation.DAL.FirestoreDAO;
 
 public class FirebaseExerciseModel {
@@ -40,7 +40,8 @@ public class FirebaseExerciseModel {
      * @param callback
      * @param exerciseIds
      */
-    public void loadExercisesAsync(IExerciseFirestoreCallback callback, List<String> exerciseIds) {
+    public void loadExercisesAsync(IFirestoreExerciseCallback callback, List<String> exerciseIds) {
+        // TODO ALH: Fix this "%"%#
         for (String exerciseId: exerciseIds) {
             mFirestoreDAO.getExercisesByClientId(exerciseId, callback);
         }

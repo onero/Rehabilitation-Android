@@ -1,6 +1,6 @@
 package dk.adamino.rehabilitation.DAL;
 
-import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreExerciseCallback;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 
@@ -13,7 +13,7 @@ public interface IFirestore {
      * @param
      * @return Client
      */
-    void getExercisesByClientId(String clientId, final IExerciseFirestoreCallback exerciseCallback);
+    void getExercisesByClientId(String clientId, final IFirestoreExerciseCallback exerciseCallback);
 
 
     /**
