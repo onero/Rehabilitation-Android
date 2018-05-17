@@ -19,7 +19,7 @@
     <!-- A 'parent' preference, which enables/disables child preferences (below)
          when checked/unchecked. -->
 
-    <!--TODO ALH: Entire section left for inspiration with new exercise notifications!-->
+    <!--Entire section left for inspiration with new exercise notifications!-->
     <!--<SwitchPreference-->
         <!--android:defaultValue="true"-->
         <!--android:key="notifications_new_message"-->

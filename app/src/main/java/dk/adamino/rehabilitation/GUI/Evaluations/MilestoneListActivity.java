@@ -51,7 +51,6 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        // TODO ALH: Create menu for MiletoneList
         inflater.inflate(R.menu.activity_milestones, menu);
         // Hide menu title (Takes up too much space!)
         getSupportActionBar().setDisplayShowTitleEnabled(false);

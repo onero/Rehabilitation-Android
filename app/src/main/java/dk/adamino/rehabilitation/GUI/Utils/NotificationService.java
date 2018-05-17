@@ -78,7 +78,6 @@ public class NotificationService extends BroadcastReceiver {
      * @param context
      */
     private void setupNotifications(Context context) {
-        // TODO ALH: Refactor to select activity based on if client is already logged in
         Intent loginActivity = LoginActivity.newIntent(context);
         // Create pending activity, which is a activity that can be called from a notification
         PendingIntent loginPendingIntent = PendingIntent.getActivity(

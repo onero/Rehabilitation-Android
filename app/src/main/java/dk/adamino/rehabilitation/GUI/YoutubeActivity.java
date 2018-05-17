@@ -41,7 +41,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
 
         // If current exercise != null, set the info.
         if (mExerciseModel.getCurrentExercise() != null) {
-            setExerciseInfomation(mExerciseModel.getCurrentExercise());
+            setExerciseInformation(mExerciseModel.getCurrentExercise());
         } else {
             Log.e(TAG, "Current exercise wasn't set");
         }
@@ -60,7 +60,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         youTubePlayerSupportFragment.initialize(API_KEY, this);
     }
 
-    private void setExerciseInfomation(Exercise exercise) {
+    private void setExerciseInformation(Exercise exercise) {
         // Exercise information
         mTitle.setText(exercise.title);
         mRepetitions.setText(exercise.repetition);
@@ -94,6 +94,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
      * @param youtubeUrl
      * @return
      */
+    // TODO ALH: Refactor to BLL! UnitTest?
     private static String getYoutubeID(String youtubeUrl) {
 
         if (TextUtils.isEmpty(youtubeUrl)) {
