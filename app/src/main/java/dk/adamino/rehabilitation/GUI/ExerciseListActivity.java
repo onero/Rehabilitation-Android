@@ -32,7 +32,8 @@ import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
-public class ExerciseListActivity extends AppCompatActivity implements IActivity, IFirestoreClientCallback, IExerciseFirestoreCallback {
+public class ExerciseListActivity extends AppCompatActivity
+        implements IActivity, IFirestoreClientCallback, IFirestoreExerciseCallback {
 
     private FirebaseExerciseModel mFirebaseExerciseModel;
     private FirebaseClientModel mFirebaseClientModel;
