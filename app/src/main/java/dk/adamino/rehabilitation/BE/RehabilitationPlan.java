@@ -9,5 +9,6 @@ public class RehabilitationPlan {
     public String diagnosis;
     public String goal;
     public List<String> exerciseIds;
+    public List<Exercise> exercises;
     public List<Milestone> mMilestones;
 }

@@ -33,7 +33,9 @@ import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
-public class ExerciseListActivity extends AppCompatActivity implements IActivity, IFirestoreClientCallback, IExerciseFirestoreCallback {
+public class ExerciseListActivity extends AppCompatActivity implements IActivity, IFirestoreClientCallback {
+
+    private static final String TAG = "ExerciseListActivity";
 
     private FirebaseExerciseModel mFirebaseExerciseModel;
     private FirebaseClientModel mFirebaseClientModel;
@@ -63,6 +65,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
     /**
      * Menu bar.
+     *
      * @param item
      * @return
      */
@@ -132,35 +135,36 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
     /**
      * The client found in Firestore.
+     *
      * @param clientFound
      */
     @Override
     public void onClientResponse(Client clientFound) {
-        mFirebaseExerciseModel.loadExercisesAsync(this, clientFound.rehabilitationPlan.exerciseIds);
+        List<Exercise> exercisesFromClient = clientFound.rehabilitationPlan.exercises;
+        for (Exercise exerciseFromClient : exercisesFromClient) {
+            // If the list is empty, it should always add the exercise to the list.
+            if (mExercises.size() == 0) {
+                mExercises.add(exerciseFromClient);
+            } else {
+                updateExerciseList(exerciseFromClient);
+            }
+        }
+        updateUI(mExercises);
     }
 
     /**
-     * The exercises found in Firestore.
-     * @param exerciseFound
+     * Updates the list depending on whether or not the exercise found on the client
+     * is already in the list.
+     * @param exerciseFromClient
      */
-    @Override
-    public void onExerciseResponse(Exercise exerciseFound) {
-        // Check if exercise is already in list
-        for (Exercise exercise :
-                mExercises) {
-            if (exercise.uid.equals(exerciseFound.uid)) {
-                // If exercise is already present, update it
-                exercise.title = exerciseFound.title;
-                exercise.description = exerciseFound.description;
-                exercise.repetition = exerciseFound.repetition;
-                exercise.videoUrl = exerciseFound.videoUrl;
-                updateUI(mExercises);
-                // Stop checking
-                return;
+    private void updateExerciseList(Exercise exerciseFromClient) {
+        for (Exercise exercise : mExercises) {
+            if (!exerciseFromClient.uid.equals(exercise.uid)) {
+                mExercises.add(exerciseFromClient);
+            } else {
+                exercise.title = exerciseFromClient.title;
             }
         }
-        mExercises.add(exerciseFound);
-        updateUI(mExercises);
     }
 
     @Override
@@ -175,7 +179,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
      */
     private class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView mTitle, mRepetitions, txtItemNr;
+        private TextView mTitle, txtItemNr;
         private ImageView mImage;
         private Exercise mExercise;
 
@@ -185,19 +189,18 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
             mTitle = itemView.findViewById(R.id.txtTitle);
             mImage = itemView.findViewById(R.id.imgView);
-            mRepetitions = itemView.findViewById(R.id.txtRepetitions);
             txtItemNr = itemView.findViewById(R.id.txtItemNr);
         }
 
         /**
          * Sets the text in each bind.
+         *
          * @param exercise
          * @param position
          */
         public void bind(Exercise exercise, int position) {
             mExercise = exercise;
             mTitle.setText(mExercise.getTitle());
-            mRepetitions.setText(mExercise.getRepetition());
             InputStream imageStream = itemView.getResources().openRawResource(R.raw.youtube_img);
             Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
             mImage.setImageBitmap(bitmap);
@@ -207,6 +210,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         /**
          * When clicking on a certain exercise we change the activity to YoutubeActivity with the
          * exercise.
+         *
          * @param v
          */
         @Override
@@ -231,6 +235,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         /**
          * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to
          * represent an item.
+         *
          * @param parent
          * @param viewType
          * @return
@@ -244,6 +249,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         /**
          * Called by RecyclerView to display the data at the specified position.
          * This method should update the contents of the itemView to reflect the item at the given position.
+         *
          * @param holder
          * @param position
          */
@@ -255,6 +261,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
         /**
          * Returns the total number of items in the data set held by the adapter.
+         *
          * @return
          */
         @Override
@@ -264,6 +271,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
         /**
          * Sets the exercises in the adapter.
+         *
          * @param exercises
          */
         public void setExercises(List<Exercise> exercises) {
