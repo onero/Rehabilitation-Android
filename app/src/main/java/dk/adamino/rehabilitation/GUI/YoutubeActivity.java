@@ -17,10 +17,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dk.adamino.rehabilitation.BE.Exercise;
+import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
-public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener, IActivity{
+public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener, IExerciseFirestoreCallback, IActivity{
 
     public static final String TAG = "RehabYouTubeActivity";
     private static String API_KEY = "";
@@ -38,13 +39,14 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         setupViews();
 
         mExerciseModel = FirebaseExerciseModel.getInstance();
+        mExerciseModel.loadCurrentExerciseAsync(this);
 
         // If current exercise != null, set the info.
-        if (mExerciseModel.getCurrentExercise() != null) {
-            setExerciseInfomation(mExerciseModel.getCurrentExercise());
-        } else {
-            Log.e(TAG, "Current exercise wasn't set");
-        }
+//        if (mExerciseModel.getCurrentExercise() != null) {
+//            setExerciseInfomation(mExerciseModel.getCurrentExercise());
+//        } else {
+//            Log.e(TAG, "Current exercise wasn't set");
+//        }
 
     }
 
@@ -211,5 +213,10 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         Intent intent = new Intent(context, YoutubeActivity.class);
         FirebaseExerciseModel.getInstance().setCurrentExercise(currentExercise);
         return intent;
+    }
+
+    @Override
+    public void onExerciseResponse(Exercise exerciseFound) {
+        setExerciseInfomation(exerciseFound);
     }
 }

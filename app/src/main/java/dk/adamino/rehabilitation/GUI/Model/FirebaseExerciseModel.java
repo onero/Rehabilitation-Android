@@ -61,4 +61,8 @@ public class FirebaseExerciseModel {
     public void setCurrentExercise(Exercise currentExercise) {
         mCurrentExercise = currentExercise;
     }
+
+    public void loadCurrentExerciseAsync(IExerciseFirestoreCallback callback) {
+        mFirestoreDAO.getExercisesByClientId(mCurrentExercise.uid, callback);
+    }
 }
