@@ -140,31 +140,8 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
      */
     @Override
     public void onClientResponse(Client clientFound) {
-        List<Exercise> exercisesFromClient = clientFound.rehabilitationPlan.exercises;
-        for (Exercise exerciseFromClient : exercisesFromClient) {
-            // If the list is empty, it should always add the exercise to the list.
-            if (mExercises.size() == 0) {
-                mExercises.add(exerciseFromClient);
-            } else {
-                updateExerciseList(exerciseFromClient);
-            }
-        }
+        mExercises = clientFound.rehabilitationPlan.exercises;
         updateUI(mExercises);
-    }
-
-    /**
-     * Updates the list depending on whether or not the exercise found on the client
-     * is already in the list.
-     * @param exerciseFromClient
-     */
-    private void updateExerciseList(Exercise exerciseFromClient) {
-        for (Exercise exercise : mExercises) {
-            if (!exerciseFromClient.uid.equals(exercise.uid)) {
-                mExercises.add(exerciseFromClient);
-            } else {
-                exercise.title = exerciseFromClient.title;
-            }
-        }
     }
 
     @Override
