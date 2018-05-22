@@ -17,11 +17,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import dk.adamino.rehabilitation.BE.Exercise;
-import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreExerciseCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
-public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener, IExerciseFirestoreCallback, IActivity{
+public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener, IFirestoreExerciseCallback, IActivity{
 
     public static final String TAG = "RehabYouTubeActivity";
     private static String API_KEY = "";
@@ -41,12 +41,12 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         mExerciseModel = FirebaseExerciseModel.getInstance();
         mExerciseModel.loadCurrentExerciseAsync(this);
 
-        // If current exercise != null, set the info.
-//        if (mExerciseModel.getCurrentExercise() != null) {
-//            setExerciseInfomation(mExerciseModel.getCurrentExercise());
-//        } else {
-//            Log.e(TAG, "Current exercise wasn't set");
-//        }
+        if (mExerciseModel.getCurrentExercise() != null) {
+            setExerciseInformation(mExerciseModel.getCurrentExercise());
+        } else {
+            Log.e(TAG, "Current exercise wasn't set");
+        }
+
 
     }
 
@@ -62,7 +62,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         youTubePlayerSupportFragment.initialize(API_KEY, this);
     }
 
-    private void setExerciseInfomation(Exercise exercise) {
+    private void setExerciseInformation(Exercise exercise) {
         // Exercise information
         mTitle.setText(exercise.title);
         mRepetitions.setText(exercise.repetition);
@@ -96,6 +96,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
      * @param youtubeUrl
      * @return
      */
+    // TODO ALH: Refactor to BLL! UnitTest?
     private static String getYoutubeID(String youtubeUrl) {
 
         if (TextUtils.isEmpty(youtubeUrl)) {
@@ -217,6 +218,6 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
 
     @Override
     public void onExerciseResponse(Exercise exerciseFound) {
-        setExerciseInfomation(exerciseFound);
+        setExerciseInformation(exerciseFound);
     }
 }

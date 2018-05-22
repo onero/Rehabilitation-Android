@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.BE.Exercise;
 import dk.adamino.rehabilitation.BE.Milestone;
-import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreExerciseCallback;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 
@@ -62,7 +62,7 @@ public class FirestoreDAO implements IFirestore {
      * @param exerciseCallback
      */
     @Override
-    public void getExercisesByClientId(String exerciseId, final IExerciseFirestoreCallback exerciseCallback) {
+    public void getExercisesByClientId(String exerciseId, final IFirestoreExerciseCallback exerciseCallback) {
         DocumentReference docRef = mExerciseCollection.document(exerciseId);
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
