@@ -41,6 +41,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        setBackgroundColor(getResources().getColor(R.color.background));
         super.onCreate(savedInstanceState);
     }
 
