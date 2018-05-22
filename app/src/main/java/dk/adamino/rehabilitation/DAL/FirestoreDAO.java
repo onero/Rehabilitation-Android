@@ -26,6 +26,15 @@ import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
  */
 public class FirestoreDAO implements IFirestore {
 
+    private static FirestoreDAO sInstance;
+
+    public static FirestoreDAO getInstance() {
+        if (sInstance == null) {
+            sInstance = new FirestoreDAO();
+        }
+        return sInstance;
+    }
+
     private static final String TAG = "RehabDAL";
     private static String CLIENTS_COLLECTION = "Clients";
     private static String EXERCISES_COLLECTION = "Exercises";
