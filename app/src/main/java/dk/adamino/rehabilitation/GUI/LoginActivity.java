@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import dk.adamino.rehabilitation.BLL.LoginManager;
 import dk.adamino.rehabilitation.Callbacks.IFirebaseAuthenticationCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.GUI.Utils.AlarmService;
@@ -128,32 +129,11 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String emailString = mEmailView.getText().toString();
         String passwordString = mPasswordView.getText().toString();
 
-        if (emailString.equals("") || passwordString.equals("") || !isPasswordValid(passwordString)) {
+        if (emailString.equals("") || passwordString.equals("") || !LoginManager.isPasswordValid(passwordString)) {
             mEmailSignInButton.setEnabled(false);
         } else {
             mEmailSignInButton.setEnabled(true);
         }
-    }
-
-    /**
-     * Check provided email validity
-     *
-     * @param email
-     * @return
-     */
-    private boolean isEmailValid(String email) {
-        // TODO ALH: Improve logic
-        return email.contains("@");
-    }
-
-    /**
-     * Check password validity
-     *
-     * @param password
-     * @return
-     */
-    private boolean isPasswordValid(String password) {
-        return password.length() > 5;
     }
 
 
@@ -173,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String password = mPasswordView.getText().toString();
 
         // Validate email
-        if (!isEmailValid(email)) {
+        if (!LoginManager.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             return;
         }
