@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#0164a7</color>
     <color name="colorPrimaryDark">#0164a7</color>
-    <color name="colorAccent">#a75401</color>
+    <color name="colorAccent">#c05004</color>
     <color name="background">#eeeeee</color>
     <color name="textColor">#415764</color>
     <color name="cardBackground">#eee</color>
@@ -10,4 +10,5 @@
     <color name="actionGreen">#16ac16</color>
     <color name="adaminoGreen">#51b46d</color>
     <color name="black">#000</color>
+    <color name="white">#fff</color>
 </resources>
