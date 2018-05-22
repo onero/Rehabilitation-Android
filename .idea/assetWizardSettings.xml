@@ -34,8 +34,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="D:\Download\time.png" />
-                                      <entry key="outputName" value="time" />
+                                      <entry key="imageAsset" value="D:\Download\profile-icon.png" />
+                                      <entry key="outputName" value="user" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -48,7 +48,9 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="cropped" value="true" />
-                                      <entry key="imageAsset" value="D:\Download\ic_rehab.png" />
+                                      <entry key="iconShape" value="NONE" />
+                                      <entry key="imageAsset" value="D:\Download\profile-icon.png" />
+                                      <entry key="outputName" value="user" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -80,6 +82,11 @@
                 </map>
               </option>
             </PersistentState>
+          </value>
+        </entry>
+        <entry key="vectorWizard">
+          <value>
+            <PersistentState />
           </value>
         </entry>
       </map>
