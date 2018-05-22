@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3f51b5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#ff4081</color>
+    <color name="colorPrimary">#0164a7</color>
+    <color name="colorPrimaryDark">#0164a7</color>
+    <color name="colorAccent">#a75401</color>
+    <color name="background">#8d9aa2</color>
+    <color name="navbar">#415764</color>
+    <color name="cardBackground">#eee</color>
+    <color name="actionRed">#ad2817</color>
+    <color name="actionGreen">#16ac16</color>
     <color name="adaminoGreen">#51b46d</color>
 </resources>
