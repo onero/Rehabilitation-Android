@@ -9,6 +9,15 @@
     tools:context=".GUI.YoutubeActivity"
     android:orientation="vertical">
 
+
+    <!--YouTube Video Player-->
+    <fragment
+        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+        android:id="@+id/youtube_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        />
+
     <!--Title-->
     <TextView
         android:layout_width="match_parent"
@@ -18,14 +27,6 @@
         android:text="@string/title"
         android:textSize="28dp"
         android:textStyle="bold"/>
-
-    <!--YouTube Video Player-->
-    <fragment
-        android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
-        android:id="@+id/youtube_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="350dp"
-        />
 
     <!--Repetitions-->
     <LinearLayout
