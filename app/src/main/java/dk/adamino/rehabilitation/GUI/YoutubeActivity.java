@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,10 +12,8 @@ import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import dk.adamino.rehabilitation.BE.Exercise;
+import dk.adamino.rehabilitation.BLL.YoutubeManager;
 import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
@@ -40,13 +37,6 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
 
         mExerciseModel = FirebaseExerciseModel.getInstance();
         mExerciseModel.loadCurrentExerciseAsync(this);
-
-        // If current exercise != null, set the info.
-//        if (mExerciseModel.getCurrentExercise() != null) {
-//            setExerciseInfomation(mExerciseModel.getCurrentExercise());
-//        } else {
-//            Log.e(TAG, "Current exercise wasn't set");
-//        }
 
     }
 
@@ -84,53 +74,12 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         // Start buffering.
         if (!wasRestored) {
             String videoUrl = mExerciseModel.getCurrentExercise().videoUrl;
-            String videoId = getYoutubeID(videoUrl);
+            String videoId = YoutubeManager.getYoutubeID(videoUrl);
             Log.d(TAG, "VideoId:" + videoId);
 
             youTubePlayer.cueVideo(videoId);
         }
     }
-
-    /**
-     * Extract the videoId from the
-     * @param youtubeUrl
-     * @return
-     */
-    private static String getYoutubeID(String youtubeUrl) {
-
-        if (TextUtils.isEmpty(youtubeUrl)) {
-            return "";
-        }
-        String video_id = "";
-
-        // Very awesome regex specifically for youtube...
-        String expression = "^.*((youtu.be" + "\\/)" + "|(v\\/)|(\\/u\\/w\\/)|(embed\\/)|(watch\\?))\\??v?=?([^#\\&\\?]*).*"; // var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-        CharSequence input = youtubeUrl;
-        // Exgtract expression from url
-        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(input);
-        // Check for regex match
-        if (matcher.matches()) {
-            String groupIndex1 = matcher.group(7);
-            if (groupIndex1 != null && groupIndex1.length() == 11)
-                video_id = groupIndex1;
-        }
-        // Handle empty id
-        if (TextUtils.isEmpty(video_id)) {
-            if (youtubeUrl.contains("youtu.be/")  ) {
-                String spl = youtubeUrl.split("youtu.be/")[1];
-                if (spl.contains("\\?")) {
-                    video_id = spl.split("\\?")[0];
-                }else {
-                    video_id =spl;
-                }
-
-            }
-        }
-
-        return video_id;
-    }
-
 
     /**
      * If the initialization fails the Toast gives the user a nice UX by displaying the failure.

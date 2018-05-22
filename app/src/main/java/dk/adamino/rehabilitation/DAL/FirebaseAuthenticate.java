@@ -14,6 +14,15 @@ import dk.adamino.rehabilitation.Callbacks.IFirebaseAuthenticationCallback;
  */
 public class FirebaseAuthenticate implements IFirebaseAuthenticate {
 
+    private static FirebaseAuthenticate sInstance;
+
+    public static FirebaseAuthenticate getInstance() {
+        if (sInstance == null) {
+            sInstance = new FirebaseAuthenticate();
+        }
+        return sInstance;
+    }
+
     private static final String TAG = "FirebaseAuth";
 
     private FirebaseAuth mAuth;

@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Exercise;
+import dk.adamino.rehabilitation.BLL.FirebaseFacade;
 import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
-import dk.adamino.rehabilitation.DAL.FirestoreDAO;
 
 public class FirebaseExerciseModel {
 
     private static FirebaseExerciseModel instance = null;
-    private FirestoreDAO mFirestoreDAO;
     private Exercise mCurrentExercise;
+    private FirebaseFacade mFirebaseFacade;
 
     private List<Exercise> mExercises;
 
@@ -24,7 +24,7 @@ public class FirebaseExerciseModel {
 
     private FirebaseExerciseModel() {
         mExercises = new ArrayList<>();
-        mFirestoreDAO = new FirestoreDAO();
+        mFirebaseFacade = FirebaseFacade.getInstance();
     }
 
     public List<Exercise> getExercises() {
@@ -42,7 +42,7 @@ public class FirebaseExerciseModel {
      */
     public void loadExercisesAsync(IExerciseFirestoreCallback callback, List<String> exerciseIds) {
         for (String exerciseId: exerciseIds) {
-            mFirestoreDAO.getExercisesByClientId(exerciseId, callback);
+            mFirebaseFacade.getFirestoreDAO().getExercisesByClientId(exerciseId, callback);
         }
     }
 
@@ -63,6 +63,6 @@ public class FirebaseExerciseModel {
     }
 
     public void loadCurrentExerciseAsync(IExerciseFirestoreCallback callback) {
-        mFirestoreDAO.getExercisesByClientId(mCurrentExercise.uid, callback);
+        mFirebaseFacade.getFirestoreDAO().getExercisesByClientId(mCurrentExercise.uid, callback);
     }
 }
