@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#0164a7</color>
     <color name="colorAccent">#a75401</color>
     <color name="background">#eeeeee</color>
-    <color name="white">#ffffff</color>
+    <color name="textColor">#415764</color>
     <color name="navbar">#415764</color>
     <color name="cardBackground">#eee</color>
     <color name="actionRed">#ad2817</color>
