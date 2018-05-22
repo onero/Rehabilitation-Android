@@ -10,7 +10,6 @@ import java.util.Locale;
  * Created by Adamino.
  */
 public class Visit implements Comparable<Visit> {
-    public String uid;
     public Date date;
     public String note;
     private SimpleDateFormat mSimpleDateFormat;
