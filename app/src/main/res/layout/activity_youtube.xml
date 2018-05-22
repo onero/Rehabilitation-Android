@@ -16,19 +16,22 @@
         android:id="@+id/youtube_fragment"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        />
+        android:layout_gravity="center"/>
 
     <!--Title-->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
         android:id="@+id/txtTitle"
-        android:text="@string/title"
-        android:paddingTop="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
         android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/title"
+        android:textAllCaps="false"
         android:textSize="28dp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:visibility="visible" />
 
     <!--Repetitions-->
     <LinearLayout
@@ -42,12 +45,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/repetitions"
+            android:textSize="16sp"
             android:textStyle="bold"/>
 
         <TextView
             android:paddingLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:id="@+id/txtRepetitions"
             android:text="@string/loading"/>
     </LinearLayout>
@@ -64,6 +69,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/description"
+            android:textSize="16sp"
+
             android:textStyle="bold"/>
 
         <TextView
