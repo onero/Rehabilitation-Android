@@ -57,9 +57,11 @@ public class FirestoreDAO implements IFirestore {
         docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-                if (documentSnapshot.exists()) {
-                    Client client = documentSnapshot.toObject(Client.class);
-                    firestoreCallback.onClientResponse(client);
+                if (documentSnapshot != null) {
+                    if (documentSnapshot.exists()) {
+                        Client client = documentSnapshot.toObject(Client.class);
+                        firestoreCallback.onClientResponse(client);
+                    }
                 }
             }
         });
