@@ -79,7 +79,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         mEmailView = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
         mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setEnabled(false);
+        setLoginButtonEnabled(false);
 
         // Listeners
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -129,10 +129,22 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String passwordString = mPasswordView.getText().toString();
 
         if (emailString.equals("") || passwordString.equals("") || !LoginManager.isPasswordValid(passwordString)) {
-            mEmailSignInButton.setEnabled(false);
+            setLoginButtonEnabled(false);
         } else {
-            mEmailSignInButton.setEnabled(true);
+            setLoginButtonEnabled(true);
         }
+    }
+
+    private void setLoginButtonEnabled(boolean enabled) {
+        mEmailSignInButton.setEnabled(enabled);
+        if (enabled) {
+            mEmailSignInButton.setBackgroundColor(getApplication().getResources().getColor(R.color.actionGreen));
+            mEmailSignInButton.setTextColor(getApplication().getResources().getColor(R.color.buttonTextColor));
+        } else {
+            mEmailSignInButton.setBackgroundColor(getApplication().getResources().getColor(R.color.buttonDisabled));
+            mEmailSignInButton.setTextColor(getApplication().getResources().getColor(R.color.disabledButtonTextColor));
+        }
+
     }
 
     /**
