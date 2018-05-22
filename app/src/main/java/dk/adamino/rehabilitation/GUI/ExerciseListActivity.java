@@ -176,7 +176,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
          */
         public void bind(Exercise exercise, int position) {
             mExercise = exercise;
-            mTitle.setText(mExercise.getTitle());
+            mTitle.setText(mExercise.title);
             InputStream imageStream = itemView.getResources().openRawResource(R.raw.youtube_img);
             Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
             mImage.setImageBitmap(bitmap);

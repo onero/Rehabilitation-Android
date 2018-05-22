@@ -6,13 +6,4 @@ public class Exercise {
     public String title;
     public String repetition;
     public String videoUrl;
-
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getRepetition() {
-        return repetition;
-    }
 }
