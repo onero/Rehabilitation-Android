@@ -52,7 +52,6 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         // Create reference to model
         mFirebaseClientModel = FirebaseClientModel.getInstance();
 
-        // TODO ALH: Move to ExerciseActivity, when it is implemented!
         // Cancel any notification
         NotificationService.cancelNotification();
         // Check if user want's daily notifications
@@ -135,7 +134,6 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
             mEmailSignInButton.setEnabled(true);
         }
     }
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.

@@ -24,6 +24,7 @@ import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.BE.Exercise;
+
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
@@ -175,7 +176,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
          */
         public void bind(Exercise exercise, int position) {
             mExercise = exercise;
-            mTitle.setText(mExercise.getTitle());
+            mTitle.setText(mExercise.title);
             InputStream imageStream = itemView.getResources().openRawResource(R.raw.youtube_img);
             Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
             mImage.setImageBitmap(bitmap);

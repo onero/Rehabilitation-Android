@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,11 +15,11 @@ import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 import dk.adamino.rehabilitation.BE.Exercise;
 import dk.adamino.rehabilitation.BLL.YoutubeManager;
-import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreExerciseCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
-public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener, IExerciseFirestoreCallback, IActivity{
+public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener, IFirestoreExerciseCallback, IActivity {
 
     public static final String TAG = "RehabYouTubeActivity";
     private static String API_KEY = "";
@@ -38,6 +39,11 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         mExerciseModel = FirebaseExerciseModel.getInstance();
         mExerciseModel.loadCurrentExerciseAsync(this);
 
+        if (mExerciseModel.getCurrentExercise() != null) {
+            setExerciseInformation(mExerciseModel.getCurrentExercise());
+        } else {
+            Log.e(TAG, "Current exercise wasn't set");
+        }
     }
 
     @Override
@@ -52,7 +58,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         youTubePlayerSupportFragment.initialize(API_KEY, this);
     }
 
-    private void setExerciseInfomation(Exercise exercise) {
+    private void setExerciseInformation(Exercise exercise) {
         // Exercise information
         mTitle.setText(exercise.title);
         mRepetitions.setText(exercise.repetition);
@@ -61,6 +67,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
 
     /**
      * Called when initialization of the player succeeds.
+     *
      * @param provider
      * @param youTubePlayer
      * @param wasRestored
@@ -81,8 +88,10 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         }
     }
 
+
     /**
      * If the initialization fails the Toast gives the user a nice UX by displaying the failure.
+     *
      * @param provider
      * @param youTubeInitializationResult
      */
@@ -95,27 +104,27 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
     private YouTubePlayer.PlaybackEventListener mPlaybackEventListener = new YouTubePlayer.PlaybackEventListener() {
         @Override
         public void onPlaying() {
-        // Called when playback starts, either due to play() or user action.
+            // Called when playback starts, either due to play() or user action.
         }
 
         @Override
         public void onPaused() {
-        // Called when playback is paused, either due to pause() or user action.
+            // Called when playback is paused, either due to pause() or user action.
         }
 
         @Override
         public void onStopped() {
-        // Called when playback stops for a reason other than being paused, such as the video ending or a playback error.
+            // Called when playback stops for a reason other than being paused, such as the video ending or a playback error.
         }
 
         @Override
         public void onBuffering(boolean b) {
-        // Called when buffering starts or ends.
+            // Called when buffering starts or ends.
         }
 
         @Override
         public void onSeekTo(int i) {
-        // Called when a jump in playback position occurs, either due to the user scrubbing or a seek method being called (e.g.)
+            // Called when a jump in playback position occurs, either due to the user scrubbing or a seek method being called (e.g.)
         }
     };
 
@@ -123,38 +132,39 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
     private YouTubePlayer.PlayerStateChangeListener mPlayerStateChangeListener = new YouTubePlayer.PlayerStateChangeListener() {
         @Override
         public void onLoading() {
-        // Called when the player begins loading a video and is not ready to accept commands affecting playback (such as play() or pause()).
+            // Called when the player begins loading a video and is not ready to accept commands affecting playback (such as play() or pause()).
         }
 
         @Override
         public void onLoaded(String s) {
-        // Called when a video has finished loading.
+            // Called when a video has finished loading.
         }
 
         @Override
         public void onAdStarted() {
-        // Called when playback of an advertisement starts.
+            // Called when playback of an advertisement starts.
         }
 
         @Override
         public void onVideoStarted() {
-        // Called when the video reaches its end.
+            // Called when the video reaches its end.
         }
 
         @Override
         public void onVideoEnded() {
-        // Called when playback of the video starts.
+            // Called when playback of the video starts.
         }
 
         @Override
         public void onError(YouTubePlayer.ErrorReason errorReason) {
-        // Called when an error occurs.
+            // Called when an error occurs.
         }
     };
 
 
     /**
      * Create Intent to navigate to this activity
+     *
      * @param context
      * @return
      */
@@ -166,6 +176,6 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
 
     @Override
     public void onExerciseResponse(Exercise exerciseFound) {
-        setExerciseInfomation(exerciseFound);
+        setExerciseInformation(exerciseFound);
     }
 }

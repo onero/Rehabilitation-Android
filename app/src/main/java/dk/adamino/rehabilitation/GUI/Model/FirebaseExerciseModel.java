@@ -5,7 +5,7 @@ import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Exercise;
 import dk.adamino.rehabilitation.BLL.FirebaseFacade;
-import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
+import dk.adamino.rehabilitation.Callbacks.IFirestoreExerciseCallback;
 
 public class FirebaseExerciseModel {
 
@@ -36,17 +36,6 @@ public class FirebaseExerciseModel {
     }
 
     /**
-     * Loads in the exercises async.
-     * @param callback
-     * @param exerciseIds
-     */
-    public void loadExercisesAsync(IExerciseFirestoreCallback callback, List<String> exerciseIds) {
-        for (String exerciseId: exerciseIds) {
-            mFirebaseFacade.getFirestoreDAO().getExercisesByClientId(exerciseId, callback);
-        }
-    }
-
-    /**
      * Get the current exercise.
      * @return
      */
@@ -62,7 +51,7 @@ public class FirebaseExerciseModel {
         mCurrentExercise = currentExercise;
     }
 
-    public void loadCurrentExerciseAsync(IExerciseFirestoreCallback callback) {
+    public void loadCurrentExerciseAsync(IFirestoreExerciseCallback callback) {
         mFirebaseFacade.getFirestoreDAO().getExercisesByClientId(mCurrentExercise.uid, callback);
     }
 }
