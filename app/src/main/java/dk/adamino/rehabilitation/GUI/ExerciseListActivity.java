@@ -24,7 +24,7 @@ import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.BE.Exercise;
-import dk.adamino.rehabilitation.Callbacks.IFirestoreExerciseCallback;
+
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
