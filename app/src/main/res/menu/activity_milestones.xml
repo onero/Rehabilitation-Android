@@ -7,14 +7,17 @@
 
     <item
         android:id="@+id/profile"
+        android:icon="@drawable/profile"
         app:showAsAction="withText|always"
         android:title="@string/profile"/>
     <item
-    android:id="@+id/exercises"
-    app:showAsAction="withText|always"
-    android:title="@string/exercises"/>
+        android:id="@+id/exercises"
+        android:icon="@drawable/exercise"
+        app:showAsAction="withText|always"
+        android:title="@string/exercises"/>
     <item
         android:id="@+id/contact"
+        android:icon="@drawable/contact"
         app:showAsAction="withText|always"
         android:title="@string/contact"/>
     <item

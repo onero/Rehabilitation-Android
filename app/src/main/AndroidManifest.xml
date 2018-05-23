@@ -20,10 +20,12 @@
             android:enabled="true" />
 
         <activity android:name=".GUI.ProfileActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:label="@string/profile">
         </activity>
         <activity android:name=".GUI.ContactActivity"
-                  android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:label="@string/contact">
         </activity>
         <activity android:name=".GUI.LoginActivity"
                   android:screenOrientation="portrait">
@@ -41,7 +43,8 @@
 
         </activity>
         <activity android:name=".GUI.ExerciseListActivity"
-                  android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:label="@string/exercises">
         </activity>
         <activity
             android:name=".GUI.Settings.SettingsActivity"
