@@ -17,7 +17,7 @@
         android:title="@string/evaluations"/>
     <item
         android:id="@+id/contact"
-        android:icon="@drawable/contact"
+        android:icon="@drawable/hospital"
         app:showAsAction="withText|always"
         android:title="@string/contact"/>
     <item

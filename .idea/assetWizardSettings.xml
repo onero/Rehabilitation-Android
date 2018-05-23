@@ -68,8 +68,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Mathias\Desktop\evaluation_icon.png" />
-                                      <entry key="outputName" value="evaluation" />
+                                      <entry key="imageAsset" value="C:\Users\Skovgaard\Downloads\hospital.png" />
+                                      <entry key="outputName" value="hospital" />
                                       <entry key="theme" value="HOLO_DARK" />
                                     </map>
                                   </option>
