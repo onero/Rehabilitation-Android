@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -113,7 +112,7 @@ public class VisitListActivity extends AppCompatActivity implements IActivity {
 
         public void bind(Visit visit) {
             mVisit = visit;
-            mVisitTitle.setText(mVisit.getDate());
+            mVisitTitle.setText(mVisit.getDateAsUppercaseString());
         }
 
         @Override
