@@ -15,11 +15,12 @@ public class Visit implements Comparable<Visit> {
     private SimpleDateFormat mSimpleDateFormat;
 
     public Visit() {
+        // EEEE is being used to get the whole day instead of only 3 characters.
         String pattern = "EEEE, d/M - yyyy";
         mSimpleDateFormat = new SimpleDateFormat(pattern, new Locale("da", "DK"));
     }
 
-    public String getDate() {
+    public String getDateAsUppercaseString() {
         return mSimpleDateFormat.format(date).toUpperCase();
     }
 

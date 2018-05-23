@@ -47,7 +47,7 @@ public class EvaluationDetailActivity extends AppCompatActivity implements IActi
         if (mMilestoneModel.getCurrentMileStone() != null) {
             mMilestoneTitle.setText(currentMileStone.title);
             mPurpose.setText(currentMileStone.purpose);
-            mVisitDate.setText(currentVisit.getDate());
+            mVisitDate.setText(currentVisit.getDateAsUppercaseString());
             mNote.setText(currentVisit.note);
         }
     }
