@@ -15,7 +15,7 @@ public class YoutubeManager {
      * @param youtubeUrl
      * @return
      */
-    public static String getYoutubeID(String youtubeUrl) {
+    public String getYoutubeIdFromUrl(String youtubeUrl) {
 
         if (TextUtils.isEmpty(youtubeUrl)) {
             return "";
