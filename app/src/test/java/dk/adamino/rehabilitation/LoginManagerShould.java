@@ -28,7 +28,7 @@ public class LoginManagerShould {
     @Test
     public void validateEmailIsCorrect_with_validEmail() {
         String emailToValidate = "alh@rehab.dk";
-        
+
         boolean result = mLoginManager.isEmailValid(emailToValidate);
 
         assertTrue(result);
@@ -77,5 +77,33 @@ public class LoginManagerShould {
         boolean emailIsValid = mLoginManager.isEmailValid(emailWithInvalidCharacters);
 
         assertFalse(emailIsValid);
+    }
+
+    // 5 is the minimum amount set by Firebase!
+    @Test
+    public void validatePasswordIsCorrect_with_FiveCharacters() {
+        String passwordToValidate = "12345";
+
+        boolean passwordIsValid = mLoginManager.isPasswordValid(passwordToValidate);
+
+        assertTrue("Five Characters", passwordIsValid);
+    }
+
+    @Test
+    public void validatePasswordIsCorrect_with_MoreThanFiveCharacters() {
+        String passwordToValidate = "123456";
+
+        boolean passwordIsValid = mLoginManager.isPasswordValid(passwordToValidate);
+
+        assertTrue(passwordIsValid);
+    }
+
+    @Test
+    public void validatePasswordIsIncorrect_with_LessThanCharacters() {
+        String passwordToValidate = "1234";
+
+        boolean passwordIsValid = mLoginManager.isPasswordValid(passwordToValidate);
+
+        assertFalse(passwordIsValid);
     }
 }

@@ -22,6 +22,6 @@ public class LoginManager {
      * @return
      */
     public boolean isPasswordValid(String password) {
-        return password.length() > 5;
+        return password.length() >= 5;
     }
 }
