@@ -187,3 +187,4 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/java,android,androidstudio
 app/src/main/res/values/secrets.xml
+.idea/caches/build_file_checksums.ser

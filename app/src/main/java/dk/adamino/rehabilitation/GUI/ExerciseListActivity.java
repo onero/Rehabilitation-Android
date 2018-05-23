@@ -148,7 +148,6 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     @Override
     public void setupViews() {
         mExerciseRecyclerView = findViewById(R.id.recycler);
-        mExerciseRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         mExerciseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
