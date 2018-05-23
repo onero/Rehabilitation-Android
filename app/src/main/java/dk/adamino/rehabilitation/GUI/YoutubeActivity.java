@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,6 +25,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
 
     private FirebaseExerciseModel mExerciseModel;
     private TextView mExerciseDescription, mRepetitions, mTitle;
+    private YoutubeManager mYoutubeManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         setupViews();
 
         mExerciseModel = FirebaseExerciseModel.getInstance();
+        mYoutubeManager = new YoutubeManager();
         mExerciseModel.loadCurrentExerciseAsync(this);
 
         if (mExerciseModel.getCurrentExercise() != null) {
@@ -81,7 +82,7 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         // Start buffering.
         if (!wasRestored) {
             String videoUrl = mExerciseModel.getCurrentExercise().videoUrl;
-            String videoId = YoutubeManager.getYoutubeID(videoUrl);
+            String videoId = mYoutubeManager.getYoutubeIdFromUrl(videoUrl);
             Log.d(TAG, "VideoId:" + videoId);
 
             youTubePlayer.cueVideo(videoId);

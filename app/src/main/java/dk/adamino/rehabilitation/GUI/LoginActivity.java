@@ -43,14 +43,17 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
     private View mProgressView, mLoginFormView;
     private Button mEmailSignInButton;
 
+    private LoginManager mLoginManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setupViews();
 
-        // Create reference to model
         mFirebaseClientModel = FirebaseClientModel.getInstance();
+
+        mLoginManager = new LoginManager();
 
         // Cancel any notification
         NotificationService.cancelNotification();
@@ -128,10 +131,12 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String emailString = mEmailView.getText().toString();
         String passwordString = mPasswordView.getText().toString();
 
-        if (emailString.equals("") || passwordString.equals("") || !LoginManager.isPasswordValid(passwordString)) {
+        if (emailString.equals("") || passwordString.equals("")) {
             setLoginButtonEnabled(false);
         } else {
-            setLoginButtonEnabled(true);
+            if (mLoginManager.isEmailValid(emailString) && mLoginManager.isPasswordValid(passwordString)) {
+                setLoginButtonEnabled(true);
+            }
         }
     }
 
@@ -163,7 +168,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String password = mPasswordView.getText().toString();
 
         // Validate email
-        if (!LoginManager.isEmailValid(email)) {
+        if (!mLoginManager.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             return;
         }
