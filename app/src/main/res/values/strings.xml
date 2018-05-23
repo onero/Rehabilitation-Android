@@ -65,7 +65,7 @@
     <string name="visit_title">Visit Title</string>
     <string name="visits">Visits</string>
     <string name="no_visits">No Visits</string>
-    <string name="visit_date_mock">5 / 1 - 1990</string>
+    <string name="visit_date_mock">Day - Date</string>
     <string name="milestone_title_mock">Gå</string>
     <string name="purpose_mock">Gå igen</string>
     <string name="purpose_header">Purpose:</string>

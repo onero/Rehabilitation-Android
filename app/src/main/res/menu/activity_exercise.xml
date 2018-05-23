@@ -7,14 +7,17 @@
 
     <item
         android:id="@+id/profile"
+        android:icon="@drawable/profile"
         app:showAsAction="withText|always"
         android:title="@string/profile"/>
     <item
         android:id="@+id/milestones"
+        android:icon="@drawable/evaluation"
         app:showAsAction="withText|always"
         android:title="@string/evaluations"/>
     <item
         android:id="@+id/contact"
+        android:icon="@drawable/hospital"
         app:showAsAction="withText|always"
         android:title="@string/contact"/>
     <item

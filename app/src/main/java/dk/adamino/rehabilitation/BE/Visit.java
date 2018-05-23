@@ -15,12 +15,12 @@ public class Visit implements Comparable<Visit> {
     private SimpleDateFormat mSimpleDateFormat;
 
     public Visit() {
-        String pattern = "d/M - yyyy";
+        String pattern = "EEEE, d/M - yyyy";
         mSimpleDateFormat = new SimpleDateFormat(pattern, new Locale("da", "DK"));
     }
 
     public String getDate() {
-        return mSimpleDateFormat.format(date);
+        return mSimpleDateFormat.format(date).toUpperCase();
     }
 
     @Override

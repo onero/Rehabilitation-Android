@@ -103,8 +103,6 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_exercise, menu);
-        // Hide menu title (Takes up too much space!)
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         return true;
     }
 
