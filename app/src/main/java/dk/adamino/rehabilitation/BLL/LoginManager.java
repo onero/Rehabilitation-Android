@@ -11,8 +11,8 @@ public class LoginManager {
      * @param email
      * @return
      */
-    public static boolean isEmailValid(String email) {
-        return email.contains("@");
+    public boolean isEmailValid(String email) {
+        return email.matches("^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,63})+$");
     }
 
     /**
@@ -21,7 +21,7 @@ public class LoginManager {
      * @param password
      * @return
      */
-    public static boolean isPasswordValid(String password) {
-        return password.length() > 5;
+    public boolean isPasswordValid(String password) {
+        return password.length() >= 5;
     }
 }

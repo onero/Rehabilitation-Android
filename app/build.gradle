@@ -12,6 +12,10 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
+    testOptions {
+        // Implemented to solve issue: http://tools.android.com/tech-docs/unit-testing-support#TOC-Method-...-not-mocked.-
+        unitTests.returnDefaultValues = true
+    }
     buildTypes {
         release {
             minifyEnabled false

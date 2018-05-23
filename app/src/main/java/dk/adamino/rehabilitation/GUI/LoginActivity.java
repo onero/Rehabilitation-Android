@@ -43,14 +43,17 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
     private View mProgressView, mLoginFormView;
     private Button mEmailSignInButton;
 
+    private LoginManager mLoginManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setupViews();
 
-        // Create reference to model
         mFirebaseClientModel = FirebaseClientModel.getInstance();
+
+        mLoginManager = new LoginManager();
 
         // Cancel any notification
         NotificationService.cancelNotification();
@@ -79,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         mEmailView = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
         mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setEnabled(false);
+        setLoginButtonEnabled(false);
 
         // Listeners
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -128,11 +131,25 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String emailString = mEmailView.getText().toString();
         String passwordString = mPasswordView.getText().toString();
 
-        if (emailString.equals("") || passwordString.equals("") || !LoginManager.isPasswordValid(passwordString)) {
-            mEmailSignInButton.setEnabled(false);
+        if (emailString.equals("") || passwordString.equals("")) {
+            setLoginButtonEnabled(false);
         } else {
-            mEmailSignInButton.setEnabled(true);
+            if (mLoginManager.isEmailValid(emailString) && mLoginManager.isPasswordValid(passwordString)) {
+                setLoginButtonEnabled(true);
+            }
         }
+    }
+
+    private void setLoginButtonEnabled(boolean enabled) {
+        mEmailSignInButton.setEnabled(enabled);
+        if (enabled) {
+            mEmailSignInButton.setBackgroundColor(getApplication().getResources().getColor(R.color.actionGreen));
+            mEmailSignInButton.setTextColor(getApplication().getResources().getColor(R.color.buttonTextColor));
+        } else {
+            mEmailSignInButton.setBackgroundColor(getApplication().getResources().getColor(R.color.buttonDisabled));
+            mEmailSignInButton.setTextColor(getApplication().getResources().getColor(R.color.disabledButtonTextColor));
+        }
+
     }
 
     /**
@@ -151,7 +168,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String password = mPasswordView.getText().toString();
 
         // Validate email
-        if (!LoginManager.isEmailValid(email)) {
+        if (!mLoginManager.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             return;
         }
