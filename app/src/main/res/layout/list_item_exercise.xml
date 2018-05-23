@@ -1,59 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.constraint.ConstraintLayout
+<android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:layout_gravity="center_horizontal"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    app:cardUseCompatPadding="true"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="10dp"
+    android:foreground="?android:attr/selectableItemBackground">
 
-    <!--Amount of exercises-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="15dp">
 
-    <TextView
-        android:id="@+id/txtItemNr"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:text="10."
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgView"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!--Youtube thumbnail-->
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@android:drawable/btn_star_big_on" />
 
-    <!--Title of the exercise-->
-    <TextView
-        android:id="@+id/txtTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:text="Title"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/txtItemNr"
-        app:layout_constraintTop_toTopOf="parent" />
+        <!--Amount of exercises-->
+        <TextView
+            android:id="@+id/txtItemNr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="num"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"/>
 
-    <!--Youtube thumbnail-->
-    <ImageView
-        android:id="@+id/imgView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="4dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        <!--Title of the exercise-->
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="10dp"
+            android:text="Title"
+            android:textSize="18sp" />
 
+    </LinearLayout>
 
-
-</android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>
