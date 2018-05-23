@@ -153,7 +153,7 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
             mMilestone = milestone;
             // Create title as it should be shown in list
             // Add 1 to position to start at number 1 instead of 0!
-            String listEntityTitle = (position + 1) + " - " + milestone.title;
+            String listEntityTitle = (position + 1) + ". " + milestone.title;
             mMilestoneTitle.setText(listEntityTitle);
         }
 
