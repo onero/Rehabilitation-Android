@@ -48,10 +48,6 @@ public class VisitListActivity extends AppCompatActivity implements IActivity {
         mNoVisits = findViewById(R.id.txtNoVisits);
         // Setup layout manager, to ensure that items can be positioned on the screen
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Using Linear to stack vertically
-        // Add a divider between items
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mVisitRecyclerView.getContext(),
-                layoutManager.getOrientation());
-        mVisitRecyclerView.addItemDecoration(dividerItemDecoration);
         mVisitRecyclerView.setLayoutManager(layoutManager);
     }
 

@@ -91,10 +91,6 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
         mMilestoneRecyclerView = findViewById(R.id.evaluation_recycler_view);
         // Setup layout manager, to ensure that items can be positioned on the screen
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Using Linear to stack vertically
-        // Add a divider between items
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mMilestoneRecyclerView.getContext(),
-                layoutManager.getOrientation());
-        mMilestoneRecyclerView.addItemDecoration(dividerItemDecoration);
         mMilestoneRecyclerView.setLayoutManager(layoutManager);
 
         mProgressBar = findViewById(R.id.progressBar);
