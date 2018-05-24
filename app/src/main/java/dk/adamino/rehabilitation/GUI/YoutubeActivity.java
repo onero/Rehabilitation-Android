@@ -13,12 +13,14 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerSupportFragment;
 
 import dk.adamino.rehabilitation.BE.Exercise;
+import dk.adamino.rehabilitation.BLL.FirebaseFacade;
 import dk.adamino.rehabilitation.BLL.YoutubeManager;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreExerciseCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.R;
 
-public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.OnInitializedListener, IFirestoreExerciseCallback, IActivity {
+public class YoutubeActivity extends AppCompatActivity
+        implements YouTubePlayer.OnInitializedListener, IFirestoreExerciseCallback, IActivity {
 
     public static final String TAG = "RehabYouTubeActivity";
     private static String API_KEY = "";
@@ -45,6 +47,12 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         } else {
             Log.e(TAG, "Current exercise wasn't set");
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
     }
 
     @Override
@@ -83,7 +91,6 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
         if (!wasRestored) {
             String videoUrl = mExerciseModel.getCurrentExercise().videoUrl;
             String videoId = mYoutubeManager.getYoutubeIdFromUrl(videoUrl);
-            Log.d(TAG, "VideoId:" + videoId);
 
             youTubePlayer.cueVideo(videoId);
         }
@@ -177,6 +184,8 @@ public class YoutubeActivity extends AppCompatActivity implements YouTubePlayer.
 
     @Override
     public void onExerciseResponse(Exercise exerciseFound) {
+        Log.d(TAG, "Youtube Video Updated");
+        FirebaseExerciseModel.getInstance().setCurrentExercise(exerciseFound);
         setExerciseInformation(exerciseFound);
     }
 }

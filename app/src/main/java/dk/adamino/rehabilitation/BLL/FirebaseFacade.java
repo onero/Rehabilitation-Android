@@ -33,4 +33,11 @@ public class FirebaseFacade {
         return FirebaseAuthenticate.getInstance();
     }
 
+    /**
+     * Remove subscriptions from Firestore!
+     */
+    public void unsubscribeFromFirestore() {
+        FirestoreDAO.getInstance().removeAllListeners();
+    }
+
 }
