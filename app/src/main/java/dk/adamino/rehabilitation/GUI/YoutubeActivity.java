@@ -82,10 +82,13 @@ public class YoutubeActivity extends AppCompatActivity
      * @param wasRestored
      */
     @Override
-    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean wasRestored) {
+    public void onInitializationSuccess(YouTubePlayer.Provider provider,
+                                        YouTubePlayer youTubePlayer, boolean wasRestored) {
 
-        youTubePlayer.setPlayerStateChangeListener(mPlayerStateChangeListener);
+        // Makes it possible for user interactions such as play/pause the video.
         youTubePlayer.setPlaybackEventListener(mPlaybackEventListener);
+        // Makes sure that the video is loaded, started, ended and if error.
+        youTubePlayer.setPlayerStateChangeListener(mPlayerStateChangeListener);
 
         // Start buffering.
         if (!wasRestored) {
@@ -107,6 +110,10 @@ public class YoutubeActivity extends AppCompatActivity
     public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
         Toast.makeText(this, "FAILED TO INITIALIZE", Toast.LENGTH_SHORT).show();
     }
+
+
+
+
 
     // Interface definition for callbacks that are invoked when video playback events occur.
     private YouTubePlayer.PlaybackEventListener mPlaybackEventListener = new YouTubePlayer.PlaybackEventListener() {
@@ -155,12 +162,12 @@ public class YoutubeActivity extends AppCompatActivity
 
         @Override
         public void onVideoStarted() {
-            // Called when the video reaches its end.
+            // Called when playback of the video starts.
         }
 
         @Override
         public void onVideoEnded() {
-            // Called when playback of the video starts.
+            // Called when the video reaches its end.
         }
 
         @Override
