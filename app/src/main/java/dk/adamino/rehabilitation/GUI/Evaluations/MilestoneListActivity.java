@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Milestone;
+import dk.adamino.rehabilitation.BLL.FirebaseFacade;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 import dk.adamino.rehabilitation.GUI.ContactActivity;
 import dk.adamino.rehabilitation.GUI.ExerciseListActivity;
@@ -30,7 +31,8 @@ import dk.adamino.rehabilitation.GUI.ProfileActivity;
 import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
-public class MilestoneListActivity extends AppCompatActivity implements IActivity, IFirestoreMilestoneCallback {
+public class MilestoneListActivity extends AppCompatActivity
+        implements IActivity, IFirestoreMilestoneCallback {
 
     private RecyclerView mMilestoneRecyclerView;
     private MilestoneAdapter mMilestoneAdapter;
@@ -46,6 +48,18 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
 
         // Call Firestore to get data
         FirebaseClientModel.getInstance().getClientMilestones(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
     }
 
     @Override
@@ -129,7 +143,7 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
     @Override
     public void onMilestoneResponse(List<Milestone> milestones) {
         // Hide loading info
-        Log.d("RehabFirestore", "Updated");
+        Log.d("RehabFirestore", "Milestones Updated");
         mProgressBar.setVisibility(View.INVISIBLE);
         txtLoading.setVisibility(View.INVISIBLE);
         // Send data to ui
