@@ -34,7 +34,7 @@ import dk.adamino.rehabilitation.R;
 
 public class ExerciseListActivity extends AppCompatActivity implements IActivity, IFirestoreClientCallback {
 
-    private static final String TAG = "ExerciseListActivity";
+    private static final String TAG = "RehabExerciseList";
 
     private FirebaseExerciseModel mFirebaseExerciseModel;
     private FirebaseClientModel mFirebaseClientModel;
@@ -137,7 +137,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
      */
     @Override
     public void onClientResponse(Client clientFound) {
-        Log.d(TAG, "Updated");
+        Log.d(TAG, "Exercise List Updated");
         mExercises = clientFound.rehabilitationPlan.exercises;
         updateUI(mExercises);
     }
