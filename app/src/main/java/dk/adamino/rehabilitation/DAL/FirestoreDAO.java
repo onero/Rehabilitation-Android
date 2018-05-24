@@ -6,6 +6,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -41,10 +42,20 @@ public class FirestoreDAO implements IFirestore {
     private static String MILESTONE_COLLECTION = "Milestones";
 
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+    private ListenerRegistration mClientListener;
+    private ListenerRegistration mExerciseListener;
 
     private CollectionReference mClientCollection = mFirestore.collection(CLIENTS_COLLECTION);
     private CollectionReference mExerciseCollection = mFirestore.collection(EXERCISES_COLLECTION);
     private CollectionReference mMilestoneCollection = mFirestore.collection(MILESTONE_COLLECTION);
+
+    /**
+     * Remove subscriptions from Firestore!
+     */
+    public void removeAllListeners() {
+        mClientListener.remove();
+        mExerciseListener.remove();
+    }
 
     /**
      * Gets the client by the Id.
@@ -54,7 +65,10 @@ public class FirestoreDAO implements IFirestore {
     @Override
     public void getClientById(String clientUID, final IFirestoreClientCallback firestoreCallback) {
         DocumentReference docRef = mClientCollection.document(clientUID);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        if (mClientListener != null) {
+            mClientListener.remove();
+        }
+         mClientListener = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (documentSnapshot != null) {
@@ -75,7 +89,10 @@ public class FirestoreDAO implements IFirestore {
     @Override
     public void getExercisesByClientId(String exerciseId, final IFirestoreExerciseCallback exerciseCallback) {
         DocumentReference docRef = mExerciseCollection.document(exerciseId);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        if (mExerciseListener != null) {
+            mExerciseListener.remove();
+        }
+        mExerciseListener = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (documentSnapshot.exists()) {

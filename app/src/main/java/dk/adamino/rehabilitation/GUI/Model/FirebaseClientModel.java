@@ -27,6 +27,13 @@ public class FirebaseClientModel {
     }
 
     /**
+     * Remove subscriptions from Firestore!
+     */
+    public void removeListeners() {
+        mFirebaseFacade.getFirestoreDAO().removeAllListeners();
+    }
+
+    /**
      * Set the id of the current logged in client
      *
      * @param currentClientUid

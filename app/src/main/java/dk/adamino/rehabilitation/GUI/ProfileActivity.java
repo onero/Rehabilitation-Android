@@ -41,6 +41,12 @@ public class ProfileActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mFirebaseClientModel.removeListeners();
+    }
+
+    @Override
     public void setupViews() {
         mName = findViewById(R.id.txtName);
         mPhone = findViewById(R.id.txtPhone);
@@ -101,7 +107,7 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     public void onClientResponse(Client clientFound) {
-        Log.d(TAG, "Updated");
+        Log.d(TAG, "Profile Updated");
         setClientInformation(clientFound);
     }
 
