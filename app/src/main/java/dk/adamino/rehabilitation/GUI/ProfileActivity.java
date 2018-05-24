@@ -42,6 +42,18 @@ public class ProfileActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        mFirebaseClientModel.loadLoggedInClientAsync(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         FirebaseFacade.getInstance().unsubscribeFromFirestore();

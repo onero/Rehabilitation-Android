@@ -25,6 +25,7 @@ import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.BE.Exercise;
+import dk.adamino.rehabilitation.BLL.FirebaseFacade;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
@@ -60,6 +61,24 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
         List<Exercise> exercises = mFirebaseExerciseModel.getExercises();
         updateUI(exercises);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFirebaseClientModel.loadLoggedInClientAsync(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
     }
 
     /**

@@ -51,6 +51,12 @@ public class MilestoneListActivity extends AppCompatActivity
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseClientModel.getInstance().getClientMilestones(this);
+    }
+
+    @Override
     protected void onPause() {
         super.onPause();
         FirebaseFacade.getInstance().unsubscribeFromFirestore();
