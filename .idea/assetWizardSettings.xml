@@ -68,9 +68,10 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Skovgaard\Downloads\hospital.png" />
-                                      <entry key="outputName" value="hospital" />
-                                      <entry key="theme" value="HOLO_DARK" />
+                                      <entry key="imageAsset" value="C:\Users\Mathias\Desktop\user.png" />
+                                      <entry key="outputName" value="user" />
+                                      <entry key="theme" value="CUSTOM" />
+                                      <entry key="themeColor" value="a75401" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -111,7 +112,7 @@
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="cropped" value="true" />
                                       <entry key="iconShape" value="NONE" />
-                                      <entry key="imageAsset" value="D:\Download\profile-icon.png" />
+                                      <entry key="imageAsset" value="C:\Users\Mathias\Desktop\user.png" />
                                       <entry key="outputName" value="user" />
                                     </map>
                                   </option>
@@ -131,6 +132,11 @@
                                 </PersistentState>
                               </value>
                             </entry>
+                          </map>
+                        </option>
+                        <option name="values">
+                          <map>
+                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
                           </map>
                         </option>
                       </PersistentState>
