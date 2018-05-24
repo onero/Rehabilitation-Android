@@ -15,12 +15,12 @@
         android:layout_marginStart="126dp"
         android:layout_marginTop="32dp"
         android:text="@string/your_therapist"
-        android:textSize="18sp"
-        android:textStyle="bold"
         android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view"/>
+        app:layout_constraintTop_toBottomOf="@+id/view" />
 
     <TextView
         android:id="@+id/textView3"
@@ -30,12 +30,12 @@
         android:layout_marginStart="126dp"
         android:layout_marginTop="24dp"
         android:text="Sydvestjysk Sygehus"
-        android:textSize="18sp"
-        android:textStyle="bold"
         android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView5"
@@ -45,11 +45,12 @@
         android:layout_marginStart="162dp"
         android:layout_marginTop="16dp"
         android:text="Terapeuterne"
-        android:textStyle="bold"
         android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/txtAddress"
@@ -63,10 +64,11 @@
         android:onClick="onAddressClicked"
         android:text="@string/institution_address"
         android:textColor="@color/colorAccent"
+        android:textSize="18sp"
         android:textStyle="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     <TextView
         android:id="@+id/textView10"
@@ -77,9 +79,10 @@
         android:layout_marginTop="16dp"
         android:autoLink="web"
         android:text="http://www.svs.dk/terapeuterne"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAddress"/>
+        app:layout_constraintTop_toBottomOf="@+id/txtAddress" />
 
     <TextView
         android:id="@+id/textView8"
@@ -90,9 +93,10 @@
         android:layout_marginTop="16dp"
         android:autoLink="email"
         android:text="terapeuterne@svs.dk"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <View
         android:id="@+id/view"
@@ -112,9 +116,10 @@
         android:layout_marginStart="153dp"
         android:layout_marginTop="16dp"
         android:text="Lone Jensen"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <TextView
         android:id="@+id/textView14"
@@ -124,9 +129,10 @@
         android:layout_marginStart="145dp"
         android:layout_marginTop="16dp"
         android:text="Kl. 9:00 - 15:00"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/txtItemNr"
@@ -137,8 +143,10 @@
         android:layout_marginTop="16dp"
         android:autoLink="phone"
         android:text="79 18 20 00"
+        android:textSize="18sp"
+        android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"/>
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
 </android.support.constraint.ConstraintLayout>
