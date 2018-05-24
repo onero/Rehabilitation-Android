@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,7 +20,7 @@ import dk.adamino.rehabilitation.R;
 
 public class ProfileActivity extends AppCompatActivity
         implements IFirestoreClientCallback, IActivity {
-    public static final String TAG = "GUI";
+    public static final String TAG = "RehabProfile";
 
     private TextView mName, mPhone, mEmail, mDiagnosis, mGoal;
 
@@ -100,6 +101,7 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     public void onClientResponse(Client clientFound) {
+        Log.d(TAG, "Updated");
         setClientInformation(clientFound);
     }
 

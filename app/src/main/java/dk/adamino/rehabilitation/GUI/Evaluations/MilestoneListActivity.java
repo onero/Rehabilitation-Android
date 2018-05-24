@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -129,6 +129,7 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
     @Override
     public void onMilestoneResponse(List<Milestone> milestones) {
         // Hide loading info
+        Log.d("RehabFirestore", "Updated");
         mProgressBar.setVisibility(View.INVISIBLE);
         txtLoading.setVisibility(View.INVISIBLE);
         // Send data to ui
