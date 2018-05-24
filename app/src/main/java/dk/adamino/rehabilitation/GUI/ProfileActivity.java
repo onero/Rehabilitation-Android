@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dk.adamino.rehabilitation.BE.Client;
+import dk.adamino.rehabilitation.BLL.FirebaseFacade;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
@@ -19,7 +21,7 @@ import dk.adamino.rehabilitation.R;
 
 public class ProfileActivity extends AppCompatActivity
         implements IFirestoreClientCallback, IActivity {
-    public static final String TAG = "GUI";
+    public static final String TAG = "RehabProfile";
 
     private TextView mName, mPhone, mEmail, mDiagnosis, mGoal;
 
@@ -37,6 +39,24 @@ public class ProfileActivity extends AppCompatActivity
         // Load logged in client async
         mFirebaseClientModel.loadLoggedInClientAsync(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFirebaseClientModel.loadLoggedInClientAsync(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
     }
 
     @Override
@@ -100,6 +120,7 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     public void onClientResponse(Client clientFound) {
+        Log.d(TAG, "Profile Updated");
         setClientInformation(clientFound);
     }
 

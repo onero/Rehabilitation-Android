@@ -31,6 +31,7 @@
         android:textAllCaps="false"
         android:textSize="28dp"
         android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         android:visibility="visible" />
 
     <!--Repetitions-->
@@ -46,7 +47,8 @@
             android:layout_height="wrap_content"
             android:text="@string/repetitions"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"/>
 
         <TextView
             android:paddingLeft="8dp"
@@ -70,8 +72,8 @@
             android:layout_height="wrap_content"
             android:text="@string/description"
             android:textSize="16sp"
-
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"/>
 
         <TextView
             android:id="@+id/txtExerciseDescription"

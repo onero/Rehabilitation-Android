@@ -6,6 +6,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.ListenerRegistration;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -41,20 +42,47 @@ public class FirestoreDAO implements IFirestore {
     private static String MILESTONE_COLLECTION = "Milestones";
 
     private FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
+    private ListenerRegistration mClientListener;
+    private ListenerRegistration mExerciseListener;
+    private ListenerRegistration mMilestoneListener;
 
     private CollectionReference mClientCollection = mFirestore.collection(CLIENTS_COLLECTION);
     private CollectionReference mExerciseCollection = mFirestore.collection(EXERCISES_COLLECTION);
     private CollectionReference mMilestoneCollection = mFirestore.collection(MILESTONE_COLLECTION);
 
     /**
+     * Remove subscriptions from Firestore!
+     */
+    public void removeAllListeners() {
+        if (mClientListener != null) {
+            mClientListener.remove();
+        }
+
+        if (mExerciseListener != null) {
+            mExerciseListener.remove();
+        }
+
+        if (mMilestoneListener != null) {
+            mMilestoneListener.remove();
+        }
+    }
+
+    /**
      * Gets the client by the Id.
+     *
      * @param clientUID
      * @param firestoreCallback
      */
     @Override
     public void getClientById(String clientUID, final IFirestoreClientCallback firestoreCallback) {
         DocumentReference docRef = mClientCollection.document(clientUID);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+        // If previous listener exists
+        if (mClientListener != null) {
+            // Remove it!
+            mClientListener.remove();
+        }
+        mClientListener = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (documentSnapshot != null) {
@@ -69,13 +97,20 @@ public class FirestoreDAO implements IFirestore {
 
     /**
      * Gets the exercise from the clients Id.
+     *
      * @param exerciseId
      * @param exerciseCallback
      */
     @Override
     public void getExercisesByClientId(String exerciseId, final IFirestoreExerciseCallback exerciseCallback) {
         DocumentReference docRef = mExerciseCollection.document(exerciseId);
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+
+        // If previous listener exists
+        if (mExerciseListener != null) {
+            // Remove it
+            mExerciseListener.remove();
+        }
+        mExerciseListener = docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 if (documentSnapshot.exists()) {
@@ -88,12 +123,19 @@ public class FirestoreDAO implements IFirestore {
 
     /**
      * Gets the milestone from the clients Id.
+     *
      * @param currentClientUid
      * @param callback
      */
     @Override
     public void getMilestonesByClientId(String currentClientUid, final IFirestoreMilestoneCallback callback) {
-        mMilestoneCollection
+        // If previous listener exists
+        if (mMilestoneListener != null) {
+            // Remove it
+            mMilestoneListener.remove();
+        }
+
+        mMilestoneListener = mMilestoneCollection
                 .whereEqualTo("clientUid", currentClientUid)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override

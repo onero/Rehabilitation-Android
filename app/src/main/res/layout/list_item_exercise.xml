@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="num"
                 android:textSize="20sp"
+                android:textColor="@color/colorAccent"
                 android:layout_gravity="center"
                 android:paddingLeft="10dp"/>
 
@@ -41,7 +42,8 @@
                 android:layout_gravity="center"
                 android:paddingLeft="10dp"
                 android:text="Title"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:textColor="@color/colorAccent"/>
 
         </LinearLayout>
 

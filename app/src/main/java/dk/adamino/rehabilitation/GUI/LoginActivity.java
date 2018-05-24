@@ -131,12 +131,9 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String emailString = mEmailView.getText().toString();
         String passwordString = mPasswordView.getText().toString();
 
-        if (emailString.equals("") || passwordString.equals("")) {
-            setLoginButtonEnabled(false);
-        } else {
-            if (mLoginManager.isEmailValid(emailString) && mLoginManager.isPasswordValid(passwordString)) {
-                setLoginButtonEnabled(true);
-            }
+        setLoginButtonEnabled(false);
+        if (mLoginManager.isEmailValid(emailString) && mLoginManager.isPasswordValid(passwordString)) {
+            setLoginButtonEnabled(true);
         }
     }
 
