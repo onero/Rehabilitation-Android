@@ -19,9 +19,16 @@
             <receiver android:name=".GUI.Utils.NotificationService"
             android:enabled="true" />
 
-        <activity android:name=".GUI.ProfileActivity"></activity>
-        <activity android:name=".GUI.ContactActivity"></activity>
-        <activity android:name=".GUI.LoginActivity">
+        <activity android:name=".GUI.ProfileActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/profile">
+        </activity>
+        <activity android:name=".GUI.ContactActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/contact">
+        </activity>
+        <activity android:name=".GUI.LoginActivity"
+                  android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,26 +38,34 @@
 
         </activity>
         <activity android:name=".GUI.YoutubeActivity"
+                  android:screenOrientation="portrait"
             android:parentActivityName=".GUI.ExerciseListActivity">
 
         </activity>
-        <activity android:name=".GUI.ExerciseListActivity"></activity>
+        <activity android:name=".GUI.ExerciseListActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/exercises">
+        </activity>
         <activity
             android:name=".GUI.Settings.SettingsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".GUI.ProfileActivity">
         </activity>
         <activity
             android:name=".GUI.Evaluations.MilestoneListActivity"
+            android:screenOrientation="portrait"
             android:label="@string/milestones">
         </activity>
         <activity
             android:name=".GUI.Evaluations.VisitListActivity"
+            android:screenOrientation="portrait"
             android:label="@string/visits"
             android:parentActivityName=".GUI.Evaluations.MilestoneListActivity">
         </activity>
         <activity
             android:name=".GUI.Evaluations.EvaluationDetailActivity"
+            android:screenOrientation="portrait"
             android:label="@string/evaluation_detail"
             android:parentActivityName=".GUI.Evaluations.MilestoneListActivity">
         </activity>

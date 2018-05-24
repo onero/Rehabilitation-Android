@@ -65,7 +65,7 @@
     <string name="visit_title">Visit Title</string>
     <string name="visits">Visits</string>
     <string name="no_visits">No Visits</string>
-    <string name="visit_date_mock">5 / 1 - 1990</string>
+    <string name="visit_date_mock">Day - Date</string>
     <string name="milestone_title_mock">Gå</string>
     <string name="purpose_mock">Gå igen</string>
     <string name="purpose_header">Purpose:</string>
@@ -84,7 +84,7 @@
     <string name="loading">Loading...</string>
     <string name="description">Description:</string>
 
-    <!--TODO ALH: Entire section left for inspiration with new exercise notifications!-->
+    <!--Entire section left for inspiration with new exercise notifications!-->
     <!--<string name="pref_title_new_message_notifications">New message notifications</string>-->
 
     <!--<string name="pref_title_ringtone">Ringtone</string>-->

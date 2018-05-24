@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Milestone;
+import dk.adamino.rehabilitation.BLL.FirebaseFacade;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreMilestoneCallback;
 import dk.adamino.rehabilitation.GUI.ContactActivity;
 import dk.adamino.rehabilitation.GUI.ExerciseListActivity;
@@ -30,7 +31,8 @@ import dk.adamino.rehabilitation.GUI.ProfileActivity;
 import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
-public class MilestoneListActivity extends AppCompatActivity implements IActivity, IFirestoreMilestoneCallback {
+public class MilestoneListActivity extends AppCompatActivity
+        implements IActivity, IFirestoreMilestoneCallback {
 
     private RecyclerView mMilestoneRecyclerView;
     private MilestoneAdapter mMilestoneAdapter;
@@ -49,12 +51,27 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        FirebaseClientModel.getInstance().getClientMilestones(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        // TODO ALH: Create menu for MiletoneList
         inflater.inflate(R.menu.activity_milestones, menu);
-        // Hide menu title (Takes up too much space!)
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         return true;
     }
 
@@ -92,10 +109,6 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
         mMilestoneRecyclerView = findViewById(R.id.evaluation_recycler_view);
         // Setup layout manager, to ensure that items can be positioned on the screen
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Using Linear to stack vertically
-        // Add a divider between items
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mMilestoneRecyclerView.getContext(),
-                layoutManager.getOrientation());
-        mMilestoneRecyclerView.addItemDecoration(dividerItemDecoration);
         mMilestoneRecyclerView.setLayoutManager(layoutManager);
 
         mProgressBar = findViewById(R.id.progressBar);
@@ -136,6 +149,7 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
     @Override
     public void onMilestoneResponse(List<Milestone> milestones) {
         // Hide loading info
+        Log.d("RehabFirestore", "Milestones Updated");
         mProgressBar.setVisibility(View.INVISIBLE);
         txtLoading.setVisibility(View.INVISIBLE);
         // Send data to ui
@@ -158,7 +172,7 @@ public class MilestoneListActivity extends AppCompatActivity implements IActivit
             mMilestone = milestone;
             // Create title as it should be shown in list
             // Add 1 to position to start at number 1 instead of 0!
-            String listEntityTitle = (position + 1) + " - " + milestone.title;
+            String listEntityTitle = (position + 1) + ". " + milestone.title;
             mMilestoneTitle.setText(listEntityTitle);
         }
 

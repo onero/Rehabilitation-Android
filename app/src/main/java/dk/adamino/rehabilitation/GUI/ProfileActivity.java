@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dk.adamino.rehabilitation.BE.Client;
+import dk.adamino.rehabilitation.BLL.FirebaseFacade;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
@@ -20,7 +21,7 @@ import dk.adamino.rehabilitation.R;
 
 public class ProfileActivity extends AppCompatActivity
         implements IFirestoreClientCallback, IActivity {
-    public static final String TAG = "GUI";
+    public static final String TAG = "RehabProfile";
 
     private TextView mName, mPhone, mEmail, mDiagnosis, mGoal;
 
@@ -38,6 +39,24 @@ public class ProfileActivity extends AppCompatActivity
         // Load logged in client async
         mFirebaseClientModel.loadLoggedInClientAsync(this);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFirebaseClientModel.loadLoggedInClientAsync(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
     }
 
     @Override
@@ -67,8 +86,6 @@ public class ProfileActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_profile, menu);
-        // Hide menu title (Takes up too much space!)
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         return true;
     }
 
@@ -103,6 +120,7 @@ public class ProfileActivity extends AppCompatActivity
 
     @Override
     public void onClientResponse(Client clientFound) {
+        Log.d(TAG, "Profile Updated");
         setClientInformation(clientFound);
     }
 

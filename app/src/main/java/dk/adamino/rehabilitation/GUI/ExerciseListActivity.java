@@ -20,12 +20,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Client;
 import dk.adamino.rehabilitation.BE.Exercise;
-import dk.adamino.rehabilitation.Callbacks.IExerciseFirestoreCallback;
+import dk.adamino.rehabilitation.BLL.FirebaseFacade;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
@@ -33,7 +32,9 @@ import dk.adamino.rehabilitation.GUI.Model.FirebaseExerciseModel;
 import dk.adamino.rehabilitation.GUI.Settings.SettingsActivity;
 import dk.adamino.rehabilitation.R;
 
-public class ExerciseListActivity extends AppCompatActivity implements IActivity, IFirestoreClientCallback, IExerciseFirestoreCallback {
+public class ExerciseListActivity extends AppCompatActivity implements IActivity, IFirestoreClientCallback {
+
+    private static final String TAG = "RehabExerciseList";
 
     private FirebaseExerciseModel mFirebaseExerciseModel;
     private FirebaseClientModel mFirebaseClientModel;
@@ -41,7 +42,6 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     private ExerciseRecyclerViewAdapter mExerciseAdapter;
     private RecyclerView mExerciseRecyclerView;
 
-    private List<Exercise> mExercises;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +54,33 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         mFirebaseClientModel = FirebaseClientModel.getInstance();
         mFirebaseClientModel.loadLoggedInClientAsync(this);
 
-        mExercises = new ArrayList<>();
 
         mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
-        List<Exercise> exercises = mFirebaseExerciseModel.getExercises();
-        updateUI(exercises);
+//        List<Exercise> exercises = mFirebaseExerciseModel.getExercises();
+//        updateUI(exercises);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mFirebaseClientModel.loadLoggedInClientAsync(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
     }
 
     /**
      * Menu bar.
+     *
      * @param item
      * @return
      */
@@ -99,8 +117,6 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_exercise, menu);
-        // Hide menu title (Takes up too much space!)
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         return true;
     }
 
@@ -132,35 +148,15 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
     /**
      * The client found in Firestore.
+     *
      * @param clientFound
      */
     @Override
     public void onClientResponse(Client clientFound) {
-        mFirebaseExerciseModel.loadExercisesAsync(this, clientFound.rehabilitationPlan.exerciseIds);
-    }
-
-    /**
-     * The exercises found in Firestore.
-     * @param exerciseFound
-     */
-    @Override
-    public void onExerciseResponse(Exercise exerciseFound) {
-        // Check if exercise is already in list
-        for (Exercise exercise :
-                mExercises) {
-            if (exercise.uid.equals(exerciseFound.uid)) {
-                // If exercise is already present, update it
-                exercise.title = exerciseFound.title;
-                exercise.description = exerciseFound.description;
-                exercise.repetition = exerciseFound.repetition;
-                exercise.videoUrl = exerciseFound.videoUrl;
-                updateUI(mExercises);
-                // Stop checking
-                return;
-            }
+        Log.d(TAG, "Exercise List Updated");
+        if (clientFound.rehabilitationPlan.exercises != null) {
+            updateUI(clientFound.rehabilitationPlan.exercises);
         }
-        mExercises.add(exerciseFound);
-        updateUI(mExercises);
     }
 
     @Override
@@ -175,7 +171,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
      */
     private class ExerciseHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView mTitle, mRepetitions, txtItemNr;
+        private TextView mTitle, txtItemNr;
         private ImageView mImage;
         private Exercise mExercise;
 
@@ -185,19 +181,18 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
             mTitle = itemView.findViewById(R.id.txtTitle);
             mImage = itemView.findViewById(R.id.imgView);
-            mRepetitions = itemView.findViewById(R.id.txtRepetitions);
             txtItemNr = itemView.findViewById(R.id.txtItemNr);
         }
 
         /**
          * Sets the text in each bind.
+         *
          * @param exercise
          * @param position
          */
         public void bind(Exercise exercise, int position) {
             mExercise = exercise;
-            mTitle.setText(mExercise.getTitle());
-            mRepetitions.setText(mExercise.getRepetition());
+            mTitle.setText(mExercise.title);
             InputStream imageStream = itemView.getResources().openRawResource(R.raw.youtube_img);
             Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
             mImage.setImageBitmap(bitmap);
@@ -207,6 +202,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         /**
          * When clicking on a certain exercise we change the activity to YoutubeActivity with the
          * exercise.
+         *
          * @param v
          */
         @Override
@@ -231,6 +227,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         /**
          * Called when RecyclerView needs a new RecyclerView.ViewHolder of the given type to
          * represent an item.
+         *
          * @param parent
          * @param viewType
          * @return
@@ -244,6 +241,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         /**
          * Called by RecyclerView to display the data at the specified position.
          * This method should update the contents of the itemView to reflect the item at the given position.
+         *
          * @param holder
          * @param position
          */
@@ -255,6 +253,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
         /**
          * Returns the total number of items in the data set held by the adapter.
+         *
          * @return
          */
         @Override
@@ -264,6 +263,7 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
 
         /**
          * Sets the exercises in the adapter.
+         *
          * @param exercises
          */
         public void setExercises(List<Exercise> exercises) {

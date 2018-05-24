@@ -34,8 +34,6 @@ public class ContactActivity extends AppCompatActivity implements IActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_contact, menu);
-        // Hide menu title (Takes up too much space!)
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
         return true;
     }
 
@@ -54,7 +52,6 @@ public class ContactActivity extends AppCompatActivity implements IActivity {
                 Intent milestonesIntent = MilestoneListActivity.newIntent(this);
                 startActivity(milestonesIntent);
                 return true;
-            // TODO ALH: Add Exercises case!
             case R.id.signout:
                 mFirebaseClientModel.logout();
                 Toast.makeText(this, "You're logged out", Toast.LENGTH_SHORT).show();

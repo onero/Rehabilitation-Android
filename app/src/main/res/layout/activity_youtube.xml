@@ -9,15 +9,6 @@
     tools:context=".GUI.YoutubeActivity"
     android:orientation="vertical">
 
-    <!--Title-->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/txtTitle"
-        android:text="@string/title"
-        android:textSize="28dp"
-        android:textStyle="bold"/>
 
     <!--YouTube Video Player-->
     <fragment
@@ -25,7 +16,23 @@
         android:id="@+id/youtube_fragment"
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        />
+        android:layout_gravity="center"/>
+
+    <!--Title-->
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp"
+        android:text="@string/title"
+        android:textAllCaps="false"
+        android:textSize="28dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorAccent"
+        android:visibility="visible" />
 
     <!--Repetitions-->
     <LinearLayout
@@ -39,28 +46,34 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/repetitions"
-            android:textStyle="bold"/>
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"/>
 
         <TextView
+            android:paddingLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:id="@+id/txtRepetitions"
             android:text="@string/loading"/>
     </LinearLayout>
 
     <!--Description for the exercise-->
     <LinearLayout
+        android:paddingTop="8dp"
         android:paddingLeft="40dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/description"
-            android:textStyle="bold"/>
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"/>
 
         <TextView
             android:id="@+id/txtExerciseDescription"

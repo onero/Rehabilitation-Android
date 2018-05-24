@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import dk.adamino.rehabilitation.BLL.LoginManager;
 import dk.adamino.rehabilitation.Callbacks.IFirebaseAuthenticationCallback;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
 import dk.adamino.rehabilitation.GUI.Utils.AlarmService;
@@ -42,16 +43,18 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
     private View mProgressView, mLoginFormView;
     private Button mEmailSignInButton;
 
+    private LoginManager mLoginManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         setupViews();
 
-        // Create reference to model
         mFirebaseClientModel = FirebaseClientModel.getInstance();
 
-        // TODO ALH: Move to ExerciseActivity, when it is implemented!
+        mLoginManager = new LoginManager();
+
         // Cancel any notification
         NotificationService.cancelNotification();
         // Check if user want's daily notifications
@@ -79,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         mEmailView = findViewById(R.id.email);
         mPasswordView = findViewById(R.id.password);
         mEmailSignInButton = findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setEnabled(false);
+        setLoginButtonEnabled(false);
 
         // Listeners
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -128,34 +131,23 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String emailString = mEmailView.getText().toString();
         String passwordString = mPasswordView.getText().toString();
 
-        if (emailString.equals("") || passwordString.equals("") || !isPasswordValid(passwordString)) {
-            mEmailSignInButton.setEnabled(false);
-        } else {
-            mEmailSignInButton.setEnabled(true);
+        setLoginButtonEnabled(false);
+        if (mLoginManager.isEmailValid(emailString) && mLoginManager.isPasswordValid(passwordString)) {
+            setLoginButtonEnabled(true);
         }
     }
 
-    /**
-     * Check provided email validity
-     *
-     * @param email
-     * @return
-     */
-    private boolean isEmailValid(String email) {
-        // TODO ALH: Improve logic
-        return email.contains("@");
-    }
+    private void setLoginButtonEnabled(boolean enabled) {
+        mEmailSignInButton.setEnabled(enabled);
+        if (enabled) {
+            mEmailSignInButton.setBackgroundColor(getApplication().getResources().getColor(R.color.actionGreen));
+            mEmailSignInButton.setTextColor(getApplication().getResources().getColor(R.color.buttonTextColor));
+        } else {
+            mEmailSignInButton.setBackgroundColor(getApplication().getResources().getColor(R.color.buttonDisabled));
+            mEmailSignInButton.setTextColor(getApplication().getResources().getColor(R.color.disabledButtonTextColor));
+        }
 
-    /**
-     * Check password validity
-     *
-     * @param password
-     * @return
-     */
-    private boolean isPasswordValid(String password) {
-        return password.length() > 5;
     }
-
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -173,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements IActivity, IFire
         String password = mPasswordView.getText().toString();
 
         // Validate email
-        if (!isEmailValid(email)) {
+        if (!mLoginManager.isEmailValid(email)) {
             mEmailView.setError(getString(R.string.error_invalid_email));
             return;
         }

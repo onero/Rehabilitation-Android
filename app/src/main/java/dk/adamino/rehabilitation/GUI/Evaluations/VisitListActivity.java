@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -48,10 +47,6 @@ public class VisitListActivity extends AppCompatActivity implements IActivity {
         mNoVisits = findViewById(R.id.txtNoVisits);
         // Setup layout manager, to ensure that items can be positioned on the screen
         LinearLayoutManager layoutManager = new LinearLayoutManager(this); // Using Linear to stack vertically
-        // Add a divider between items
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mVisitRecyclerView.getContext(),
-                layoutManager.getOrientation());
-        mVisitRecyclerView.addItemDecoration(dividerItemDecoration);
         mVisitRecyclerView.setLayoutManager(layoutManager);
     }
 
@@ -117,7 +112,7 @@ public class VisitListActivity extends AppCompatActivity implements IActivity {
 
         public void bind(Visit visit) {
             mVisit = visit;
-            mVisitTitle.setText(mVisit.getDate());
+            mVisitTitle.setText(mVisit.getDateAsUppercaseString());
         }
 
         @Override

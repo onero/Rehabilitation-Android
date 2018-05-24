@@ -50,7 +50,6 @@ public class AlarmService {
      * Set alarm to fire pendingIntent in one hour
      */
     public void setAlarmForOneHour() {
-        // TODO ALH: Ensure repeating behavior!
         Log.d(TAG, "Alarm set for 1 hour");
         mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_HOUR,
@@ -60,7 +59,6 @@ public class AlarmService {
      * Set alarm to fire pendingIntent in one day
      */
     public void setAlarmForOneDay() {
-        // TODO ALH: Ensure repeating behavior!
         Log.d(TAG, "Alarm set for 1 day");
         mAlarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                 SystemClock.elapsedRealtime() + AlarmManager.INTERVAL_DAY,
@@ -73,15 +71,15 @@ public class AlarmService {
      * @param minute
      */
     public void setAlarmAtSpecificTime(int hour, int minute) {
-        // TODO ALH: Ensure repeating behavior!
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
         Log.d(TAG, "Alarm set for: " + calendar.get(Calendar.HOUR_OF_DAY) + ":" + calendar.get(Calendar.MINUTE));
-        mAlarmManager.set(AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(),
+        mAlarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis() + 15000,
+                AlarmManager.INTERVAL_DAY,
                 mNotificationPendingIntent);
     }
 }
