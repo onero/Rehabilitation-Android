@@ -20,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import dk.adamino.rehabilitation.BE.Client;
@@ -43,7 +42,6 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     private ExerciseRecyclerViewAdapter mExerciseAdapter;
     private RecyclerView mExerciseRecyclerView;
 
-    private List<Exercise> mExercises;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +54,10 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
         mFirebaseClientModel = FirebaseClientModel.getInstance();
         mFirebaseClientModel.loadLoggedInClientAsync(this);
 
-        mExercises = new ArrayList<>();
 
         mFirebaseExerciseModel = FirebaseExerciseModel.getInstance();
-        List<Exercise> exercises = mFirebaseExerciseModel.getExercises();
-        updateUI(exercises);
+//        List<Exercise> exercises = mFirebaseExerciseModel.getExercises();
+//        updateUI(exercises);
     }
 
     @Override
@@ -157,8 +154,9 @@ public class ExerciseListActivity extends AppCompatActivity implements IActivity
     @Override
     public void onClientResponse(Client clientFound) {
         Log.d(TAG, "Exercise List Updated");
-        mExercises = clientFound.rehabilitationPlan.exercises;
-        updateUI(mExercises);
+        if (clientFound.rehabilitationPlan.exercises != null) {
+            updateUI(clientFound.rehabilitationPlan.exercises);
+        }
     }
 
     @Override
