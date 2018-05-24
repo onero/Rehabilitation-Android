@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import dk.adamino.rehabilitation.BE.Client;
+import dk.adamino.rehabilitation.BLL.FirebaseFacade;
 import dk.adamino.rehabilitation.Callbacks.IFirestoreClientCallback;
 import dk.adamino.rehabilitation.GUI.Evaluations.MilestoneListActivity;
 import dk.adamino.rehabilitation.GUI.Model.FirebaseClientModel;
@@ -43,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mFirebaseClientModel.removeListeners();
+        FirebaseFacade.getInstance().unsubscribeFromFirestore();
     }
 
     @Override
